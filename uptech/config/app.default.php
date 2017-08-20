@@ -229,9 +229,9 @@ return [
              * the following line and set the port accordingly
              */
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
+            'username' => 'uptech',
             'password' => 'secret',
-            'database' => 'my_app',
+            'database' => 'uptech',
             'encoding' => 'utf8',
             'timezone' => 'UTC',
             'flags' => [],
@@ -269,7 +269,7 @@ return [
             'persistent' => false,
             'host' => 'localhost',
             //'port' => 'non_standard_port_number',
-            'username' => 'my_app',
+            'username' => 'uptech',
             'password' => 'secret',
             'database' => 'test_myapp',
             'encoding' => 'utf8',
