@@ -20,16 +20,16 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('name_kana') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('password') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('email') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('tell') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('gendar') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('birth') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('zip_code') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('pref') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('address') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name','名前') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('name_kana','カナ') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('password','パスワード') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('email','メールアドレス') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('tell','電話番号') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('gendar','性別') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('birth','生年月日') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('zip_code','郵便番号') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('pref','都道府県') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('address','都道府県以降') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('work_id') ?></th>
                 <th scope="col" class="actions"><?= __('Actions') ?></th>
             </tr>
