@@ -59,7 +59,7 @@ class UsersTable extends Table
 
         $validator
             ->scalar('name')
-            ->notempty('name', '名前を入力してください。');
+            ->notEmpty('name', '名前を入力してください。');
 
         $validator
             ->scalar('name_kana')
