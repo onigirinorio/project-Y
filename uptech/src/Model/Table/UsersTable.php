@@ -59,43 +59,54 @@ class UsersTable extends Table
 
         $validator
             ->scalar('name')
-            ->allowEmpty('name');
+            ->notempty('name', '名前を入力してください。');
 
         $validator
             ->scalar('name_kana')
-            ->allowEmpty('name_kana');
+            ->notEmpty('name_kana', '名前(かな)を入力してください。');
 
         $validator
             ->scalar('password')
-            ->allowEmpty('password');
+            ->notEmpty('password', 'パスワードを入力してください。')
+            ->add('password', [
+                'minLength' => [
+                    'rule' => ['minLength', 6],
+                    'last' => true,
+                    'message' => 'パスワードは６文字以上、１６文字以内で入力してください。'
+                ],
+                'maxLength' => [
+                    'rule' => ['maxLength', 16],
+                    'message' => 'パスワードは６文字以上、１６文字以内で入力してください。'
+                ]
+            ]);
 
         $validator
             ->email('email')
-            ->allowEmpty('email');
+            ->notEmpty('email', 'メールアドレスを入力してください。');
 
         $validator
             ->integer('tell')
-            ->allowEmpty('tell');
+            ->notEmpty('tell', '電話番号を入力してください。');
 
         $validator
             ->boolean('gendar')
-            ->allowEmpty('gendar');
+            ->notEmpty('gendar', '性別を入力してください。');
 
         $validator
             ->date('birth')
-            ->allowEmpty('birth');
+            ->notEmpty('birth', '生年月日を入力してください。');
 
         $validator
             ->integer('zip_code')
-            ->allowEmpty('zip_code');
+            ->notEmpty('zip_code', '郵便番号を入力してください。');
 
         $validator
             ->scalar('pref')
-            ->allowEmpty('pref');
+            ->notEmpty('pref', '都道府県を入力してください。');
 
         $validator
             ->scalar('address')
-            ->allowEmpty('address');
+            ->notEmpty('address', '住所を入力してください。');
 
         return $validator;
     }
