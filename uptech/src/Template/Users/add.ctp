@@ -3,50 +3,49 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Works'), ['controller' => 'Works', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Work'), ['controller' => 'Works', 'action' => 'add']) ?></li>
-        <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
-<div class="users form large-9 medium-8 columns content">
-    <?= $this->Form->create($user) ?>
+<div class="container">
+    <?= $this->Form->create($user,[
+            'class' => 'form-horizontal'
+    ]) ?>
     <fieldset>
         <legend><?= __('Add User') ?></legend>
         <?php
             echo $this->Form->control('name',
                 [
-                    'label' => '名前'
+
+                    'label' => '名前',
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('name_kana',
                 [
-                    'label' => '名前（カナ）'
+                    'label' => '名前（カナ）',
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('password',
                 [
-                    'label' => 'パスワード'
+                    'label' => 'パスワード',
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('email',
                 [
-                    'label' => 'メールアドレス'
+                    'label' => 'メールアドレス',
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('tell',
                 [
-                    'label' => '電話番号'
+                    'label' => '電話番号',
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('gendar',
                 [
                     'label' => '性別',
                     'type' =>'radio',
+                    'class' => 'form-control',
                     'options' =>[
                         0 =>'男',
                         1 =>'女'
@@ -60,12 +59,14 @@
                         'monthNames' => false,
                         'maxYear' => date('Y'),
                         'minYear' => date('Y') - 40,
+                        'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('zip_code',
                 [
-                        'label' => '郵便番号'
-                ]
+                        'label' => '郵便番号',
+                        'class' => 'form-control'
+            ]
             );
             echo $this->Form->control('pref',
                 [
@@ -120,22 +121,28 @@
                         '宮崎県' => "宮崎県",
                         '鹿児島県' => "鹿児島県",
                         '沖縄県' => "沖縄県"
-                    ]
+                    ],
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('address',
                 [
-                    'label' => '都道府県以降'
+                    'label' => '都道府県以降',
+                    'class' => 'form-control'
                 ]
             );
             echo $this->Form->control('address2',
                 [
-                    'label' => '建物名'
+                    'label' => '建物名',
+                    'class' => 'form-control'
                 ]
             );
             // echo $this->Form->control('work_id', ['options' => $works, 'empty' => true]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('Submit'),[
+            'text' => '登録',
+            'class' => 'btn btn-default'
+    ]) ?>
     <?= $this->Form->end() ?>
 </div>
