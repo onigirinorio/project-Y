@@ -26,7 +26,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->css('bootstrap.min'); ?>
-
+    <?= $this->Html->script('bootstrap.js'); ?>
+    <?= $this->Html->script('jquery.min.js'); ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -43,15 +44,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                 </button>
                 <a href=""><img src="../../webroot/img/jamp_logo_min.png"></a>
             </div>
-        </div>
-        <div class="collapse navbar-collapse" id="navbar-header1">
-            <ul class="nav navbar-nav">
-                <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-                <li><?= $this->Html->link(__('List Works'), ['controller' => 'Works', 'action' => 'index']) ?></li>
-                <li><?= $this->Html->link(__('New Work'), ['controller' => 'Works', 'action' => 'add']) ?></li>
-                <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
-                <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
-            </ul>
+            <div class="collapse navbar-collapse" id="navbar-header1">
+                <ul class="nav navbar-nav">
+                    <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
+                    <li><?= $this->Html->link(__('List Works'), ['controller' => 'Works', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link(__('New Work'), ['controller' => 'Works', 'action' => 'add']) ?></li>
+                    <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
+                    <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
+                </ul>
+            </div>
         </div>
     </nav>
     <?= $this->Flash->render() ?>
