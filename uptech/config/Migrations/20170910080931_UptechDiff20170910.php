@@ -8,7 +8,6 @@ class UptechDiff20170910 extends AbstractMigration
     {
 
         $this->table('clients')
-            ->removeColumn('client_id')
             ->changeColumn('id', 'integer', [
                 'comment' => 'id',
                 'default' => null,
