@@ -42,7 +42,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href=""><img src="../../webroot/img/jamp_logo_min.png"></a>
+                <a href="/"><?= $this->html->image('jamp_logo_min.png') ?></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-header1">
                 <ul class="nav navbar-nav">
