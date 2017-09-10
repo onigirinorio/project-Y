@@ -25,9 +25,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
+    <?= $this->Html->script('jquery.min.js'); ?>
     <?= $this->Html->css('bootstrap.min'); ?>
     <?= $this->Html->script('bootstrap.js'); ?>
-    <?= $this->Html->script('jquery.min.js'); ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -46,11 +46,47 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
             <div class="collapse navbar-collapse" id="navbar-header1">
                 <ul class="nav navbar-nav">
-                    <li><?= $this->Html->link(__('List Users'), ['action' => 'index']) ?></li>
-                    <li><?= $this->Html->link(__('List Works'), ['controller' => 'Works', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link(__('New Work'), ['controller' => 'Works', 'action' => 'add']) ?></li>
-                    <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
-                    <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            ユーザー管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><?= $this->Html->link(__('一覧'), ['controller'=>'Users','action' => 'index']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('新規追加'), ['controller'=>'Users','action' => 'add']) ?></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            案件管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><?= $this->Html->link(__('案件一覧'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('新規案件'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            クライアント管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><?= $this->Html->link(__('クライアント一覧'), ['controller' => 'Clients', 'action' => 'index']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('クライアント追加'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
+                        </ul>
+                    </li>
+<!--          勤怠は後回し          -->
+<!--                    <li class="dropdown">-->
+<!--                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">-->
+<!--                            勤怠-->
+<!--                            <span class="caret"></span>-->
+<!--                        </a>-->
+<!--                        <ul class="dropdown-menu" role="menu">-->
+<!--                            <li role="presentation">--><?//= $this->Html->link(__('List Works'), ['controller' => 'Works', 'action' => 'index']) ?><!--</li>-->
+<!--                            <li role="presentation">--><?//= $this->Html->link(__('New Work'), ['controller' => 'Works', 'action' => 'add']) ?><!--</li>-->
+<!--                        </ul>-->
+<!--                    </li>-->
                 </ul>
             </div>
         </div>
