@@ -8,7 +8,6 @@
     <fieldset>
         <legend><?= __('Add Client') ?></legend>
         <?php
-            echo $this->Form->control('client_id');
             echo $this->Form->control('client_name');
             echo $this->Form->control('tell');
             echo $this->Form->control('zip_code');
