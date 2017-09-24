@@ -38,13 +38,6 @@ class ClientsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Clients', [
-            'foreignKey' => 'client_id',
-            'joinType' => 'INNER'
-        ]);
-        $this->hasMany('Clients', [
-            'foreignKey' => 'client_id'
-        ]);
         $this->hasMany('Projects', [
             'foreignKey' => 'client_id'
         ]);

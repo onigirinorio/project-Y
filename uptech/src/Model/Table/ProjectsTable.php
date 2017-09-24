@@ -37,8 +37,8 @@ class ProjectsTable extends Table
         $this->setDisplayField('id');
         $this->setPrimaryKey('id');
 
-        $this->belongsTo('Users', [
-            'foreignKey' => 'user_id'
+        $this->hasMany('Works', [
+            'foreignKey' => 'project_id'
         ]);
         $this->belongsTo('Clients', [
             'foreignKey' => 'client_id'
