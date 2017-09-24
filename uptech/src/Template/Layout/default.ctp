@@ -76,6 +76,16 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li role="presentation"><?= $this->Html->link(__('クライアント追加'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            出退勤管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><?= $this->Html->link(__('出退勤一覧'), ['controller' => 'Works', 'action' => 'index']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
+                        </ul>
+                    </li>
 <!--          勤怠は後回し          -->
 <!--                    <li class="dropdown">-->
 <!--                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">-->
