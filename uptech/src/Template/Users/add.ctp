@@ -84,7 +84,6 @@ echo $this->Html->css('Users/add', ['block' => true]);
                     'class' => 'form-control'
                 ]
             );
-            // echo $this->Form->control('work_id', ['options' => $works, 'empty' => true]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'),[
