@@ -5,7 +5,9 @@
 ?>
 
 <div class="clients form large-9 medium-8 columns content">
-    <?= $this->Form->create($client,['class' => 'form-horizontal']) ?>
+    <?= $this->Form->create($client,
+        ['class' => 'form-horizontal']
+    ) ?>
     <fieldset>
         <legend><?= __('クライアント追加') ?></legend>
         <?php
@@ -49,11 +51,9 @@
         );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'),
-        [
-            'text' => '登録',
-            'class' => 'btn btn-default'
-        ]
-    ) ?>
+    <?= $this->Form->button(__('Submit'),[
+        'text' => '登録',
+        'class' => 'btn btn-default'
+    ]) ?>
     <?= $this->Form->end() ?>
 </div>
