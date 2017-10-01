@@ -24,4 +24,8 @@
     </fieldset>
         <?= $this->Form->button('ログイン',['class' => 'btn btn-default']) ?>
     <?= $this->Form->end() ?>
+
+    <div class="center-block">
+        <a href="/users/add/">新規登録</a>
+    </div>
 </div>

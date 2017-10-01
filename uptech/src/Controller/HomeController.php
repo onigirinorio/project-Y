@@ -38,6 +38,11 @@ class HomeController extends AppController
 
     public function login()
     {
+        if($this->Auth->user()){
+            //ログイン中はホーム画面へリダイレクト
+            return $this->redirect('/');
+        }
+
         if($this->request->is('post')){
             $user = $this->Auth->identify();
             if($user){
@@ -46,5 +51,10 @@ class HomeController extends AppController
             }
             $this->Flash->error('ユーザー名かパスワードが間違ってまっせ');
         }
+    }
+
+    public function logout(){
+        $logoutUrl = $this->Auth->logout();
+        $this->redirect($logoutUrl);
     }
 }
