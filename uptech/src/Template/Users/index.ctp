@@ -13,7 +13,6 @@
                     <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('name','名前') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('name_kana','カナ') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('password','パスワード') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('email','メールアドレス') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('tell','電話番号') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('gendar','性別') ?></th>
@@ -31,7 +30,6 @@
                     <td><?= $this->Number->format($user->id) ?></td>
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->name_kana) ?></td>
-                    <td><?= h($user->password) ?></td>
                     <td><?= h($user->email) ?></td>
                     <td><?= $this->Number->format($user->tell) ?></td>
                     <td>
