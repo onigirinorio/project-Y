@@ -33,6 +33,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+    <?php if($this->request->action !== 'login'): ?>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
@@ -91,6 +92,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
         </div>
     </nav>
+    <?php else: ?>
+
+    <?php endif ?>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>

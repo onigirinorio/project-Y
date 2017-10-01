@@ -4,7 +4,7 @@
 <?= $this->Html->image('jamp_logo.png'); ?>
 </div>
 <div class="container">
-    <?php $this->Form->create(null,['class' => 'form-horizontal'])?>
+    <?= $this->Form->create(null,['class' => 'form-horizontal'])?>
     <fieldset>
         <legend><?= __('ログイン') ?></legend>
         <?php
@@ -22,9 +22,6 @@
         );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'),[
-        'text' => 'ログイン',
-        'class' => 'btn btn-default'
-    ]) ?>
-    <?php $this->Form->end() ?>
+        <?= $this->Form->button('ログイン',['class' => 'btn btn-default']) ?>
+    <?= $this->Form->end() ?>
 </div>
