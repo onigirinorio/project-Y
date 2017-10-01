@@ -33,11 +33,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     <?= $this->fetch('script') ?>
 </head>
 <body>
+    <?php if($is_login): ?>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-header1">
                     <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -86,7 +89,11 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
-<!--          勤怠は後回し          -->
+                    <p class="navbar-text">ようこそ、<?=$user_name?>さん</p>
+                    <li class="nav navbar-nav navbar-right">
+                        <a href="/home/logout/">ログアウト</a>
+                    </li>
+<!--          勤怠は後回し         -->
 <!--                    <li class="dropdown">-->
 <!--                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">-->
 <!--                            勤怠-->
@@ -101,6 +108,9 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
         </div>
     </nav>
+    <?php else: ?>
+
+    <?php endif ?>
     <?= $this->Flash->render() ?>
     <div class="container clearfix">
         <?= $this->fetch('content') ?>
