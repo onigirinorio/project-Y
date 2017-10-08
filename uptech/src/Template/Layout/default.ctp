@@ -91,7 +91,15 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
-                    <p class="navbar-text">ようこそ、<?=$user_name?>さん</p>
+                    <li class="dropdown">
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            ようこそ、<?=$user_name?>さん
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><?= $this->Html->link(__('情報変更'), ['controller' => 'Users', 'action' => 'edit',$user_id]) ?></li>
+                        </ul>
+                    </li>
                     <li class="nav navbar-nav navbar-right">
                         <a href="/home/logout/">ログアウト</a>
                     </li>
