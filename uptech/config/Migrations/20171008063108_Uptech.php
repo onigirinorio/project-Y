@@ -1,18 +1,12 @@
 <?php
 use Migrations\AbstractMigration;
 
-class Initial extends AbstractMigration
+class Uptech extends AbstractMigration
 {
     public function up()
     {
 
         $this->table('clients')
-            ->addColumn('client_id', 'integer', [
-                'comment' => 'クライアントid',
-                'default' => null,
-                'limit' => 11,
-                'null' => false,
-            ])
             ->addColumn('client_name', 'string', [
                 'comment' => 'クライアント名',
                 'default' => null,
@@ -76,7 +70,7 @@ class Initial extends AbstractMigration
                 'limit' => 128,
                 'null' => true,
             ])
-            ->addColumn('start__date', 'datetime', [
+            ->addColumn('start_date', 'datetime', [
                 'comment' => '開始日',
                 'default' => null,
                 'limit' => null,
@@ -103,6 +97,12 @@ class Initial extends AbstractMigration
             ->create();
 
         $this->table('shifts')
+            ->addColumn('user_id', 'integer', [
+                'comment' => 'ユーザーid',
+                'default' => null,
+                'limit' => 11,
+                'null' => false,
+            ])
             ->addColumn('date', 'date', [
                 'comment' => '日付',
                 'default' => null,
@@ -214,23 +214,22 @@ class Initial extends AbstractMigration
                 'limit' => 128,
                 'null' => true,
             ])
-            ->addColumn('work_id', 'integer', [
-                'comment' => '労働id',
+            ->addColumn('adminflg', 'string', [
                 'default' => null,
-                'limit' => 11,
-                'null' => true,
+                'limit' => 255,
+                'null' => false,
             ])
             ->create();
 
         $this->table('works')
-            ->addColumn('employee_id', 'integer', [
-                'comment' => '従業員id',
+            ->addColumn('user_id', 'integer', [
+                'comment' => 'ユーザーid',
                 'default' => null,
                 'limit' => 11,
                 'null' => false,
             ])
-            ->addColumn('employment_id', 'integer', [
-                'comment' => '雇用区分id',
+            ->addColumn('project_id', 'integer', [
+                'comment' => 'プロジェクトid',
                 'default' => null,
                 'limit' => 11,
                 'null' => false,
