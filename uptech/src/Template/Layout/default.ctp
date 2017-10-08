@@ -91,7 +91,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     </li>
                     <p class="navbar-text">ようこそ、<?=$user_name?>さん</p>
                     <li class="nav navbar-nav navbar-right">
-                        <a href="/home/logout/">ログアウト</a>
+                        <?= $this->Html->link(__('ログアウト'), ['controller' => 'Home', 'action' => 'logout']) ?>
                     </li>
 <!--          勤怠は後回し         -->
 <!--                    <li class="dropdown">-->
