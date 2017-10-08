@@ -26,6 +26,6 @@
     <?= $this->Form->end() ?>
 
     <div class="center-block">
-        <a href="/users/add/">新規登録</a>
+        <?= $this->Html->link('新規登録', ['controller' => 'users', 'action' => 'add']) ?>
     </div>
 </div>
