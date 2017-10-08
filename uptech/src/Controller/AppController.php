@@ -63,18 +63,16 @@ class AppController extends Controller
             ]
         ]);
 
-        // ログイン判定フラグ
-        $is_login = false;
-        if($this->Auth->user()){
-            $is_login = true;
+        // ログイン判定
+        $this->isLogin();
+        // ユーザー情報をビューにセット
+        $user_name = $this->Auth->user('name');
+        $user_id = $this->Auth->user('id');
+        // 管理者フラグをセット
 
-            // ユーザー情報をビューにセット
-            $user_name = $this->Auth->user('name');
-            $user_id = $this->Auth->user('id');
-            $this->set('user_name',$user_name);
-            $this->set('user_id',$user_id);
-        }
-        $this->set('is_login',$is_login);
+        $this->isAdmin();
+        $this->set('user_name',$user_name);
+        $this->set('user_id',$user_id);
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -83,6 +81,33 @@ class AppController extends Controller
         //$this->loadComponent('Csrf');
     }
 
+    /**
+     * 管理者判定
+     * @return bool 管理者フラグ
+     */
+    public function isAdmin(){
+        if($this->Auth->user('adminflg') == 1){
+            $admin = true;
+        } else {
+            $admin = false;
+        }
+        $this->set('admin_flg',$admin);
+        return $admin;
+    }
+
+    /**
+     * ログイン判定
+     * @return bool ログインフラグ
+     */
+    public function isLogin(){
+        if(!empty($this->Auth->user())) {
+            $is_login = true;
+        } else {
+            $is_login = false;
+        }
+        $this->set('is_login',$is_login);
+        return $is_login;
+    }
     /**
      * Before render callback.
      *

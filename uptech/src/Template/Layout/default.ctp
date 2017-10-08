@@ -49,6 +49,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
             </div>
             <div class="collapse navbar-collapse" id="navbar-header1">
                 <ul class="nav navbar-nav">
+                    <?php if($admin_flg === true): ?>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                             ユーザー管理
@@ -79,6 +80,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li role="presentation"><?= $this->Html->link(__('クライアント追加'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
+                    <?php endif ?>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                             出退勤管理
