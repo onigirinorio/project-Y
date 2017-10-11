@@ -13,6 +13,18 @@ use App\Controller\AppController;
 class ClientsController extends AppController
 {
 
+    public function initialize()
+    {
+        parent::initialize();
+        if(!$this->isAdmin()){
+            $this->redirect([
+                'controller' => 'Home',
+                'action' => 'index'
+            ]);
+        }
+    }
+
+
     /**
      * Index method
      *

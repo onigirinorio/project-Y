@@ -27,6 +27,7 @@ class UsersController extends AppController
      */
     public function index()
     {
+        $this->userIsAdmin();
         $this->paginate = [
             'contain' => ['Works']
         ];
@@ -45,6 +46,7 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
+        $this->userIsAdmin();
         $user = $this->Users->get($id, [
             'contain' => ['Works', 'Projects']
         ]);
@@ -60,6 +62,7 @@ class UsersController extends AppController
      */
     public function add()
     {
+        $this->userIsAdmin();
         $user = $this->Users->newEntity();
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
@@ -85,6 +88,13 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
+        // 管理者以外引数とログイン中のIDが一致しない時
+        if(!$this->isAdmin() && $id != $this->Auth->user('id')){
+            $this->redirect([
+                'controller' => 'Home',
+                'action' => 'index'
+            ]);
+        }
         $user = $this->Users->get($id, [
             'contain' => []
         ]);
@@ -111,6 +121,7 @@ class UsersController extends AppController
      */
     public function delete($id = null)
     {
+        $this->userIsAdmin();
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
@@ -120,5 +131,22 @@ class UsersController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * ユーザー画面のみ管理者以外をedit(自分のIDのみ)とaddに行かせるため
+     *
+     */
+    private function userIsAdmin(){
+        if(!$this->isAdmin() && $this->isLogin()) {
+            // 管理者以外、ログイン中
+            $this->redirect([
+                'controller' => 'Home',
+                'action' => 'index'
+            ]);
+        } elseif ($this->request->getParam('action') === 'add' && !$this->isLogin()) {
+            // 未ログイン、新規登録画面
+            return true;
+        }
     }
 }
