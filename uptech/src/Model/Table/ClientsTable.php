@@ -39,7 +39,7 @@ class ClientsTable extends Table
         $this->setPrimaryKey('id');
 
         $this->hasMany('Projects', [
-            'foreignKey' => 'client_id'
+            'foreignKey' => 'client_id',
         ]);
     }
 

@@ -8,8 +8,21 @@
     <fieldset>
         <legend><?= __('案件追加') ?></legend>
         <?php
-//            echo $this->Form->control('user_id', ['options' => $users, 'empty' => true]);
-//            echo $this->Form->control('client_id', ['options' => $clients, 'empty' => true]);
+            echo $this->Form->control('user_id',
+                [
+                    'type' => 'hidden',
+                    // 'options' => $users,
+                    'value' => 1,
+                    'empty' => true
+                ]
+            );
+            echo $this->Form->control('client_id',
+                [
+                    'type' => 'select' ,
+                    'options' => $clientList,
+                    'class' => 'form-control',
+                ]
+            );
             echo $this->Form->control('payment_status',
                 [
                     'label' => '支払区分',
@@ -30,7 +43,7 @@
                     'class' =>'form-control'
                 ]
             );
-            echo $this->Form->control('start__date',
+            echo $this->Form->control('start_date',
                 [
                     'label' => '開始日',
                     'class' =>'form-control',

@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Projects Controller
@@ -15,6 +16,7 @@ class ProjectsController extends AppController
     public function initialize()
     {
         parent::initialize();
+        $this->Clients = TableRegistry::get('Clients');
         if(!$this->isAdmin()){
             $this->redirect([
                 'controller' => 'Home',
@@ -31,7 +33,9 @@ class ProjectsController extends AppController
      */
     public function index()
     {
-        $projects = $this->paginate($this->Projects);
+        //ClientsテーブルをJOIN
+        $this->paginate = array("contain" => array("Clients"));
+        $projects = $this->paginate();
 
         $this->set(compact('projects'));
         $this->set('_serialize', ['projects']);
@@ -62,6 +66,16 @@ class ProjectsController extends AppController
     public function add()
     {
         $project = $this->Projects->newEntity();
+
+        $clientList = $this->Clients->find('list', array(
+            'keyField' => 'id',
+            'valueField' => 'client_name',
+        ))
+        ->toArray();
+
+        $this->set('clientList', $clientList);
+
+
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
