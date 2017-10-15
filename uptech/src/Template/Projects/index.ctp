@@ -26,8 +26,18 @@
                     <tr>
                         <td><?= $this->Number->format($project->id) ?></td>
                         <td><?= h($project->shop_name) ?></td>
-                        <td><?= h($project->client_id) ?></td>
-                        <td><?= h($project->payment_status) ?></td>
+                        <td><?= h($project->client->client_name) ?></td>
+                        <td>
+                            <?php if($project->payment_status==0): ?>
+                            月給
+                            <?php elseif($project->payment_status==1): ?>
+                            日給
+                            <?php elseif($project->payment_status==2): ?>
+                            時給
+                            <?php else: ?>
+                            その他
+                            <?php endif; ?>
+                        </td>
                         <td><?= h($project->price) ?></td>
                         <td><?= h($project->start_date) ?></td>
                         <td><?= h($project->end_date) ?></td>

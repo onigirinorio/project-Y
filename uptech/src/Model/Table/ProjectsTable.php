@@ -40,9 +40,7 @@ class ProjectsTable extends Table
         $this->hasMany('Works', [
             'foreignKey' => 'project_id'
         ]);
-        $this->belongsTo('Clients', [
-            'foreignKey' => 'client_id'
-        ]);
+        $this->BelongsTo('Clients');
     }
 
     /**
@@ -70,7 +68,7 @@ class ProjectsTable extends Table
             ->allowEmpty('shop_name');
 
         $validator
-            ->dateTime('start__date')
+            ->dateTime('start_date')
             ->allowEmpty('start__date');
 
         $validator
@@ -97,7 +95,8 @@ class ProjectsTable extends Table
      */
     public function buildRules(RulesChecker $rules)
     {
-        $rules->add($rules->existsIn(['user_id'], 'Users'));
+        // Userのアソシエーションエラーになるため使用しない場合はコメントアウト
+        // $rules->add($rules->existsIn(['user_id'], 'Users'));
         $rules->add($rules->existsIn(['client_id'], 'Clients'));
 
         return $rules;
