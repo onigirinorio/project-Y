@@ -78,22 +78,22 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
-        $work = $this->Works->get($id, [
-            'contain' => []
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $work = $this->Works->patchEntity($work, $this->request->getData());
-            if ($this->Works->save($work)) {
-                $this->Flash->success(__('The work has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The work could not be saved. Please, try again.'));
-        }
-        $users = $this->Works->Users->find('list', ['limit' => 200]);
-        $projects = $this->Works->Projects->find('list', ['limit' => 200]);
-        $this->set(compact('work', 'users', 'projects'));
-        $this->set('_serialize', ['work']);
+//        $work = $this->Works->get($id, [
+//            'contain' => []
+//        ]);
+//        if ($this->request->is(['patch', 'post', 'put'])) {
+//            $work = $this->Works->patchEntity($work, $this->request->getData());
+//            if ($this->Works->save($work)) {
+//                $this->Flash->success(__('The work has been saved.'));
+//
+//                return $this->redirect(['action' => 'index']);
+//            }
+//            $this->Flash->error(__('The work could not be saved. Please, try again.'));
+//        }
+//        $users = $this->Works->Users->find('list', ['limit' => 200]);
+//        $projects = $this->Works->Projects->find('list', ['limit' => 200]);
+//        $this->set(compact('work', 'users', 'projects'));
+//        $this->set('_serialize', ['work']);
     }
 
     /**

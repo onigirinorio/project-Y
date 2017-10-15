@@ -26,11 +26,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->script('jquery.min.js'); ?>
+    <?= $this->Html->script('jquery-ui.min.js'); ?>
     <?= $this->Html->css('bootstrap.min'); ?>
     <?= $this->Html->script('bootstrap.js'); ?>
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
+    <?= $this->fetch('js-element') ?>
 </head>
 <body>
     <?php if($is_login): ?>
@@ -103,17 +105,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                     <li class="nav navbar-nav navbar-right">
                         <?= $this->Html->link(__('ログアウト'), ['controller' => 'Home', 'action' => 'logout']) ?>
                     </li>
-<!--          勤怠は後回し         -->
-<!--                    <li class="dropdown">-->
-<!--                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">-->
-<!--                            勤怠-->
-<!--                            <span class="caret"></span>-->
-<!--                        </a>-->
-<!--                        <ul class="dropdown-menu" role="menu">-->
-<!--                            <li role="presentation">--><?//= $this->Html->link(__('List Works'), ['controller' => 'Works', 'action' => 'index']) ?><!--</li>-->
-<!--                            <li role="presentation">--><?//= $this->Html->link(__('New Work'), ['controller' => 'Works', 'action' => 'add']) ?><!--</li>-->
-<!--                        </ul>-->
-<!--                    </li>-->
                 </ul>
             </div>
         </div>
