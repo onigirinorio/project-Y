@@ -101,6 +101,15 @@ class ProjectsController extends AppController
         $project = $this->Projects->get($id, [
             'contain' => []
         ]);
+
+        $clientList = $this->Clients->find('list', array(
+            'keyField' => 'id',
+            'valueField' => 'client_name',
+        ))
+        ->toArray();
+
+        $this->set('clientList', $clientList);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
@@ -126,7 +135,7 @@ class ProjectsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $project = $this->Projects->get($id);
         if ($this->Projects->delete($project)) {
-            $this->Flash->success(__('The project has been deleted.'));
+            $this->Flash->success(__('案件を削除しました。'));
         } else {
             $this->Flash->error(__('The project could not be deleted. Please, try again.'));
         }

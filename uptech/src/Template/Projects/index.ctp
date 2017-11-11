@@ -43,6 +43,11 @@
                         <td><?= h($project->end_date) ?></td>
                         <td><?= h($project->expense) ?></td>
                         <td><?= h($project->expense_status) ?></td>
+                        <td class="actions">
+                          <?= $this->Html->link(__('詳細'), ['action' => 'view', $project->id]) ?>
+                          <?= $this->Html->link(__('編集'), ['action' => 'edit', $project->id]) ?>
+                          <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $project->id]) ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>
