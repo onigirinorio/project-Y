@@ -28,9 +28,11 @@ class UsersController extends AppController
     public function index()
     {
         $this->userIsAdmin();
-        $this->paginate = [
-            'contain' => ['Works']
-        ];
+        $this->paginate = array(
+            "contain" => array("Works"),
+            'conditions' => array('Users.delete_flg = 0'),
+            'limit' => 20,
+        );
         $users = $this->paginate($this->Users);
 
         $this->set(compact('users'));

@@ -34,6 +34,7 @@ class ClientsController extends AppController
     {
         //$clients = $this->Clients->find()->where(['delete_flg' => 0])->all();
         $this->paginate = array(
+            'limit' => 20,
             'conditions' => array('delete_flg' => 0)
         );
         $clients = $this->paginate($this->Clients);
