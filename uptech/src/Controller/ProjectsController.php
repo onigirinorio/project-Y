@@ -37,7 +37,7 @@ class ProjectsController extends AppController
         $this->paginate = array(
             "contain" => array("Clients"),
             'conditions' => array('Projects.delete_flg = 0'),
-            'limit' => 20,
+            'limit' => 15,
         );
         $projects = $this->paginate();
 

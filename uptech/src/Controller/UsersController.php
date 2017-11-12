@@ -31,7 +31,7 @@ class UsersController extends AppController
         $this->paginate = array(
             "contain" => array("Works"),
             'conditions' => array('Users.delete_flg = 0'),
-            'limit' => 20,
+            'limit' => 15,
         );
         $users = $this->paginate($this->Users);
 
