@@ -31,16 +31,16 @@
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->name_kana) ?></td>
                     <td><?= h($user->email) ?></td>
-                    <td><?= $this->Number->format($user->tell) ?></td>
+                    <td><?= h($user->tell) ?></td>
                     <td>
-                        <?php if($user->gendar === 0 || empty($user->gendar)):?>
+                        <?php if($user->gender === 0 || empty($user->gender)):?>
                             <?= '男' ?>
                         <?php else : ?>
                             <?= '女' ?>
                         <?php endif ?>
                     </td>
                     <td><?= h($user->birth) ?></td>
-                    <td><?= $this->Number->format($user->zip_code) ?></td>
+                    <td><?= substr_replace(h($user->zip_code),'-',3,0) ?></td>
                     <td><?= h($user->pref) ?></td>
                     <td><?= h($user->address) ?></td>
                     <td><?= $user->has('work') ? $this->Html->link($user->work->id, ['controller' => 'Works', 'action' => 'view', $user->work->id]) : '' ?></td>

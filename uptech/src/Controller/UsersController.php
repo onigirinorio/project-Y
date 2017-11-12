@@ -67,6 +67,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user['address'] .=$user['address2'];
+            $user->gender = (int)$user->gender;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 

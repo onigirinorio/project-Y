@@ -66,7 +66,7 @@
         </tr>
         <tr>
             <th scope="row"><?= __('Gendar') ?></th>
-            <td><?= $user->gendar ? __('Yes') : __('No'); ?></td>
+            <td><?= $user->gender ? __('Yes') : __('No'); ?></td>
         </tr>
     </table>
     <div class="related">
