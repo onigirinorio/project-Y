@@ -67,6 +67,7 @@ class UsersController extends AppController
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user['address'] .=$user['address2'];
+            $user->gender = (int)$user->gender;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('The user has been saved.'));
 
@@ -99,13 +100,17 @@ class UsersController extends AppController
             'contain' => []
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $user = $this->Users->patchEntity($user, $this->request->getData());
+            $data = $this->request->getData();
+            if(empty($data['password']) || $data['password'] === $user['password']){
+                if(empty($data['password'])) $data['password'] = $user['password'];
+            }
+            $user = $this->Users->patchEntity($user, $data,['validate'=>'update']);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('更新しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('登録エラー'));
         }
         $works = $this->Users->Works->find('list', ['limit' => 200]);
         $this->set(compact('user', 'works'));

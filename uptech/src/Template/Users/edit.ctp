@@ -20,12 +20,12 @@
                 'class' => 'form-control'
             ]
         );
-        echo $this->Form->control('password',
-            [
-                'label' => 'パスワード',
-                'class' => 'form-control'
-            ]
-        );
+//        echo $this->Form->control('password',
+//            [
+//                'label' => 'パスワード',
+//                'class' => 'form-control'
+//            ]
+//        );
         echo $this->Form->control('email',
             [
                 'label' => 'メールアドレス',
@@ -39,9 +39,15 @@
             ]
         );
         echo '<div class="form-group"><label class="mg-r-10">性別</label></br><div class="btn-group" data-toggle="buttons">';
+        if(empty($user->gender)){
+            $val = 0;
+        }else {
+            $val = 1;
+        }
         foreach (GENDER as $key => $gender){
-            echo $this->Form->radio('gendar',
+            echo $this->Form->radio('gender',
                 [$key => $gender]
+                , ['value'=>$val]
             );
         }
         echo '</div></div>';
@@ -75,14 +81,8 @@
                 'class' => 'form-control'
             ]
         );
-        echo $this->Form->control('address2',
-            [
-                'label' => '建物名',
-                'class' => 'form-control'
-            ]
-        );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button('Submit',['class' => 'btn btn-default']) ?>
     <?= $this->Form->end() ?>
 </div>

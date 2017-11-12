@@ -61,7 +61,6 @@ class UsersTable extends Table
         $validator
             ->scalar('name_kana')
             ->notEmpty('name_kana', '名前(かな)を入力してください。');
-
         $validator
             ->scalar('password')
             ->notEmpty('password', 'パスワードを入力してください。')
@@ -106,6 +105,12 @@ class UsersTable extends Table
             ->notEmpty('address', '住所を入力してください。');
 
         return $validator;
+    }
+    public function validationUpdate($validator)
+    {
+        $validator
+            ->scalar('password');
+       return $validator;
     }
 
     /**
