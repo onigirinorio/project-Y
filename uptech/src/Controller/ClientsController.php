@@ -32,6 +32,10 @@ class ClientsController extends AppController
      */
     public function index()
     {
+        //$clients = $this->Clients->find()->where(['delete_flg' => 0])->all();
+        $this->paginate = array(
+            'conditions' => array('delete_flg' => 0)
+        );
         $clients = $this->paginate($this->Clients);
 
         $this->set(compact('clients'));
@@ -67,11 +71,11 @@ class ClientsController extends AppController
             $client = $this->Clients->patchEntity($client, $this->request->getData());
             $client['address'] .=$client['address2'];
             if ($this->Clients->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('登録に成功しました'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__('登録に失敗しました、もう一度お試しください'));
         }
         $this->set(compact('client'));
         $this->set('_serialize', ['client']);
@@ -92,11 +96,11 @@ class ClientsController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $client = $this->Clients->patchEntity($client, $this->request->getData());
             if ($this->Clients->save($client)) {
-                $this->Flash->success(__('The client has been saved.'));
+                $this->Flash->success(__('編集に成功しました'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The client could not be saved. Please, try again.'));
+            $this->Flash->error(__('編集に失敗しました、もう一度お試しください'));
         }
         $this->set(compact('client'));
         $this->set('_serialize', ['client']);
@@ -113,10 +117,12 @@ class ClientsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $client = $this->Clients->get($id);
-        if ($this->Clients->delete($client)) {
-            $this->Flash->success(__('The client has been deleted.'));
+
+        $client->delete_flg = 1;
+        if ($this->Clients->save($client)) {
+            $this->Flash->success(__('削除に成功しました'));
         } else {
-            $this->Flash->error(__('The client could not be deleted. Please, try again.'));
+            $this->Flash->error(__('削除に失敗しました、もう一度お試しください'));
         }
 
         return $this->redirect(['action' => 'index']);
