@@ -34,7 +34,7 @@ class ProjectsController extends AppController
     public function index()
     {
         //ClientsテーブルをJOIN
-        $this->paginate = array("contain" => array("Clients"), 'conditions'=>array('Projects.delete_flg = 0'));
+        $this->paginate = array("contain" => array("Clients"), 'conditions' => array('Projects.delete_flg = 0'));
         $projects = $this->paginate();
 
         $this->set(compact('projects'));

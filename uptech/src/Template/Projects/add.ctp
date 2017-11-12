@@ -8,16 +8,9 @@
     <fieldset>
         <legend><?= __('案件追加') ?></legend>
         <?php
-            echo $this->Form->control('user_id',
-                [
-                    'type' => 'hidden',
-                    // 'options' => $users,
-                    'value' => 1,
-                    'empty' => true
-                ]
-            );
             echo $this->Form->control('client_id',
                 [
+                    'label' => 'クライアント名',
                     'type' => 'select' ,
                     'options' => $clientList,
                     'class' => 'form-control',
@@ -47,6 +40,7 @@
                 [
                     'label' => '開始日',
                     'class' =>'form-control',
+                    'type' => 'date',
                     'empty' => false,
                     'monthNames' => false,
                 ]
@@ -54,11 +48,17 @@
             echo $this->Form->control('end_date',
                 [
                     'label' => '終了日',
-                    'dateFormat' => 'YMD',
                     'class' =>'form-control',
+                    'type' => 'date',
                     'empty' => false,
                     'monthNames' => false,
 
+                ]
+            );
+            echo $this->Form->control('expense_status',
+                [
+                    'label' => '交通費区分',
+                    'class' =>'form-check-input',
                 ]
             );
             echo $this->Form->control('expense',
@@ -67,14 +67,8 @@
                     'class' =>'form-control',
                 ]
             );
-            echo $this->Form->control('expense_status',
-                [
-                    'label' => '交通費区分',
-                    'class' =>'form-control',
-                ]
-            );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('新規追加')) ?>
     <?= $this->Form->end() ?>
 </div>

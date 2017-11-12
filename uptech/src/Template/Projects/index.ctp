@@ -5,7 +5,7 @@
   */
 ?>
 <div class="container">
-    <h3><?= __('Projects') ?></h3>
+    <h3><?= __('案件一覧') ?></h3>
     <div class="table-responsive">
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
@@ -37,11 +37,11 @@
                             <?php endif; ?>
                         </td>
                         <td><?= number_format($project->price) ?>円</td>
-                        <td><?= h($project->start_date) ?></td>
-                        <td><?= h($project->end_date) ?></td>
+                        <td><?= date('Y/m/d', strtotime($project->start_date)) ?></td>
+                        <td><?= date('Y/m/d', strtotime($project->end_date)) ?></td>
                         <td class="actions">
                           <?= $this->Html->link(__('詳細'), ['action' => 'edit', $project->id]) ?>
-                          <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $project->id]) ?>
+                          <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $project->id],['confirm' => __('プロジェクト{0}を削除してもよろしいですか？', $project->id)]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

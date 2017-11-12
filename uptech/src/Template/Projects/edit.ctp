@@ -11,6 +11,7 @@
         <?php
         echo $this->Form->control('client_id',
             [
+                'label' => 'クライアント名',
                 'type' => 'select',
                 'options' => $clientList,
                 'class' => 'form-control'
@@ -40,6 +41,7 @@
             [
                 'label' => '開始日',
                 'class' =>'form-control',
+                'type' => 'date',
                 'empty' => false,
                 'monthNames' => false,
             ]
@@ -48,9 +50,16 @@
             [
                 'label' => '終了日',
                 'class' =>'form-control',
+                'type' => 'date',
                 'empty' => false,
                 'monthNames' => false,
 
+            ]
+        );
+        echo $this->Form->control('expense_status',
+            [
+                'label' => '交通費有無',
+                'class' =>'form-check-input',
             ]
         );
         echo $this->Form->control('expense',
@@ -59,14 +68,8 @@
                 'class' =>'form-control',
             ]
         );
-        echo $this->Form->control('expense_status',
-            [
-                'label' => '交通費有無',
-                'class' =>'form-control',
-            ]
-        );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('編集')) ?>
     <?= $this->Form->end() ?>
 </div>

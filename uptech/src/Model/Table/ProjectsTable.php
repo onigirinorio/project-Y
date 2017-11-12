@@ -68,11 +68,11 @@ class ProjectsTable extends Table
             ->allowEmpty('shop_name');
 
         $validator
-            ->dateTime('start_date')
-            ->allowEmpty('start__date');
+            ->date('start_date')
+            ->allowEmpty('start_date');
 
         $validator
-            ->dateTime('end_date')
+            ->date('end_date')
             ->allowEmpty('end_date');
 
         $validator
