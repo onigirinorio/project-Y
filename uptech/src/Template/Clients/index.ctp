@@ -30,9 +30,8 @@
                     <td><?= h($client->pref) ?></td>
                     <td><?= h($client->address) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('詳細'), ['action' => 'view', $client->id]) ?>
                         <?= $this->Html->link(__('編集'), ['action' => 'edit', $client->id]) ?>
-                        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $client->id], ['confirm' => __('Are you sure you want to delete # {0}?', $client->id)]) ?>
+                        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $client->id], ['confirm' => __('{0}を削除してもよろしいですか？', $client->client_name)]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
