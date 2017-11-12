@@ -5,7 +5,7 @@
   */
 ?>
 <div class="container">
-    <h3><?= __('Projects') ?></h3>
+    <h3><?= __('案件一覧') ?></h3>
     <div class="table-responsive">
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
@@ -17,8 +17,6 @@
                     <th scope="col"><?= $this->Paginator->sort('price', '金額') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('expense', '交通費') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('expense_status', '交通費フラグ') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -38,11 +36,13 @@
                             その他
                             <?php endif; ?>
                         </td>
-                        <td><?= h($project->price) ?></td>
-                        <td><?= h($project->start_date) ?></td>
-                        <td><?= h($project->end_date) ?></td>
-                        <td><?= h($project->expense) ?></td>
-                        <td><?= h($project->expense_status) ?></td>
+                        <td><?= number_format($project->price) ?>円</td>
+                        <td><?= date('Y/m/d', strtotime($project->start_date)) ?></td>
+                        <td><?= date('Y/m/d', strtotime($project->end_date)) ?></td>
+                        <td class="actions">
+                          <?= $this->Html->link(__('詳細'), ['action' => 'edit', $project->id]) ?>
+                          <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $project->id],['confirm' => __('プロジェクト{0}を削除してもよろしいですか？', $project->id)]) ?>
+                        </td>
                     </tr>
                 <?php endforeach; ?>
             </tbody>

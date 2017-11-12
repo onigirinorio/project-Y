@@ -34,28 +34,11 @@ class ProjectsController extends AppController
     public function index()
     {
         //ClientsテーブルをJOIN
-        $this->paginate = array("contain" => array("Clients"));
+        $this->paginate = array("contain" => array("Clients"), 'conditions' => array('Projects.delete_flg = 0'));
         $projects = $this->paginate();
 
         $this->set(compact('projects'));
         $this->set('_serialize', ['projects']);
-    }
-
-    /**
-     * View method
-     *
-     * @param string|null $id Project id.
-     * @return \Cake\Http\Response|void
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $project = $this->Projects->get($id, [
-            'contain' => []
-        ]);
-
-        $this->set('project', $project);
-        $this->set('_serialize', ['project']);
     }
 
     /**
@@ -79,11 +62,11 @@ class ProjectsController extends AppController
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
-                $this->Flash->success(__('The project has been saved.'));
+                $this->Flash->success(__('案件を新規作成しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            $this->Flash->error(__('予期せぬエラーが起きました。'));
         }
         $this->set(compact('project'));
         $this->set('_serialize', ['project']);
@@ -101,14 +84,23 @@ class ProjectsController extends AppController
         $project = $this->Projects->get($id, [
             'contain' => []
         ]);
+
+        $clientList = $this->Clients->find('list', array(
+            'keyField' => 'id',
+            'valueField' => 'client_name',
+        ))
+        ->toArray();
+
+        $this->set('clientList', $clientList);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
-                $this->Flash->success(__('The project has been saved.'));
+                $this->Flash->success(__('案件を編集しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The project could not be saved. Please, try again.'));
+            $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
         $this->set(compact('project'));
         $this->set('_serialize', ['project']);
@@ -125,11 +117,16 @@ class ProjectsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $project = $this->Projects->get($id);
-        if ($this->Projects->delete($project)) {
-            $this->Flash->success(__('The project has been deleted.'));
-        } else {
-            $this->Flash->error(__('The project could not be deleted. Please, try again.'));
-        }
+
+            //削除フラグに1を代入
+            $project->delete_flg = 1;
+
+            if ($this->Projects->save($project)) {
+                $this->Flash->success(__('案件を削除しました。'));
+            } else {
+                $this->Flash->error(__('予期せぬエラーが発生しました。'));
+            }
+
 
         return $this->redirect(['action' => 'index']);
     }

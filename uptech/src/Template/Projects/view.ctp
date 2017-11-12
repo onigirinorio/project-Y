@@ -9,12 +9,8 @@
     <h3><?= h($project->id) ?></h3>
     <table class="vertical-table">
         <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $project->has('user') ? $this->Html->link($project->user->name, ['controller' => 'Users', 'action' => 'view', $project->user->id]) : '' ?></td>
-        </tr>
-        <tr>
             <th scope="row"><?= __('Client') ?></th>
-            <td><?= $project->has('client') ? $this->Html->link($project->client->id, ['controller' => 'Clients', 'action' => 'view', $project->client->id]) : '' ?></td>
+            <td><?= $this->Number->format($project->client_id) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('Shop Name') ?></th>
@@ -33,8 +29,8 @@
             <td><?= $this->Number->format($project->expense) ?></td>
         </tr>
         <tr>
-            <th scope="row"><?= __('Start  Date') ?></th>
-            <td><?= h($project->start__date) ?></td>
+            <th scope="row"><?= __('Start Date') ?></th>
+            <td><?= h($project->start_date) ?></td>
         </tr>
         <tr>
             <th scope="row"><?= __('End Date') ?></th>
