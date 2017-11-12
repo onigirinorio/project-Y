@@ -54,6 +54,7 @@
             echo $this->Form->control('end_date',
                 [
                     'label' => '終了日',
+                    'dateFormat' => 'YMD',
                     'class' =>'form-control',
                     'empty' => false,
                     'monthNames' => false,

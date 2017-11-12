@@ -12,7 +12,7 @@ use Cake\ORM\Entity;
  * @property bool $payment_status
  * @property int $price
  * @property string $shop_name
- * @property \Cake\I18n\FrozenTime $start__date
+ * @property \Cake\I18n\FrozenTime $start_date
  * @property \Cake\I18n\FrozenTime $end_date
  * @property int $expense
  * @property bool $expense_status

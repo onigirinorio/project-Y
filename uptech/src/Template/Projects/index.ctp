@@ -17,8 +17,6 @@
                     <th scope="col"><?= $this->Paginator->sort('price', '金額') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('expense', '交通費') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('expense_status', '交通費フラグ') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -38,14 +36,11 @@
                             その他
                             <?php endif; ?>
                         </td>
-                        <td><?= h($project->price) ?></td>
+                        <td><?= number_format($project->price) ?>円</td>
                         <td><?= h($project->start_date) ?></td>
                         <td><?= h($project->end_date) ?></td>
-                        <td><?= h($project->expense) ?></td>
-                        <td><?= h($project->expense_status) ?></td>
                         <td class="actions">
-                          <?= $this->Html->link(__('詳細'), ['action' => 'view', $project->id]) ?>
-                          <?= $this->Html->link(__('編集'), ['action' => 'edit', $project->id]) ?>
+                          <?= $this->Html->link(__('詳細'), ['action' => 'edit', $project->id]) ?>
                           <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $project->id]) ?>
                         </td>
                     </tr>
