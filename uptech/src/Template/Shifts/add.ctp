@@ -3,30 +3,48 @@
   * @var \App\View\AppView $this
   */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('List Shifts'), ['action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?></li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?></li>
-    </ul>
-</nav>
 <div class="shifts form large-9 medium-8 columns content">
     <?= $this->Form->create($shift) ?>
     <fieldset>
-        <legend><?= __('Add Shift') ?></legend>
+        <legend><?= __('シフト登録') ?></legend>
         <?php
-            echo $this->Form->control('user_id', ['options' => $users]);
-            echo $this->Form->control('date', ['empty' => true]);
-            echo $this->Form->control('attend', ['empty' => true]);
-            echo $this->Form->control('clock', ['empty' => true]);
-            echo $this->Form->control('holiday_flag');
-            echo $this->Form->control('create_user');
-            echo $this->Form->control('create_at', ['empty' => true]);
-            echo $this->Form->control('update_user');
-            echo $this->Form->control('upteda_at', ['empty' => true]);
+            echo $this->Form->control('user_id',
+                [
+                   'options' => $users,
+                   'class' => 'form-control',
+                ]
+            );
+            echo $this->Form->control('date',
+                [
+                    'label' => '日付',
+                    'class' => 'form-control',
+                    'type' => 'date',
+                    'empty' => false,
+                    'monthNames' => false,
+                ]
+            );
+            echo $this->Form->control('attend',
+                [
+                    'label' => '出勤時間',
+                    'class' => 'form-control',
+                    'empty' => false,
+                ]
+            );
+            echo $this->Form->control('clock',
+                [
+                    'label' => '退勤時間',
+                    'class' => 'form-control',
+                    'empty' => false,
+                ]
+            );
+            echo $this->Form->control('holiday_flag',
+                [
+                    'label' => '休日出勤フラグ',
+                    'class' => 'form-check-input',
+                ]
+            );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit')) ?>
+    <?= $this->Form->button(__('登録')) ?>
     <?= $this->Form->end() ?>
 </div>
