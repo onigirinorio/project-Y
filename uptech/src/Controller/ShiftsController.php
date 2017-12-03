@@ -20,9 +20,11 @@ class ShiftsController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users']
-        ];
+        $this->paginate = array(
+            'contain' => array('Users'),
+            'conditions' => array('Shifts.delete_flg = 0'),
+            'limit' => 15,
+        );
         $shifts = $this->paginate($this->Shifts);
 
         $this->set(compact('shifts'));
@@ -54,14 +56,19 @@ class ShiftsController extends AppController
     public function add()
     {
         $shift = $this->Shifts->newEntity();
+        $create_at = date('Y-m-d H:i:s');
+        //登録者を仮の値を代入 (後で変更)
+        $shift->create_user = 'test';
+        $shift->create_at = $create_at;
+
         if ($this->request->is('post')) {
             $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
             if ($this->Shifts->save($shift)) {
-                $this->Flash->success(__('The shift has been saved.'));
+                $this->Flash->success(__('シフトを登録しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The shift could not be saved. Please, try again.'));
+            $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
         $users = $this->Shifts->Users->find('list', ['limit' => 200]);
         $this->set(compact('shift', 'users'));
@@ -80,14 +87,19 @@ class ShiftsController extends AppController
         $shift = $this->Shifts->get($id, [
             'contain' => []
         ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
-            if ($this->Shifts->save($shift)) {
-                $this->Flash->success(__('The shift has been saved.'));
+          $update_at = date('Y-m-d H:i:s');
+          //更新者に仮の値を代入 (あとで変更)
+          $shift->update_user = 'test';
+          $shift->upteda_at = $update_at;
 
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The shift could not be saved. Please, try again.'));
+          if ($this->request->is(['patch', 'post', 'put'])) {
+              $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
+                  if ($this->Shifts->save($shift)) {
+                      $this->Flash->success(__('シフトを編集しました。'));
+
+                      return $this->redirect(['action' => 'index']);
+                  }
+              $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
         $users = $this->Shifts->Users->find('list', ['limit' => 200]);
         $this->set(compact('shift', 'users'));
@@ -105,11 +117,15 @@ class ShiftsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $shift = $this->Shifts->get($id);
-        if ($this->Shifts->delete($shift)) {
-            $this->Flash->success(__('The shift has been deleted.'));
-        } else {
-            $this->Flash->error(__('The shift could not be deleted. Please, try again.'));
-        }
+
+            //削除フラグに1を代入
+            $shift->delete_flg = 1;
+
+            if ($this->Shifts->save($shift)) {
+                $this->Flash->success(__('シフトを削除しました。'));
+            } else {
+                $this->Flash->error(__('予期せぬエラーが発生しました。'));
+            }
 
         return $this->redirect(['action' => 'index']);
     }

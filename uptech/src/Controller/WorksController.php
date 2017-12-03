@@ -20,9 +20,11 @@ class WorksController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Users', 'Projects']
-        ];
+        $this->paginate = array(
+            'contain' => array('Users', 'Projects'),
+            'conditions' => array('Works.delete_flg = 0'),
+            'limit' => 15
+        );
         $works = $this->paginate($this->Works);
 
         $this->set(compact('works'));
@@ -56,12 +58,16 @@ class WorksController extends AppController
         $work = $this->Works->newEntity();
         if ($this->request->is('post')) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
+            //作成日時
+            $create_at = date('Y-m-d H:i:s');
+            $work->create_at = $create_at;
+            //休憩時間は固定で1時間とする。
+            $work->break_time = '1:00';
             if ($this->Works->save($work)) {
-                $this->Flash->success(__('The work has been saved.'));
-
+                $this->Flash->success(__('勤怠を登録しました。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The work could not be saved. Please, try again.'));
+          $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
         $users = $this->Works->Users->find('list', ['limit' => 200]);
         $projects = $this->Works->Projects->find('list', ['limit' => 200]);
@@ -107,10 +113,14 @@ class WorksController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $work = $this->Works->get($id);
-        if ($this->Works->delete($work)) {
-            $this->Flash->success(__('The work has been deleted.'));
+
+        //削除フラグに1を代入
+        $work->delete_flg = 1;
+
+        if ($this->Works->save($work)) {
+            $this->Flash->success(__('勤怠を削除しました。'));
         } else {
-            $this->Flash->error(__('The work could not be deleted. Please, try again.'));
+            $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
 
         return $this->redirect(['action' => 'index']);
