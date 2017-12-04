@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Works Controller
@@ -55,23 +56,32 @@ class WorksController extends AppController
      */
     public function add()
     {
+        $this->Users = TableRegistry::get('Users');
+        $user = $this->Users->get($this->Auth->user('id'));
+
         $work = $this->Works->newEntity();
         if ($this->request->is('post')) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
             //作成日時
             $create_at = date('Y-m-d H:i:s');
             $work->create_at = $create_at;
-            //休憩時間は固定で1時間とする。
+            //休憩時間は登録時は固定で1時間とする。
             $work->break_time = '1:00';
+            //残業時間をデフォルトで0に
+            $work->overtime = '0:00';
             if ($this->Works->save($work)) {
-                $this->Flash->success(__('勤怠を登録しました。'));
-                return $this->redirect(['action' => 'index']);
+                $this->Flash->success(__('出勤を登録しました。'));
+                return $this->redirect(['action' => 'add']);
             }
           $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
-        $users = $this->Works->Users->find('list', ['limit' => 200]);
-        $projects = $this->Works->Projects->find('list', ['limit' => 200]);
-        $this->set(compact('work', 'users', 'projects'));
+
+        $project = $user->project_id;
+
+        // 以下1ボタン登録になるにあたり不要
+        // $users = $this->Works->Users->find('list', ['limit' => 200]);
+        // $projects = $this->Works->Projects->find('list', ['limit' => 200]);
+        $this->set(compact('work', 'project'));
         $this->set('_serialize', ['work']);
     }
 
@@ -102,6 +112,32 @@ class WorksController extends AppController
 //        $this->set('_serialize', ['work']);
     }
 
+    public function addLeave()
+    {
+        $work = $this->Works->find()
+            ->where(['user_id' => $this->Auth->user('id')])
+            ->order(['create_at' => 'DESC'])
+            ->first();
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $work = $this->Works->patchEntity($work, $this->request->getData());
+//            debug(date('H:i:s',strtotime($work->attend_time)));
+//            debug(date('H:i:s',strtotime($work->leave_time)));
+//            debug(date('H:i:s',strtotime($work->break_time)));
+//            die();
+            $attend = strtotime($work->attend_time);
+            $leave = strtotime($work->leave_time);
+            $break = strtotime($work->break_time);
+            $work['overtime'] = $this->calc_overtime($attend, $leave, $break);
+            if ($this->Works->save($work)) {
+                $this->Flash->success(__('退勤が登録されました。'));
+
+                return $this->redirect(['action' => 'add']);
+            }
+            $this->Flash->error(__('The work could not be saved. Please, try again.'));
+        }
+    }
+
     /**
      * Delete method
      *
@@ -124,5 +160,14 @@ class WorksController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+
+    // 以下ビジネスロジック
+    public function calc_overtime($attend, $leave, $break)
+    {
+        $break -= strtotime('00:00:00');
+        $overtime = $leave - $attend - $break;
+        return gmdate('H:i:s', $overtime);
     }
 }
