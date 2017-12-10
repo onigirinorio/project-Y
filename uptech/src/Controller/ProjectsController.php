@@ -62,7 +62,6 @@ class ProjectsController extends AppController
 
         $this->set('clientList', $clientList);
 
-
         if ($this->request->is('post')) {
             $project = $this->Projects->patchEntity($project, $this->request->getData());
             if ($this->Projects->save($project)) {
