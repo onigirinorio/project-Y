@@ -17,6 +17,7 @@ namespace App\Controller;
 use Cake\Controller\Controller;
 use Cake\Event\Event;
 use Cake\Core\Configure;
+use Cake\ORM\TableRegistry;
 
 /**
  * Application Controller
@@ -125,4 +126,51 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
+
+
+
+    /**
+     * シフトを取得
+     * @return
+     */
+    public function getShift(){
+        $shifts = TableRegistry::get('Shifts');
+        $user_id = $this->Auth->user('id');
+        $query = $shifts->find('all',
+            [
+                'conditions'=>[
+                    'Shifts.user_id'=> $user_id,
+                    'Shifts.delete_flg' => 0,
+                ],
+            ]
+        )
+        ->join([
+            'table' => 'works',
+            'alias' => 'Works',
+            'type' => 'left',
+            'conditions' => [
+                'Works.user_id' => $user_id,
+                "DATE_FORMAT(Works.create_at,'%Y%m%d') = DATE_FORMAT(Shifts.date,'%Y%m%d')"
+            ]
+        ]
+        )
+        ->select(
+            [
+                'attend_time'=>'Works.attend_time',
+                'leave_time'=>'Works.leave_time',
+                'create_at'=>'Works.create_at',
+                'date'=>'Shifts.date',
+                'shift_attend'=>'Shifts.attend',
+                'shift_clock'=>'Shifts.clock',
+            ]
+        )
+        ->toArray();
+        foreach ($query as $val){
+            $val['date'] = $val['date']->i18nFormat('YYYY-MM-dd');
+            $val['shift_attend'] = $val['shift_attend']->i18nFormat('HH:mm:ss');
+            $val['shift_clock'] = $val['shift_clock']->i18nFormat('HH:mm:ss');
+        }
+        return $query;
+    }
+
 }

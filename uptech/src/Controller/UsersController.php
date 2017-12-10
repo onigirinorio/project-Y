@@ -34,7 +34,6 @@ class UsersController extends AppController
             'limit' => 15,
         );
         $users = $this->paginate($this->Users);
-
         $this->set(compact('users'));
         $this->set('_serialize', ['users']);
     }

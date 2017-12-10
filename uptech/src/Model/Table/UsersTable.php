@@ -108,9 +108,8 @@ class UsersTable extends Table
     }
     public function validationUpdate($validator)
     {
-        $validator
-            ->scalar('password');
-       return $validator;
+        $validator->scalar('password');
+        return $validator;
     }
 
     /**

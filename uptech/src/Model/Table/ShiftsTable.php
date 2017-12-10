@@ -102,4 +102,5 @@ class ShiftsTable extends Table
 
         return $rules;
     }
+
 }

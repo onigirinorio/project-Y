@@ -12,7 +12,9 @@ use App\Controller\AppController;
 use Cake\Core\Configure;
 use Cake\Network\Exception\ForbiddenException;
 use Cake\Network\Exception\NotFoundException;
+use Cake\ORM\TableRegistry;
 use Cake\View\Exception\MissingTemplateException;
+use PhpParser\Builder\Class_;
 
 
 /**
@@ -33,7 +35,7 @@ class HomeController extends AppController
      * @return \Cake\Http\Response|void
      */
     public function index(){
-
+        $this->getShift();
     }
 
     public function login()
@@ -57,4 +59,5 @@ class HomeController extends AppController
         $logoutUrl = $this->Auth->logout();
         $this->redirect($logoutUrl);
     }
+
 }
