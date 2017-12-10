@@ -32,7 +32,7 @@
                     'value' => null
                 ]
             );
-/*
+/* １ボタン登録にあたり削除
             echo $this->Form->control('user_id',
                 [
                     'options' => $users,
@@ -111,7 +111,7 @@
             );
 
 
-/*
+/* １ボタン登録にあたり削除
             echo $this->Form->control('user_id',
                 [
                     'options' => $users,
