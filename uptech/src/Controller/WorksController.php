@@ -167,7 +167,13 @@ class WorksController extends AppController
     public function calc_overtime($attend, $leave, $break)
     {
         $break -= strtotime('00:00:00');
-        $overtime = $leave - $attend - $break;
+        // 実働時間
+        $work_time = $leave - ($attend + $break);
+        // 残業時間
+        $overtime = $work_time - (60 * 60 * 8);
+        if ($overtime < 0) {
+            $overtime = 0;
+        }
         return gmdate('H:i:s', $overtime);
     }
 }
