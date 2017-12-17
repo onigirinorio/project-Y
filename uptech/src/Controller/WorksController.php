@@ -21,13 +21,20 @@ class WorksController extends AppController
      */
     public function index()
     {
+        // ユーザーのセレクトボックス用のデータを取得
+        $select_users = $this->Works->getSelectUsers();
+
+        // 検索処理
+        $query = $this->Works->makeQueryGetParameter($this->request->getQuery());
+
         $this->paginate = array(
             'contain' => array('Users', 'Projects'),
             'conditions' => array('Works.delete_flg = 0'),
-            'limit' => 15
+            'limit' => 15,
         );
-        $works = $this->paginate($this->Works);
 
+        $works = $this->paginate($query);
+        $this->set(compact('select_users'));
         $this->set(compact('works'));
         $this->set('_serialize', ['works']);
     }
@@ -62,6 +69,8 @@ class WorksController extends AppController
         $work = $this->Works->newEntity();
         if ($this->request->is('post')) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
+            //出勤時間
+            $work->attend_time = date('H:i');
             //作成日時
             $create_at = date('Y-m-d H:i:s');
             $work->create_at = $create_at;
@@ -118,17 +127,14 @@ class WorksController extends AppController
             ->where(['user_id' => $this->Auth->user('id')])
             ->order(['create_at' => 'DESC'])
             ->first();
+        $work->leave_time = date('H:i');
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
-//            debug(date('H:i:s',strtotime($work->attend_time)));
-//            debug(date('H:i:s',strtotime($work->leave_time)));
-//            debug(date('H:i:s',strtotime($work->break_time)));
-//            die();
             $attend = strtotime($work->attend_time);
             $leave = strtotime($work->leave_time);
             $break = strtotime($work->break_time);
-            $work['overtime'] = $this->calc_overtime($attend, $leave, $break);
+            $work['overtime'] = $this->Works->calc_overtime($attend, $leave, $break);
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('退勤が登録されました。'));
 
@@ -160,20 +166,5 @@ class WorksController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
-    }
-
-
-    // 以下ビジネスロジック
-    public function calc_overtime($attend, $leave, $break)
-    {
-        $break -= strtotime('00:00:00');
-        // 実働時間
-        $work_time = $leave - ($attend + $break);
-        // 残業時間
-        $overtime = $work_time - (60 * 60 * 8);
-        if ($overtime < 0) {
-            $overtime = 0;
-        }
-        return gmdate('H:i:s', $overtime);
     }
 }

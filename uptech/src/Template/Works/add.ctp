@@ -16,12 +16,6 @@
                 ]
             );
 
-            echo $this->Form->hidden('attend_time',
-                [
-                    'value' => date('H:i')
-                ]
-            );
-
             echo $this->Form->hidden('project_id',
                 [
                     'value' => $project
@@ -76,7 +70,7 @@
 */
         ?>
     </fieldset>
-    <?= $this->Form->button(__('出勤登録'), ['class' => 'btn btn-primary']) ?>
+    <?= $this->Form->button(__('出勤'), ['class' => 'btn btn-primary']) ?>
     <?= $this->Form->end() ?>
 
     <? //退勤用ボタン ?>
