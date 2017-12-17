@@ -5,7 +5,28 @@
   */
 ?>
 <div class="container">
-    <h3><?= __('勤怠登録') ?></h3>
+    <h3><?= __('勤怠一覧') ?></h3>
+
+    <?= $this->Form->create('null', ['type' => 'get', 'url' => ['controller' => 'works', 'action' => 'index']]) ?>
+        <ul>
+            <li>
+                <?= $this->Form->select('search_user_id', $select_users,
+                    [
+                        'value' => $this->request->getQuery('search_user_id'),
+                        'empty' => 'ユーザーを選択してください'
+                    ]
+                ) ?>
+            </li>
+            <li>
+                <?= $this->Form->year('search_date', ['default' => '年', 'value' => $this->request->getQuery('search_date.year')]) ?>
+                <?= $this->Form->month('search_date', ['monthNames' => false,'default' => '月', 'value' => $this->request->getQuery('search_date.month')]) ?>
+            </li>
+
+            <? //$this->Form->input('date', ['type' => 'datetime', 'dateFormat' => 'YM', 'default' => date('Y-m'), 'monthNames' => false,]) ?>
+            <li><?= $this->Form->submit(__('検索'), ['class' => 'btn btn-primary']) ?></li>
+        </ul>
+    <?= $this->Form->end() ?>
+
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>
             <tr>

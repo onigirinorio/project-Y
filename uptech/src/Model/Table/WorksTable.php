@@ -96,4 +96,46 @@ class WorksTable extends Table
 
         return $rules;
     }
+
+
+    // 以下ビジネスロジック
+
+    // 一覧画面のユーザーセレクトボックス用のデータを取得
+    public function getSelectUsers() {
+        $users = $this->Users->find()->all()->toArray();
+        foreach ($users as $user) {
+            $select_users[$user->id] = $user->name;
+        }
+        return $select_users;
+    }
+
+    // 残業時間を計算
+    public function calc_overtime($attend, $leave, $break)
+    {
+        $break -= strtotime('00:00:00');
+        // 実働時間
+        $work_time = $leave - ($attend + $break);
+        // 残業時間
+        $overtime = $work_time - (60 * 60 * 8);
+        if ($overtime < 0) {
+            $overtime = 0;
+        }
+        return gmdate('H:i:s', $overtime);
+    }
+
+    // 一覧画面の検索機能に必要なクエリを返す
+    public function makeQueryGetParameter($get_param)
+    {
+        $query = $this->find();
+        if (!empty($get_param['search_user_id'])) {
+            $query->where(['Works.user_id' => $get_param['search_user_id']]);
+        }
+        if (!empty($get_param['search_date'])) {
+            $query->where([
+                'YEAR(create_at)' => $get_param['search_date']['year'],
+                'MONTH(create_at)' => $get_param['search_date']['month']
+            ]);
+        }
+        return $query;
+    }
 }
