@@ -20,12 +20,6 @@
                 'class' => 'form-control'
             ]
         );
-//        echo $this->Form->control('password',
-//            [
-//                'label' => 'パスワード',
-//                'class' => 'form-control'
-//            ]
-//        );
         echo $this->Form->control('email',
             [
                 'label' => 'メールアドレス',
@@ -78,6 +72,14 @@
         echo $this->Form->control('address',
             [
                 'label' => '都道府県以降',
+                'class' => 'form-control'
+            ]
+        );
+        echo $this->Form->control('project_id',
+            [
+                'label' => 'プロジェクト',
+                'type' => 'select',
+                'options' => $project_list,
                 'class' => 'form-control'
             ]
         );
