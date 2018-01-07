@@ -78,18 +78,25 @@ class WorksController extends AppController
             $work->break_time = '1:00';
             //残業時間をデフォルトで0に
             $work->overtime = '0:00';
+
+            // 既に出勤が登録されていたら保存しない
+            $latest_work = $this->Works->find()
+                ->where(['user_id' => $this->Auth->user('id')])
+                ->order(['create_at' => 'DESC'])
+                ->first();
+            if (date('Y-m-d', strtotime($latest_work['create_at'])) == date('Y-m-d')) {
+                $this->Flash->error(__('既に出勤が登録されています。'));
+                return $this->redirect(['action' => 'add']);
+            }
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('出勤を登録しました。'));
                 return $this->redirect(['action' => 'add']);
             }
-          $this->Flash->error(__('予期せぬエラーが発生しました。'));
+            $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
 
         $project = $user->project_id;
 
-        // 以下1ボタン登録になるにあたり不要
-        // $users = $this->Works->Users->find('list', ['limit' => 200]);
-        // $projects = $this->Works->Projects->find('list', ['limit' => 200]);
         $this->set(compact('work', 'project'));
         $this->set('_serialize', ['work']);
     }
