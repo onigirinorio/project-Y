@@ -81,11 +81,11 @@ class UsersController extends AppController
             $user['address'] .=$user['address2'];
             $user->gender = (int)$user->gender;
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('The user has been saved.'));
+                $this->Flash->success(__('ユーザー新規登録が完了しました。'));
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The user could not be saved. Please, try again.'));
+            $this->Flash->error(__('ユーザー登録に失敗しました、もう一度お試しください。'));
         }
         $works = $this->Users->Works->find('list', ['limit' => 200]);
         $this->set(compact('user', 'works'));
@@ -143,9 +143,9 @@ class UsersController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
         if ($this->Users->delete($user)) {
-            $this->Flash->success(__('The user has been deleted.'));
+            $this->Flash->success(__('ユーザー削除に成功しました。'));
         } else {
-            $this->Flash->error(__('The user could not be deleted. Please, try again.'));
+            $this->Flash->error(__('ユーザー削除に失敗しました、もう一度お試しください。'));
         }
 
         return $this->redirect(['action' => 'index']);
