@@ -133,9 +133,11 @@ class AppController extends Controller
      * シフトを取得
      * @return
      */
-    public function getShift(){
+    public function getShift($user_id = null){
         $shifts = TableRegistry::get('Shifts');
-        $user_id = $this->Auth->user('id');
+        if($user_id === null){
+            $user_id = $this->Auth->user('id');
+        }
         $query = $shifts->find('all',
             [
                 'conditions'=>[
