@@ -41,11 +41,7 @@ class AjaxController extends AppController
     {
 
         if($this->request->is('ajax')){
-            if ($type === 'shift') {
-                $data = $this->getShift();
-            } else {
-                $data = $this->getWorks();
-            }
+            $data = $this->getShift();
         }else{
             $data = null;
         }
