@@ -84,10 +84,11 @@ class WorksController extends AppController
                 ->where(['user_id' => $this->Auth->user('id')])
                 ->order(['create_at' => 'DESC'])
                 ->first();
-            if (date('Y-m-d', strtotime($latest_work['create_at'])) == date('Y-m-d')) {
+            if (date('Y-m-d', strtotime($latest_work->create_at)) == date('Y-m-d')) {
                 $this->Flash->error(__('既に出勤が登録されています。'));
                 return $this->redirect(['action' => 'add']);
             }
+
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('出勤を登録しました。'));
                 return $this->redirect(['action' => 'add']);
