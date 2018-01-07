@@ -84,6 +84,14 @@ echo $this->Html->css('Users/add', ['block' => true]);
                     'class' => 'form-control'
                 ]
             );
+            echo $this->Form->control('project_id',
+                [
+                    'label' => 'プロジェクト',
+                    'type' => 'select',
+                    'options' => $project_list,
+                    'class' => 'form-control'
+                ]
+            );
         ?>
     </fieldset>
     <?= $this->Form->button(__('Submit'),[

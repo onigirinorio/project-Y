@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Controller\AppController;
+use Cake\ORM\TableRegistry;
 
 /**
  * Users Controller
@@ -19,6 +20,16 @@ class UsersController extends AppController
     {
         parent::initialize();
         $this->Auth->allow('add');
+
+        // プロジェクトリストを取得
+        $this->Projects = TableRegistry::get('Projects');
+        $projects = $this->Projects->find()->all();
+        $project_list = [];
+        foreach ($projects as $key => $value) {
+            $project_list[$value['id']] = $value['shop_name'];
+        }
+
+        $this->set(compact('project_list'));
     }
     /**
      * Index method
@@ -98,7 +109,7 @@ class UsersController extends AppController
             ]);
         }
         $user = $this->Users->get($id, [
-            'contain' => []
+            'contain' => ['Projects']
         ]);
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
@@ -114,6 +125,7 @@ class UsersController extends AppController
             $this->Flash->error(__('登録エラー'));
         }
         $works = $this->Users->Works->find('list', ['limit' => 200]);
+
         $this->set(compact('user', 'works'));
         $this->set('_serialize', ['user']);
     }
