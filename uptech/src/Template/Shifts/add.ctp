@@ -8,12 +8,6 @@
     <fieldset>
         <legend><?= __('シフト登録') ?></legend>
         <?php
-            echo $this->Form->control('user_id',
-                [
-                   'options' => $users,
-                   'class' => 'form-control',
-                ]
-            );
             echo $this->Form->control('date',
                 [
                     'label' => '日付',
@@ -43,6 +37,7 @@
                     'class' => 'form-check-input',
                 ]
             );
+            echo $this->Form->hidden('user_id', ['value' => $user_id]);
         ?>
     </fieldset>
     <?= $this->Form->button(__('登録')) ?>
