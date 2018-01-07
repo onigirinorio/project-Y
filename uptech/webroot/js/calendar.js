@@ -17,12 +17,23 @@ function showCarendar(date){
     var shiftEvent =[];
     if(shift.length !== 0){
         $.each(shift[0], function (i, obj) {
+            console.log(obj);
             var event = [];
             event['start'] = obj['date'] +' '+ obj['shift_attend'];
             event['end'] = obj['date'] +' '+ obj['shift_clock'];
-            if(obj['shift_attend'] <= obj['attend_time'] && obj['shift_clock'] >= obj['leave_time']){
-                event['color'] = 'green'
+            var date = new Date(event['start']);
+            var now  = new Date();
+            var attended = null;
+            if(obj['attend_time'] !== null){
+                attended = new Date(obj['attend_time']);
             }
+            if((date < now && attended === null)　|| (attended !== null && date < attended)){
+                event['color'] = 'red';
+            }
+            if(obj['shift_attend'] <= obj['attend_time'] && obj['shift_clock'] >= obj['leave_time']){
+                event['color'] = 'green';
+            }
+            console.log(new Date(event['start']));
             shiftEvent.push(event);
         });
     }
