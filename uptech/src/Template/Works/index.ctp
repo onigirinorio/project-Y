@@ -22,7 +22,7 @@
                 <?= $this->Form->month('search_date', ['monthNames' => false,'default' => '月', 'value' => $this->request->getQuery('search_date.month')]) ?>
             </li>
 
-            <? //$this->Form->input('date', ['type' => 'datetime', 'dateFormat' => 'YM', 'default' => date('Y-m'), 'monthNames' => false,]) ?>
+            <?php //$this->Form->input('date', ['type' => 'datetime', 'dateFormat' => 'YM', 'default' => date('Y-m'), 'monthNames' => false,]) ?>
             <li><?= $this->Form->submit(__('検索'), ['class' => 'btn btn-primary']) ?></li>
         </ul>
     <?= $this->Form->end() ?>
@@ -49,7 +49,7 @@
                 <td><?= $work->has('project') ? $this->Html->link($work->project->id, ['controller' => 'Projects', 'action' => 'view', $work->project->id]) : '' ?></td>
                 <td><?= date('Y/m/d', strtotime($work->create_at)) ?></td>
                 <td><?= date('H:i', strtotime($work->attend_time)) ?></td>
-                <td><? if ($work->leave_time) { echo date('H:i', strtotime($work->leave_time)); } ?></td>
+                <td><?php if ($work->leave_time) { echo date('H:i', strtotime($work->leave_time)); } ?></td>
                 <td><?= date('H:i', strtotime($work->break_time)) ?></td>
                 <td><?= date('H:i', strtotime($work->overtime)) ?></td>
                 <td class="actions">
