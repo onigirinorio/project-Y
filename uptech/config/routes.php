@@ -49,7 +49,8 @@ Router::scope('/', function (RouteBuilder $routes) {
      * its action called 'display', and we pass a param to select the view file
      * to use (in this case, src/Template/Pages/home.ctp)...
      */
-    $routes->connect('/', ['controller' => 'Home', 'action' => 'index', 'home']);
+    $routes->connect('/', ['controller' => 'Home', 'action' => 'top', 'home']);
+    $routes->connect('/calender', ['controller' => 'Home', 'action' => 'index', 'home']);
     $routes->connect('/login', ['controller' => 'Home', 'action' => 'login', 'login']);
     $routes->connect('/ajax/calender/*', ['controller' => 'Ajax', 'action' => 'calender']);
     /**

@@ -26,7 +26,6 @@ use PhpParser\Builder\Class_;
  * @method \App\Model\Entity\User newEntity($data = null, array $options = [])
  */
 
-
 class HomeController extends AppController
 {
     /**
@@ -34,8 +33,15 @@ class HomeController extends AppController
      *
      * @return \Cake\Http\Response|void
      */
+
+    public $helpers = ['Card'];
+
     public function index(){
         $this->getShift();
+    }
+
+    public function top () {
+
     }
 
     public function login()
