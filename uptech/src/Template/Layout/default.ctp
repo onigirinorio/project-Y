@@ -94,7 +94,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <li role="presentation"><?= $this->Html->link(__('シフト追加'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
                       </ul>
                     </li>
-                    <?php endif ?>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                             出退勤管理
@@ -105,6 +104,14 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
+                    <? else: ?>
+                    <li class="nav navbar-nav navbar-left">
+                        <?= $this->Html->link(__('出退勤登録'), ['controller' => 'Works', 'action' => 'add']) ?>
+                    </li>
+                    <li class="nav navbar-nav navbar-left">
+                        <?= $this->Html->link(__('出退勤出力'), ['controller' => 'Works', 'action' => 'export', $user_id]) ?>
+                    </li>
+                    <?php endif ?>
                     <li class="nav navbar-nav navbar-left">
                         <?= $this->Html->link(__($user_name . '様'), ['controller' => 'Users', 'action' => 'edit', $user_id]) ?>
                     </li>
