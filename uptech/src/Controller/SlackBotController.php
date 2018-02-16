@@ -26,7 +26,6 @@ class SlackBotController extends AppController
     );
 
     $msg = json_encode($msg);
-    var_dump($msg);
     $msg = 'payload=' . urlencode($msg);
 
 
