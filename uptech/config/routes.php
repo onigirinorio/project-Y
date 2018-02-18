@@ -53,10 +53,11 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/calender', ['controller' => 'Home', 'action' => 'index', 'home']);
     $routes->connect('/login', ['controller' => 'Home', 'action' => 'login', 'login']);
     $routes->connect('/ajax/calender/*', ['controller' => 'Ajax', 'action' => 'calender']);
+    $routes->connect('/ajax/calender/*', ['controller' => 'Ajax', 'action' => 'calender']);
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */
-    $routes->connect('/pages/*', ['controller' => 'Pages', 'action' => 'display']);
+    $routes->connect('/works/export/*', ['controller' => 'Works', 'action' => 'export']);
 
     /**
      * Connect catchall routes for all controllers.

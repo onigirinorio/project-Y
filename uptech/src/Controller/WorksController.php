@@ -3,7 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-
+use App\Controller\Component\Excel;
 /**
  * Works Controller
  *
@@ -21,6 +21,13 @@ class WorksController extends AppController
      */
     public function index()
     {
+        if(!$this->isAdmin()){
+            // 管理者のみ
+            $this->redirect([
+                'controller' => 'Home',
+                'action' => 'index'
+            ]);
+        }
         // ユーザーのセレクトボックス用のデータを取得
         $select_users = $this->Works->getSelectUsers();
 
@@ -111,6 +118,13 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
+        if(!$this->isAdmin()){
+            // 管理者のみ
+            $this->redirect([
+                'controller' => 'Home',
+                'action' => 'index'
+            ]);
+        }
 //        $work = $this->Works->get($id, [
 //            'contain' => []
 //        ]);
@@ -174,5 +188,13 @@ class WorksController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * 出退勤をエクセルで出力する。
+     * @param $user_id
+     */
+    public function export($user_id){
+        new Excel();
     }
 }
