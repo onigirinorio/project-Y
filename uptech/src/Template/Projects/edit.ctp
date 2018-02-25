@@ -31,6 +31,15 @@
                 'class' =>'form-control'
             ]
         );
+        echo $this->Form->control('in_minutes',
+            [
+                'label' => '分単位',
+                'type' => 'select',
+                'options' => IN_MINUTES,
+                'class' =>'form-control',
+                'default' => 2
+            ]
+        );
         echo $this->Form->control('shop_name',
             [
                 'label' => '店舗名',
