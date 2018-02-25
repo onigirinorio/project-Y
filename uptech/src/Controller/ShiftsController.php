@@ -23,7 +23,7 @@ class ShiftsController extends AppController
         $this->paginate = array(
             'contain' => array('Users'),
             'conditions' => array('Shifts.delete_flg = 0'),
-            'limit' => 15,
+            'limit' => 35,
         );
         $shifts = $this->paginate($this->Shifts);
 
