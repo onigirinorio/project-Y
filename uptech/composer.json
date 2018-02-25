@@ -11,7 +11,8 @@
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "~1.0",
         "josegonzalez/dotenv": "2.*",
-        "phpoffice/phpspreadsheet":"dev-develop"
+        "phpoffice/phpspreadsheet":"dev-develop",
+        "phpoffice/phpexcel": "^1.8"
     },
     "require-dev": {
         "psy/psysh": "@stable",

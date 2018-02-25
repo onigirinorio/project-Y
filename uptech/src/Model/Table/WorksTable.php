@@ -114,13 +114,19 @@ class WorksTable extends Table
     {
         $break -= strtotime('00:00:00');
         // 実働時間
-        $work_time = $leave - ($attend + $break);
+        $work_time = $this->calc_work_time($attend, $leave, $break);
         // 残業時間
         $overtime = $work_time - (60 * 60 * 8);
         if ($overtime < 0) {
             $overtime = 0;
         }
         return gmdate('H:i:s', $overtime);
+    }
+
+    // 実働時間を計算
+    public function calc_work_time($attend, $leave, $break)
+    {
+        return $leave - ($attend + $break);
     }
 
     // 一覧画面の検索機能に必要なクエリを返す

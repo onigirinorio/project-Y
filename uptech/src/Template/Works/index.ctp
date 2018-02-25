@@ -27,6 +27,15 @@
         </ul>
     <?= $this->Form->end() ?>
 
+    <?= $this->Form->create('null', ['type' => 'post', 'url' => ['controller' => 'Works', 'action' => 'download_excel']]) ?>
+        <?= $this->Form->hidden('user_id', ['value' => $this->request->getQuery('search_user_id')]) ?>
+        <?= $this->Form->hidden('date_y', ['value' => $this->request->getQuery('search_date.year')]) ?>
+        <?= $this->Form->hidden('date_m', ['value' => $this->request->getQuery('search_date.month')]) ?>
+        <?= $this->Form->submit(__('Excel出力'), ['class' => 'btn btn-primary']) ?>
+    <?= $this->Form->end() ?>
+
+    <?php //$this->Html->link(__('Excel出力'), ['controller' => 'Works', 'action' => 'download_excel'], ['class' => 'btn btn-primary']) ?>
+
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>
             <tr>
