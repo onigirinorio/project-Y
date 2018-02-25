@@ -143,12 +143,13 @@ class WorksController extends AppController
         $work = $this->Works->find()
             ->where(['user_id' => $this->Auth->user('id')])
             ->order(['create_at' => 'DESC'])
+            ->contain('Projects')
             ->first();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
-            //$work->leave_time = date('H:i');
-            $work->leave_time = '19:15';
+            // 退勤時間の分の部分を案件によって調整する
+            $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
             $attend = strtotime($work->attend_time);
             $leave = strtotime($work->leave_time);
             $break = strtotime($work->break_time);
@@ -261,20 +262,19 @@ class WorksController extends AppController
     /**
      * 登録された退勤時間を案件の〜分刻みに合わせる。
      *
-     * @param string $leave_time フォーマットする退勤時間
-     * @param int $format 案件が持つX分刻みにする、のXの部分の数値(例:15分刻みに)
-     * @return array
+     * @param object $leave_time フォーマットする退勤時間(Timeオブジェクト)
+     * @param int $format 案件が持つX分刻みにする、のXの部分の数値(例:15分刻みにする場合は15)
+     * @return int フォーマットで丸められた分の数値
      */
     private function format_time_to_project($leave_time, $format) {
-        $result = [];
-
-        //$result = $
-
+        $leave_time_minuite = date('i', strtotime($leave_time));
+        $minute = floor($leave_time_minuite / $format) * $format;
+        $result = substr_replace($leave_time, $minute, -2);
         return $result;
     }
 
     /**
-     * TimeオブジェクトをExcelで使用可能な数値にフォーマットする
+     * 時間ををExcelで使用可能な数値にフォーマットする
      *
      * @param array $data フォーマット元データを含む配列
      * @param array $columns フォーマットするデータを持つカラムの配列

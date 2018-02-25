@@ -70,9 +70,16 @@ return [
         2 => '時給',
         99 => 'その他'
     ]),
-    //　フォームの設定
+    // フォームの設定
     define('MY_FORMS',[
         // bootstrap用の設定
         'inputContainer' => '<div class="form-group {{type}}{{required}}">{{content}}</div>',
+    ]),
+    // 案件の支払いの分単位
+    define('IN_MINUTES', [
+        0 => 1,
+        1 => 5,
+        2 => 15,
+        3 => 30
     ])
 ];
