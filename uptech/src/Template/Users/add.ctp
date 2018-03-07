@@ -41,7 +41,8 @@ echo $this->Html->css('Users/add', ['block' => true]);
                     'class' => 'form-control'
                 ]
             );
-            echo '<div class="form-group"><label class="mg-r-10">性別</label></br><div class="btn-group" data-toggle="buttons">';
+
+            echo '<div><label class="mg-r-10">性別</label></br><div class="btn-group" data-toggle="buttons">';
             foreach (GENDER as $key => $gender){
                 echo $this->Form->radio('gender',
                         [$key => $gender]

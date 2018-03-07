@@ -8,7 +8,7 @@
     <? //登録ボタン用フォーム ?>
     <?= $this->Form->create($work) ?>
         <fieldset>
-            <legend><?= __('勤怠登録') ?></legend>
+            <legend><?= __('出勤登録') ?></legend>
             <?php
                 echo $this->Form->hidden('user_id',
                     [
@@ -36,8 +36,15 @@
     <? //退勤用ボタン ?>
     <?= $this->Form->create($work, ['url' => '/works/add_leave']) ?>
         <fieldset>
-            <legend><?= __('勤怠登録') ?></legend>
+            <legend><?= __('退勤登録') ?></legend>
             <?php
+                echo $this->Form->control('leave_time',
+                    [
+                        'label' => '退勤時間',
+                        'class' => 'form-control'
+                    ]
+                );
+
                 echo $this->Form->control('break_time',
                     [
                         'label' => '休憩時間',
@@ -49,12 +56,6 @@
                 echo $this->Form->hidden('user_id',
                     [
                         'value' => $user_id
-                    ]
-                );
-
-                echo $this->Form->hidden('leave_time',
-                    [
-                        'value' => date('H:i')
                     ]
                 );
 
