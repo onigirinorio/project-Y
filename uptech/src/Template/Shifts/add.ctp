@@ -40,6 +40,11 @@
             echo $this->Form->hidden('user_id', ['value' => $user_id]);
         ?>
     </fieldset>
-    <?= $this->Form->button(__('登録')) ?>
+    <?= $this->Form->button(__('登録'),
+        [
+            'text' => '登録',
+            'class' => 'btn btn-primary'
+        ])
+    ?>
     <?= $this->Form->end() ?>
 </div>

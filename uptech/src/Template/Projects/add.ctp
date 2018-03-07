@@ -78,6 +78,11 @@
             );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('新規追加')) ?>
+    <?= $this->Form->button(__('新規追加'),
+        [
+            'text' => '登録',
+            'class' => 'btn btn-primary'
+        ])
+    ?>
     <?= $this->Form->end() ?>
 </div>

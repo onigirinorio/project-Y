@@ -51,9 +51,9 @@
         );
         ?>
     </fieldset>
-    <?= $this->Form->button(__('Submit'),[
+    <?= $this->Form->button(__('登録'),[
         'text' => '登録',
-        'class' => 'btn btn-default'
+        'class' => 'btn btn-primary'
     ]) ?>
     <?= $this->Form->end() ?>
 </div>

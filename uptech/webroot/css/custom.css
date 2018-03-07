@@ -13,6 +13,11 @@
     background-color: #D13E48;
 }
 
+/* フォームカスタマイズ */
+div.input {
+    margin-bottom: 10px;
+}
+
 /* カードコンポーネント用 */
 .card-wrapper {
     position: relative;
