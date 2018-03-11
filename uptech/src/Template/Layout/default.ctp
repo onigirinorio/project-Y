@@ -84,6 +84,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                             <li role="presentation"><?= $this->Html->link(__('クライアント追加'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
+                    <?php endif ?>
                     <li class="dropdown">
                       <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                         シフト管理
@@ -94,7 +95,6 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         <li role="presentation"><?= $this->Html->link(__('シフト追加'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
                       </ul>
                     </li>
-                    <?php endif ?>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
                             出退勤管理
@@ -102,13 +102,17 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><?= $this->Html->link(__('出退勤一覧'), ['controller' => 'Works', 'action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
+                            <?php if($admin_flg === false): ?>
+                                <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
+                            <?php endif; ?>
                         </ul>
                     </li>
-                    <li class="nav navbar-nav navbar-left">
-                        <?= $this->Html->link(__($user_name . '様'), ['controller' => 'Users', 'action' => 'edit', $user_id]) ?>
+                </ul>
+                <ul class="nav navbar-nav navbar-right" style="padding-left: 15px;">
+                    <li class="nav navbar-nav">
+                        <?= $this->Html->link(__($user_name . 'さん'), ['controller' => 'Users', 'action' => 'edit', $user_id]) ?>
                     </li>
-                    <li class="nav navbar-nav navbar-right">
+                    <li class="nav navbar-nav">
                         <?= $this->Html->link(__('ログアウト'), ['controller' => 'Home', 'action' => 'logout']) ?>
                     </li>
                 </ul>

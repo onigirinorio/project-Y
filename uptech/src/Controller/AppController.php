@@ -54,7 +54,7 @@ class AppController extends Controller
             ],
             'loginRedirect' => [
                 'controller' => 'Home',
-                'action' => 'index'
+                'action' => 'top'
             ],
             'authenticate' => [
                 'Form' => [

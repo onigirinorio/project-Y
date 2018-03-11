@@ -41,7 +41,10 @@ class HomeController extends AppController
     }
 
     public function top () {
-
+        $admin_flg = $this->isAdmin();
+        if ($admin_flg != true) {
+            $this->redirect(['controller' => 'works', 'action' => 'add']);
+        }
     }
 
     public function login()

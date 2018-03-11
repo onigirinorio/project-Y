@@ -1,31 +1,23 @@
-<?php
-?>
-<div class="center-block">
-<?= $this->Html->image('jamp_logo.png'); ?>
-</div>
-<div class="container">
-    <?= $this->Form->create(null,['class' => 'form-horizontal'])?>
-    <fieldset>
-        <legend><?= __('ログイン') ?></legend>
+<?= $this->Html->css('login.css'); ?>
+
+<div class="login">
+    <h1>ログイン</h1>
+    <?= $this->Form->create()?>
         <?php
         echo $this->Form->control('email',
             [
-                'label' => 'メールアドレス',
-                'class' => 'form-control'
+                'placeholder' => 'メールアドレス',
+                'label' => false
             ]
         );
         echo $this->Form->control('password',
             [
-                'label' => 'パスワード',
-                'class' => 'form-control'
+                'placeholder' => 'パスワード',
+                'label' => false
             ]
         );
         ?>
-    </fieldset>
-        <?= $this->Form->button('ログイン',['class' => 'btn btn-default']) ?>
+        <button type="submit" class="btn btn-primary btn-block btn-large">ログイン</button>
     <?= $this->Form->end() ?>
-
-    <div class="center-block">
-        <?= $this->Html->link('新規登録', ['controller' => 'users', 'action' => 'add']) ?>
-    </div>
+    <?= $this->Html->link('新規登録', ['controller' => 'users', 'action' => 'add']) ?>
 </div>

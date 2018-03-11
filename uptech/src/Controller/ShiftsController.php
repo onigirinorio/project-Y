@@ -20,12 +20,27 @@ class ShiftsController extends AppController
      */
     public function index()
     {
+        // 管理者以外だった場合、閲覧できるデータを制限する
+        if ($this->isAdmin() === false) {
+            $query = $this->Shifts->find()->where(
+                [
+                    'user_id' => $this->Auth->user('id')
+                ]
+            );
+        }
+
         $this->paginate = array(
             'contain' => array('Users'),
             'conditions' => array('Shifts.delete_flg = 0'),
             'limit' => 35,
         );
-        $shifts = $this->paginate($this->Shifts);
+
+        // 管理者以外だった場合、閲覧できるデータを制限する
+        if ($this->isAdmin() === true) {
+            $shifts = $this->paginate($this->Shifts);
+        } else {
+            $shifts = $this->paginate($query);
+        }
 
         $this->set(compact('shifts'));
         $this->set('_serialize', ['shifts']);

@@ -1,5 +1,6 @@
 # CakePHP specific files #
 ##########################
+/.idea
 /config/app.php
 /config/.env
 /tmp/*

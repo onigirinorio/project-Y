@@ -20,11 +20,19 @@ class WorksController extends AppController
      */
     public function index()
     {
-        // ユーザーのセレクトボックス用のデータを取得
-        $select_users = $this->Works->getSelectUsers();
-
-        // 検索処理
-        $query = $this->Works->makeQueryGetParameter($this->request->getQuery());
+        $select_users = '';
+        if ($this->isAdmin() === true) {
+            // ユーザーのセレクトボックス用のデータを取得
+            $select_users = $this->Works->getSelectUsers();
+            // 検索処理
+            $query = $this->Works->makeQueryGetParameter($this->request->getQuery());
+        } else {
+            $query = $this->Works->find()->where(
+                [
+                    'user_id' => $this->Auth->user('id')
+                ]
+            );
+        }
 
         $this->paginate = array(
             'contain' => array('Users', 'Projects'),

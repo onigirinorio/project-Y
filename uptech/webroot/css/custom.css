@@ -1,3 +1,12 @@
+/* スタイル調整用 */
+.w100 {
+    width: 100%;
+}
+
+.m0auto {
+    margin: 0 auto;
+}
+
 /* 各種メッセージ用 */
 .message {
     text-align: center;
@@ -14,8 +23,18 @@
 }
 
 /* フォームカスタマイズ */
-div.input {
+div.input, select.input {
     margin-bottom: 10px;
+}
+
+.search_works_area {
+    margin: 20px 0 40px;
+}
+
+.area_regist_works {
+    margin-bottom: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #333333;
 }
 
 /* カードコンポーネント用 */

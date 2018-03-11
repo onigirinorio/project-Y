@@ -9,9 +9,8 @@
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>
             <tr>
-                <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー名') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('date', '日付') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー名') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('attend', '出勤時間') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('clock', '退勤時間') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('holiday_flag', '休日フラグ') ?></th>
@@ -21,9 +20,8 @@
         <tbody>
             <?php foreach ($shifts as $shift): ?>
             <tr>
-                <td><?= $this->Number->format($shift->id) ?></td>
-                <td><?= $shift->has('user') ? $this->Html->link($shift->user->name, ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
                 <td><?= h($shift->date) ?></td>
+                <td><?= $shift->has('user') ? $this->Html->link($shift->user->name, ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
                 <td><?= date('H:i', strtotime($shift->attend)) ?></td>
                 <td><?= date('H:i', strtotime($shift->clock)) ?></td>
                 <td>
