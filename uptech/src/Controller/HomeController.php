@@ -60,7 +60,7 @@ class HomeController extends AppController
                 $this->Auth->setUser($user);
                 return $this->redirect($this->Auth->redirectUrl());
             }
-            $this->Flash->error('ユーザー名かパスワードが間違ってまっせ');
+            $this->Flash->error('メールアドレスかパスワードが間違っています。');
         }
     }
 

@@ -1,7 +1,7 @@
 <?= $this->Html->css('login.css'); ?>
 
-<div class="login">
-    <h1>ログイン</h1>
+<div class="login" style="display: none;">
+    <h1>勤怠管理ツール</h1>
     <?= $this->Form->create()?>
         <?php
         echo $this->Form->control('email',
@@ -21,3 +21,10 @@
     <?= $this->Form->end() ?>
     <?= $this->Html->link('新規登録', ['controller' => 'users', 'action' => 'add']) ?>
 </div>
+
+
+<script>
+    $(function() {
+        $('.login').fadeIn('slow');
+    })
+</script>
