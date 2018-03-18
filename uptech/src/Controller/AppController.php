@@ -87,10 +87,9 @@ class AppController extends Controller
      * @return bool 管理者フラグ
      */
     public function isAdmin(){
+        $admin = false;
         if($this->Auth->user('adminflg') == 1){
             $admin = true;
-        } else {
-            $admin = false;
         }
         $this->set('admin_flg',$admin);
         return $admin;
