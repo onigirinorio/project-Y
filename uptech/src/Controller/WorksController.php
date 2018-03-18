@@ -128,22 +128,6 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
-//        $work = $this->Works->get($id, [
-//            'contain' => []
-//        ]);
-//        if ($this->request->is(['patch', 'post', 'put'])) {
-//            $work = $this->Works->patchEntity($work, $this->request->getData());
-//            if ($this->Works->save($work)) {
-//                $this->Flash->success(__('The work has been saved.'));
-//
-//                return $this->redirect(['action' => 'index']);
-//            }
-//            $this->Flash->error(__('The work could not be saved. Please, try again.'));
-//        }
-//        $users = $this->Works->Users->find('list', ['limit' => 200]);
-//        $projects = $this->Works->Projects->find('list', ['limit' => 200]);
-//        $this->set(compact('work', 'users', 'projects'));
-//        $this->set('_serialize', ['work']);
     }
 
     public function addLeave()
@@ -232,7 +216,6 @@ class WorksController extends AppController
         // 日付記入
         $sheet->setCellValue('A1', $data['date_y']);
         $sheet->setCellValue('G1', ltrim($data['date_m'], "0"));
-
         // 稼働データ記入
         for ($i = 0; $i < 31; $i++) {
             $work = null;

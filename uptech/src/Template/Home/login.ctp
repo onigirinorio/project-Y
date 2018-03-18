@@ -19,7 +19,7 @@
         ?>
         <button type="submit" class="btn btn-primary btn-block btn-large">ログイン</button>
     <?= $this->Form->end() ?>
-    <?= $this->Html->link('新規登録', ['controller' => 'users', 'action' => 'add']) ?>
+    <?php // echo $this->Html->link('新規登録', ['controller' => 'users', 'action' => 'add']) ?>
 </div>
 
 
