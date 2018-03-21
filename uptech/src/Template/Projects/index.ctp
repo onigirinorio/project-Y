@@ -11,8 +11,8 @@
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('shop_name', '店舗名') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('client_id', 'クライアント名') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('shop_name', '店舗') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('client_id', 'クライアント') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('payment_status', '支払い区分') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('price', '金額') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
@@ -51,12 +51,11 @@
 
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('最初へ')) ?>
+            <?= $this->Paginator->prev('< ' . __('前へ')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('次へ') . ' >') ?>
+            <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
 </div>

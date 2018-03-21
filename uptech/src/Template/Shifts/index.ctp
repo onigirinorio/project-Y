@@ -10,7 +10,7 @@
         <thead>
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('date', '日付') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー名') ?></th>
+                <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('attend', '出勤時間') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('clock', '退勤時間') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('holiday_flag', '休日フラグ') ?></th>
@@ -41,14 +41,11 @@
     </table>
     <div class="paginator">
         <ul class="pagination">
-            <?= $this->Paginator->first('<< ' . __('first')) ?>
-            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->first('<< ' . __('最初へ')) ?>
+            <?= $this->Paginator->prev('< ' . __('前へ')) ?>
             <?= $this->Paginator->numbers() ?>
-            <?= $this->Paginator->next(__('next') . ' >') ?>
-            <?= $this->Paginator->last(__('last') . ' >>') ?>
+            <?= $this->Paginator->next(__('次へ') . ' >') ?>
+            <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
-        <p><?= $this->Paginator->counter(['format' => __('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')]) ?></p>
     </div>
-
-
 </div>
