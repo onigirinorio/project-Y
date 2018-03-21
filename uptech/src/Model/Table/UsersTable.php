@@ -57,11 +57,11 @@ class UsersTable extends Table
 
         $validator
             ->scalar('name')
-            ->notEmpty('name', '名前を入力してください。');
+            ->notEmpty('name', 'ユーザー名を入力してください。');
 
         $validator
             ->scalar('name_kana')
-            ->notEmpty('name_kana', '名前(かな)を入力してください。');
+            ->notEmpty('name_kana', 'ユーザー名(カナ)を入力してください。');
         $validator
             ->scalar('password')
             ->notEmpty('password', 'パスワードを入力してください。')

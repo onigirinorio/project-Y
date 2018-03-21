@@ -11,7 +11,6 @@
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('クライアント') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('電話') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('郵便番号') ?></th>
@@ -23,7 +22,6 @@
             <tbody>
                 <?php foreach ($clients as $client): ?>
                 <tr>
-                    <td><?= $this->Number->format($client->id) ?></td>
                     <td><?= h($client->client_name) ?></td>
                     <td><?= h($client->tell) ?></td>
                     <td><?= $this->Display->zip_code(h($client->zip_code)) ?></td>

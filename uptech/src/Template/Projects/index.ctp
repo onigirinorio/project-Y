@@ -10,7 +10,6 @@
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('shop_name', '店舗') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('client_id', 'クライアント') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('payment_status', '支払い区分') ?></th>
@@ -22,7 +21,6 @@
             <tbody>
                 <?php foreach ($projects as $project): ?>
                     <tr>
-                        <td><?= $this->Number->format($project->id) ?></td>
                         <td><?= h($project->shop_name) ?></td>
                         <td><?= h($project->client->client_name) ?></td>
                         <td>

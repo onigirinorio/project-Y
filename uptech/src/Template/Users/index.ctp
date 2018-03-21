@@ -10,9 +10,8 @@
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('id') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('name','名前') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('name_kana','カナ') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('name','ユーザー名') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('name_kana','ユーザー名(カナ)') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('email','メールアドレス') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('tell','電話番号') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('gendar','性別') ?></th>
@@ -27,7 +26,6 @@
             <tbody>
                 <?php foreach ($users as $user): ?>
                 <tr>
-                    <td><?= $this->Number->format($user->id) ?></td>
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->name_kana) ?></td>
                     <td><?= h($user->email) ?></td>
