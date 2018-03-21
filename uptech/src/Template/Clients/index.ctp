@@ -26,7 +26,7 @@
                     <td><?= $this->Number->format($client->id) ?></td>
                     <td><?= h($client->client_name) ?></td>
                     <td><?= h($client->tell) ?></td>
-                    <td><?= $this->Number->format($client->zip_code) ?></td>
+                    <td><?= $this->Display->zip_code(h($client->zip_code)) ?></td>
                     <td><?= h($client->pref) ?></td>
                     <td><?= h($client->address) ?></td>
                     <td class="actions">

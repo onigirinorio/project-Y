@@ -13,6 +13,8 @@ use App\Controller\AppController;
 class ClientsController extends AppController
 {
 
+    public $helpers = ['Display'];
+
     public function initialize()
     {
         parent::initialize();
