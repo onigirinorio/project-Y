@@ -8,6 +8,12 @@
     <fieldset>
         <legend><?= __('案件登録') ?></legend>
         <?php
+            echo $this->Form->control('shop_name',
+                [
+                    'label' => '店舗名',
+                    'class' =>'form-control'
+                ]
+            );
             echo $this->Form->control('client_id',
                 [
                     'label' => 'クライアント名',
@@ -37,12 +43,6 @@
                     'options' => IN_MINUTES,
                     'class' =>'form-control',
                     'default' => 2
-                ]
-            );
-            echo $this->Form->control('shop_name',
-                [
-                    'label' => '店舗名',
-                    'class' =>'form-control'
                 ]
             );
             echo $this->Form->control('start_date',

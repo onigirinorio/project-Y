@@ -16,13 +16,19 @@
                     <th scope="col"><?= $this->Paginator->sort('price', '金額') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
+                    <th scope="col" class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($projects as $project): ?>
                     <tr>
                         <td><?= h($project->shop_name) ?></td>
-                        <td><?= h($project->client->client_name) ?></td>
+                        <td>
+                            <?= $project->has('client') ? $this->Html->link(h($project->client->client_name), [
+                                'controller' => 'Clients',
+                                'action' => 'edit',
+                                $project->client->id]) : '' ?>
+                        </td>
                         <td>
                             <?php if($project->payment_status==0): ?>
                             月給
