@@ -10,16 +10,11 @@
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('name','ユーザー名') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('name_kana','ユーザー名(カナ)') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('email','メールアドレス') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('tell','電話番号') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('name','名前') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('name_kana','名前(カナ)') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('gendar','性別') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('birth','生年月日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('zip_code','郵便番号') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('pref','都道府県') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('address','都道府県以降') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('work_id') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
                     <th scope="col" class="actions"><?= __('Actions') ?></th>
                 </tr>
             </thead>
@@ -28,8 +23,6 @@
                 <tr>
                     <td><?= h($user->name) ?></td>
                     <td><?= h($user->name_kana) ?></td>
-                    <td><?= h($user->email) ?></td>
-                    <td><?= h($user->tell) ?></td>
                     <td>
                         <?php if($user->gender === 0 || empty($user->gender)):?>
                             <?= '男' ?>
@@ -38,12 +31,8 @@
                         <?php endif ?>
                     </td>
                     <td><?= h($user->birth) ?></td>
-                    <td><?= substr_replace(h($user->zip_code),'-',3,0) ?></td>
-                    <td><?= h($user->pref) ?></td>
-                    <td><?= h($user->address) ?></td>
-                    <td><?= $user->has('work') ? $this->Html->link($user->work->id, ['controller' => 'Works', 'action' => 'view', $user->work->id]) : '' ?></td>
+                    <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'edit', $user->project->id]) : '' ?></td>
                     <td class="actions">
-<!--                        --><?//= $this->Html->link(__('View'), ['action' => 'view', $user->id]) ?>
                         <?= $this->Html->link(__('編集'), ['action' => 'edit', $user->id]) ?>
                         <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->id], ['confirm' => __('ユーザーを削除します。よろしいですか？ # {0}?', $user->id)]) ?>
                     </td>

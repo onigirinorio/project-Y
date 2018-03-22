@@ -9,17 +9,17 @@
         ['class' => 'form-horizontal']
     ) ?>
     <fieldset>
-        <legend><?= __('クライアント追加') ?></legend>
+        <legend><?= __('クライアント登録') ?></legend>
         <?php
             echo $this->Form->control('client_name',
                 [
-                    'label' => '名前',
+                    'label' => 'クライアント名',
                     'class' => 'form-control',
                 ]
             );
             echo $this->Form->control('tell',
                 [
-                    'label' => '電話',
+                    'label' => '電話番号',
                     'class' => 'form-control',
                 ]
             );

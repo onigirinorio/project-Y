@@ -40,7 +40,7 @@ class UsersController extends AppController
     {
         $this->userIsAdmin();
         $this->paginate = array(
-            "contain" => array("Works"),
+            "contain" => array("Projects"),
             'conditions' => array('Users.delete_flg = 0'),
             'limit' => 15,
         );

@@ -16,7 +16,7 @@
         );
         echo $this->Form->control('name_kana',
             [
-                'label' => '名前（カナ）',
+                'label' => '名前(カナ)',
                 'class' => 'form-control'
             ]
         );

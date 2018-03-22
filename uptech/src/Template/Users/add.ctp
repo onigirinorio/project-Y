@@ -9,7 +9,7 @@ echo $this->Html->css('Users/add', ['block' => true]);
 <div class="container">
     <?= $this->Form->create($user,['class' => 'form-horizontal']) ?>
     <fieldset>
-        <legend><?= __('新規登録') ?></legend>
+        <legend><?= __('ユーザー登録') ?></legend>
         <?php
             echo $this->Form->control('name',
                 [
@@ -19,7 +19,7 @@ echo $this->Html->css('Users/add', ['block' => true]);
             );
             echo $this->Form->control('name_kana',
                 [
-                    'label' => '名前（カナ）',
+                    'label' => '名前(カナ)',
                     'class' => 'form-control'
                 ]
             );

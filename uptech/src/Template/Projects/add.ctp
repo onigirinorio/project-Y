@@ -6,7 +6,7 @@
 <div class="projects form large-9 medium-8 columns content">
     <?= $this->Form->create($project) ?>
     <fieldset>
-        <legend><?= __('案件追加') ?></legend>
+        <legend><?= __('案件登録') ?></legend>
         <?php
             echo $this->Form->control('client_id',
                 [

@@ -60,8 +60,8 @@ $title = '勤怠管理ツール';
                             <span class="caret"></span>
                         </a>
                         <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><?= $this->Html->link(__('一覧'), ['controller'=>'Users','action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('新規追加'), ['controller'=>'Users','action' => 'add']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('ユーザー一覧'), ['controller'=>'Users','action' => 'index']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('ユーザー登録'), ['controller'=>'Users','action' => 'add']) ?></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -71,7 +71,7 @@ $title = '勤怠管理ツール';
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><?= $this->Html->link(__('案件一覧'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('新規案件'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('案件登録'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
                     <li class="dropdown">
@@ -81,7 +81,7 @@ $title = '勤怠管理ツール';
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><?= $this->Html->link(__('クライアント一覧'), ['controller' => 'Clients', 'action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('クライアント追加'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('クライアント登録'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
                         </ul>
                     </li>
                     <?php endif ?>
@@ -92,7 +92,7 @@ $title = '勤怠管理ツール';
                       </a>
                       <ul class="dropdown-menu" role="menu">
                         <li role="presentation"><?= $this->Html->link(__('シフト一覧'), ['controller' => 'Shifts', 'action' => 'index']) ?></li>
-                        <li role="presentation"><?= $this->Html->link(__('シフト追加'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
+                        <li role="presentation"><?= $this->Html->link(__('シフト登録'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
                       </ul>
                     </li>
                     <li class="dropdown">
@@ -103,7 +103,7 @@ $title = '勤怠管理ツール';
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><?= $this->Html->link(__('出退勤一覧'), ['controller' => 'Works', 'action' => 'index']) ?></li>
                             <?php if($admin_flg === false): ?>
-                                <li role="presentation"><?= $this->Html->link(__('出退勤追加'), ['controller' => 'Works', 'action' => 'add']) ?></li>
+                                <li role="presentation"><?= $this->Html->link(__('出退勤登録'), ['controller' => 'Works', 'action' => 'add']) ?></li>
                             <?php endif; ?>
                         </ul>
                     </li>

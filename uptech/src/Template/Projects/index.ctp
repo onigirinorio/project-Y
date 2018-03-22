@@ -12,7 +12,7 @@
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('shop_name', '店舗') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('client_id', 'クライアント') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('payment_status', '支払い区分') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('payment_status', '支払区分') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('price', '金額') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('end_date', '終了日') ?></th>

@@ -12,7 +12,7 @@
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('クライアント') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('電話') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('電話番号') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('郵便番号') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('都道府県') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('都道府県以降') ?></th>
