@@ -61,7 +61,8 @@ class AppController extends Controller
                     'userModel' => 'Users',
                     'fields' => ['username' => 'email', 'password' => 'password']
                 ]
-            ]
+            ],
+            'authError' => __('')
         ]);
 
         // ログイン判定

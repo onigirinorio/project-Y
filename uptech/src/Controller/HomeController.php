@@ -28,6 +28,12 @@ use PhpParser\Builder\Class_;
 
 class HomeController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+        $this->Auth->allow('login');
+    }
+
     /**
      * Index method
      *
