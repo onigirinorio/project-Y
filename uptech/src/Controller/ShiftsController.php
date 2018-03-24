@@ -12,6 +12,10 @@ use App\Controller\AppController;
  */
 class ShiftsController extends AppController
 {
+    public function initialize()
+    {
+        parent::initialize();
+    }
 
     /**
      * Index method
