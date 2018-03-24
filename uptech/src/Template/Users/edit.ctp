@@ -6,33 +6,46 @@
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>
     <fieldset>
-        <legend><?= __('編集') ?></legend>
+        <legend><?= __('ユーザー編集') ?></legend>
+        <div class="form_wrapper"></div>
         <?php
         echo $this->Form->control('name',
             [
-                'label' => '名前',
-                'class' => 'form-control',
+                'label' => [
+                    'text' => '名前',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         echo $this->Form->control('name_kana',
             [
-                'label' => '名前(カナ)',
-                'class' => 'form-control'
+                'label' => [
+                    'text' => '名前(カナ)',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         echo $this->Form->control('email',
             [
-                'label' => 'メールアドレス',
-                'class' => 'form-control'
+                'label' => [
+                    'text' => 'メールアドレス',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         echo $this->Form->control('tell',
             [
-                'label' => '電話番号',
-                'class' => 'form-control'
+                'label' => [
+                    'text' => '電話番号',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
-        echo '<div class="form-group"><label class="mg-r-10">性別</label></br><div class="btn-group" data-toggle="buttons">';
+        echo '<div class="form-group"><label class="col-md-2 col-sm-2 col-xs-12 form_label">性別</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio" data-toggle="buttons">';
         if(empty($user->gender)){
             $val = 0;
         }else {
@@ -45,46 +58,63 @@
             );
         }
         echo '</div></div>';
+
+        echo '<div class="form-group"><label class="col-md-2 col-sm-2 col-xs-12 form_label">生年月日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
         echo $this->Form->control('birth',
             [
-                'label' => '生年月日',
+                'label' => false,
                 'empty' => false,
                 'monthNames' => false,
                 'maxYear' => date('Y'),
                 'minYear' => date('Y') - 40,
-                'class' => 'form-control'
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+                'style' => 'margin-bottom: 20px;height:34px;',
             ]
         );
+        echo '</div></div>';
+
         echo $this->Form->control('zip_code',
             [
-                'label' => '郵便番号',
-                'class' => 'form-control'
+                'label' => [
+                    'text' => '郵便番号',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         echo $this->Form->control('pref',
             [
-                'label' =>'都道府県',
+                'label' => [
+                    'text' => '都道府県',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
                 'type' => 'select',
                 'options' => PREF,
-                'class' => 'form-control'
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         echo $this->Form->control('address',
             [
-                'label' => '都道府県以降',
-                'class' => 'form-control'
+                'label' => [
+                    'text' => '都道府県以降',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         echo $this->Form->control('project_id',
             [
-                'label' => 'プロジェクト',
+                'label' => [
+                    'text' => 'プロジェクト',
+                    'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+                ],
                 'type' => 'select',
                 'options' => $project_list,
-                'class' => 'form-control'
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             ]
         );
         ?>
     </fieldset>
-    <?= $this->Form->button('Submit',['class' => 'btn btn-default']) ?>
+    <?= $this->Form->button('Submit',['class' => 'btn btn-primary submit_btn']) ?>
     <?= $this->Form->end() ?>
 </div>

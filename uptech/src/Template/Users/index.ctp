@@ -15,7 +15,7 @@
                     <th scope="col"><?= $this->Paginator->sort('gendar','性別') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('birth','生年月日') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
-                    <th scope="col" class="actions"><?= __('Actions') ?></th>
+                    <th scope="col" class="actions"><?= __('詳細') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -31,10 +31,9 @@
                         <?php endif ?>
                     </td>
                     <td><?= h($user->birth) ?></td>
-                    <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'edit', $user->project->id]) : '' ?></td>
+                    <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'view', $user->project->id]) : '' ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('編集'), ['action' => 'edit', $user->id]) ?>
-                        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->id], ['confirm' => __('ユーザーを削除します。よろしいですか？ # {0}?', $user->id)]) ?>
+                        <?= $this->Html->link(__('詳細'), ['action' => 'view', $user->id]) ?>
                     </td>
                 </tr>
                 <?php endforeach; ?>
