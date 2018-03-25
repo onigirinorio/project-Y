@@ -56,16 +56,20 @@ class ProjectsTable extends Table
             ->allowEmpty('id', 'create');
 
         $validator
+            ->integer('client_id')
+            ->notEmpty('client_id', 'クライアントを選択してください。');
+
+        $validator
             ->boolean('payment_status')
-            ->allowEmpty('payment_status');
+            ->notEmpty('payment_status', '支払区分を選択してください。');
 
         $validator
             ->integer('price')
-            ->allowEmpty('price');
+            ->notEmpty('price', '金額を入力してください。');
 
         $validator
             ->scalar('shop_name')
-            ->allowEmpty('shop_name');
+            ->notEmpty('shop_name', '店舗名を入力してください。');
 
         $validator
             ->date('start_date')

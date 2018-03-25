@@ -56,15 +56,15 @@ class ShiftsTable extends Table
 
         $validator
             ->date('date')
-            ->allowEmpty('date');
+            ->notEmpty('date', '日付を入力してください。');
 
         $validator
             ->time('attend')
-            ->allowEmpty('attend');
+            ->allowEmpty('attend', '出勤時間を入力してください。');
 
         $validator
             ->time('clock')
-            ->allowEmpty('clock');
+            ->allowEmpty('clock', '退勤時間を入力してください。');
 
         $validator
             ->boolean('holiday_flag')

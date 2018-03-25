@@ -61,15 +61,15 @@ class WorksTable extends Table
 
         $validator
             ->time('attend_time')
-            ->allowEmpty('attend_time');
+            ->notEmpty('attend_time', '出勤時間を入力してください。');
 
         $validator
             ->time('leave_time')
-            ->allowEmpty('leave_time');
+            ->notEmpty('leave_time', '退勤時間を入力してください。');
 
         $validator
             ->time('break_time')
-            ->allowEmpty('break_time');
+            ->notEmpty('break_time', '休憩時間を入力してください。');
 
         $validator
             ->time('overtime')
