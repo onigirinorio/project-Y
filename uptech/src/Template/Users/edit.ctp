@@ -115,6 +115,8 @@
         );
         ?>
     </fieldset>
-    <?= $this->Form->button('Submit',['class' => 'btn btn-primary submit_btn']) ?>
+    <div class="btn_area">
+        <?= $this->Form->button('登録',['class' => 'btn btn-primary submit_btn']) ?>
+    </div>
     <?= $this->Form->end() ?>
 </div>

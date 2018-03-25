@@ -30,7 +30,7 @@
 
         <div class="view_row_wrapper clearfix">
             <div class="col-md-2 col-sm-2 col-xs-12 form_label">性別</div>
-            <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= GENDER[$user->tell] ?></div>
+            <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= GENDER[$user->gender] ?></div>
         </div>
 
         <div class="view_row_wrapper clearfix">

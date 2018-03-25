@@ -94,6 +94,10 @@ div.input, select.input {
     border-bottom: 1px solid #333333;
 }
 
+.btn_area {
+    margin-bottom: 20px;
+}
+
 @media (max-width: 767px) {
     .submit_btn {
         width: 100%;
