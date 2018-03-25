@@ -88,7 +88,6 @@ echo '</div>';
 echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">交通費有無</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
 echo $this->Form->control('expense_status',
     [
-        'type' => 'checkbox',
         'label' => false,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_checkbox',
         'style' => 'margin-bottom: 20px;',
