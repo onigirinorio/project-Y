@@ -11,9 +11,9 @@
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('name','名前') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('name_kana','名前(カナ)') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('gendar','性別') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('birth','生年月日') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('name_kana','名前(カナ)') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('gendar','性別') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('birth','生年月日') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
                     <th scope="col" class="actions"><?= __('詳細') ?></th>
                 </tr>
@@ -22,15 +22,15 @@
                 <?php foreach ($users as $user): ?>
                 <tr>
                     <td><?= h($user->name) ?></td>
-                    <td><?= h($user->name_kana) ?></td>
-                    <td>
+                    <td class="hidden-xs"><?= h($user->name_kana) ?></td>
+                    <td class="hidden-xs">
                         <?php if($user->gender === 0 || empty($user->gender)):?>
                             <?= '男' ?>
                         <?php else : ?>
                             <?= '女' ?>
                         <?php endif ?>
                     </td>
-                    <td><?= h($user->birth) ?></td>
+                    <td class="hidden-xs"><?= h($user->birth) ?></td>
                     <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'view', $user->project->id]) : '' ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('詳細'), ['action' => 'view', $user->id]) ?>
