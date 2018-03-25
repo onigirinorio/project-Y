@@ -4,7 +4,7 @@
  */
 ?>
 <div class="users form large-9 medium-8 columns content">
-    <h3 class="legend_responsive"><?= __('ユーザー詳細') ?></h3>
+    <h3 class="h3_responsive"><?= __('ユーザー詳細') ?></h3>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">名前</div>

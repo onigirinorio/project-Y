@@ -45,7 +45,7 @@ echo $this->Form->control('tell',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">性別</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio" data-toggle="buttons">';
+echo '<div class="form-group"><label class="col-md-2 col-sm-2 col-xs-12 form_label">性別</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio" data-toggle="buttons">';
 if (empty($user->gender)) {
     $val = 0;
 } else {
@@ -57,9 +57,9 @@ foreach (GENDER as $key => $gender) {
         , ['value' => $val]
     );
 }
-echo '</div>';
+echo '</div></div>';
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">生年月日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<div class="form-group"><label class="col-md-2 col-sm-2 col-xs-12 form_label">生年月日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
 echo $this->Form->control('birth',
     [
         'label' => false,
@@ -71,7 +71,7 @@ echo $this->Form->control('birth',
         'style' => 'margin-bottom: 20px;height:34px;',
     ]
 );
-echo '</div>';
+echo '</div></div>';
 
 echo $this->Form->control('zip_code',
     [
@@ -115,3 +115,4 @@ echo $this->Form->control('project_id',
         'default' => 'empty'
     ]
 );
+?>

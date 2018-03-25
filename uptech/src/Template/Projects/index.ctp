@@ -4,19 +4,18 @@
   * @var \App\Model\Entity\Project[]|\Cake\Collection\CollectionInterface $projects
   */
 ?>
-<div class="container">
-    <h3><?= __('案件一覧') ?></h3>
+    <h3 class="h3_responsive"><?= __('案件一覧') ?></h3>
     <div class="table-responsive">
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
                 <tr>
                     <th scope="col"><?= $this->Paginator->sort('shop_name', '店舗') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('client_id', 'クライアント') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('payment_status', '支払区分') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('price', '金額') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
-                    <th scope="col"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
-                    <th scope="col" class="actions"><?= __('Actions') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('payment_status', '支払区分') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('price', '金額') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
+                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
+                    <th scope="col" class="actions"><?= __('詳細') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -26,10 +25,10 @@
                         <td>
                             <?= $project->has('client') ? $this->Html->link(h($project->client->client_name), [
                                 'controller' => 'Clients',
-                                'action' => 'edit',
+                                'action' => 'view',
                                 $project->client->id]) : '' ?>
                         </td>
-                        <td>
+                        <td class="hidden-xs">
                             <?php if($project->payment_status==0): ?>
                             月給
                             <?php elseif($project->payment_status==1): ?>
@@ -40,12 +39,11 @@
                             その他
                             <?php endif; ?>
                         </td>
-                        <td><?= number_format($project->price) ?>円</td>
-                        <td><?= date('Y/m/d', strtotime($project->start_date)) ?></td>
-                        <td><?= date('Y/m/d', strtotime($project->end_date)) ?></td>
+                        <td class="hidden-xs"><?= number_format($project->price) ?>円</td>
+                        <td class="hidden-xs"><?= date('Y/m/d', strtotime($project->start_date)) ?></td>
+                        <td class="hidden-xs"><?= date('Y/m/d', strtotime($project->end_date)) ?></td>
                         <td class="actions">
-                          <?= $this->Html->link(__('詳細'), ['action' => 'edit', $project->id]) ?>
-                          <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $project->id],['confirm' => __('プロジェクト{0}を削除してもよろしいですか？', $project->id)]) ?>
+                          <?= $this->Html->link(__('詳細'), ['action' => 'view', $project->id]) ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -62,4 +60,3 @@
             <?= $this->Paginator->last(__('最後へ') . ' >>') ?>
         </ul>
     </div>
-</div>

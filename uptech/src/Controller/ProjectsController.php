@@ -25,7 +25,6 @@ class ProjectsController extends AppController
         }
     }
 
-
     /**
      * Index method
      *
@@ -43,6 +42,24 @@ class ProjectsController extends AppController
 
         $this->set(compact('projects'));
         $this->set('_serialize', ['projects']);
+    }
+
+
+    /**
+     * View method
+     *
+     * @param string|null $id Client id.
+     * @return \Cake\Http\Response|void
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function view($id = null)
+    {
+        $project = $this->Projects->get($id, [
+            'contain' => ['Clients']
+        ]);
+
+        $this->set('project', $project);
+        $this->set('_serialize', ['project']);
     }
 
     /**
@@ -85,7 +102,7 @@ class ProjectsController extends AppController
     public function edit($id = null)
     {
         $project = $this->Projects->get($id, [
-            'contain' => []
+            'contain' => ['Clients']
         ]);
 
         $clientList = $this->Clients->find('list', array(

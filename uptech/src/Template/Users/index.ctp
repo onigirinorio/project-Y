@@ -4,7 +4,7 @@
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
 ?>
-<h3 class="legend_responsive"><?= __('ユーザー一覧') ?></h3>
+<h3 class="h3_responsive"><?= __('ユーザー一覧') ?></h3>
 <div class="table-responsive">
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>
