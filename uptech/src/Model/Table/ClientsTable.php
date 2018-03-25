@@ -58,23 +58,23 @@ class ClientsTable extends Table
         $validator
             ->scalar('client_name')
             ->requirePresence('client_name', 'create')
-            ->notEmpty('client_name');
+            ->notEmpty('client_name', 'クライアント名を入力してください。');
 
         $validator
-            ->scalar('tell')
-            ->allowEmpty('tell');
+            ->integer('tell')
+            ->notEmpty('tell', '電話番号を入力してください。');
 
         $validator
             ->integer('zip_code')
-            ->allowEmpty('zip_code');
+            ->notEmpty('zip_code', '郵便番号を入力してください。');
 
         $validator
             ->scalar('pref')
-            ->allowEmpty('pref');
+            ->notEmpty('pref', '都道府県を入力してください。');
 
         $validator
             ->scalar('address')
-            ->allowEmpty('address');
+            ->notEmpty('address', '住所を入力してください。');
 
         return $validator;
     }

@@ -15,6 +15,7 @@ echo $this->Form->control('tell',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'type' => 'number'
     ]
 );
 echo $this->Form->control('zip_code',
@@ -50,4 +51,3 @@ echo $this->Form->control('address',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );
-
