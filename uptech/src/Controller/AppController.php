@@ -49,12 +49,12 @@ class AppController extends Controller
         //ログイン認証の設定
         $this->loadComponent('Auth', [
             'loginAction' => [
-                'controller' => 'Home',
+                'controller' => '/',
                 'action' => 'login',
             ],
             'loginRedirect' => [
-                'controller' => 'Home',
-                'action' => 'top'
+                'controller' => '/',
+                'action' => '' //top
             ],
             'authenticate' => [
                 'Form' => [
