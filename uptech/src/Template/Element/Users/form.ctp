@@ -17,6 +17,16 @@ echo $this->Form->control('name_kana',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );
+echo $this->Form->control('password',
+    [
+        'label' => [
+            'text' => 'パスワード',
+            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+        ],
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input'
+    ]
+);
+
 echo $this->Form->control('email',
     [
         'label' => [
