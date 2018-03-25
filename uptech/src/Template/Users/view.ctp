@@ -53,7 +53,8 @@
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">プロジェクト</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->project->shop_name ?></div>
+        <div
+            class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->has('project') ? $user->project->shop_name : '' ?></div>
     </div>
 
     <div class="btn_area">
