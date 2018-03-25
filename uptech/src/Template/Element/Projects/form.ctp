@@ -90,7 +90,7 @@ echo $this->Form->control('expense_status',
     [
         'type' => 'checkbox',
         'label' => false,
-        'class' => 'col-md-10 col-sm-10 col-xs-12',
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_checkbox',
         'style' => 'margin-bottom: 20px;',
     ]
 );
