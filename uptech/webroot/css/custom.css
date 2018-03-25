@@ -74,10 +74,14 @@ div.input, select.input {
     display: block;
     height: 34px;
     padding: 6px 12px;
-    margin-bottom: 20px;
     font-size: 14px;
     line-height: 1.42857143;
     color: #555;
+}
+
+.view_row_wrapper {
+    border-bottom:1px solid #e5e5e5;
+    margin-bottom: 20px;
 }
 
 .search_works_area {
