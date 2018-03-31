@@ -1,56 +1,52 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\Work $work
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Work'), ['action' => 'edit', $work->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Work'), ['action' => 'delete', $work->id], ['confirm' => __('Are you sure you want to delete # {0}?', $work->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Works'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Work'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Projects'), ['controller' => 'Projects', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Project'), ['controller' => 'Projects', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="works view large-9 medium-8 columns content">
-    <h3><?= h($work->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $work->has('user') ? $this->Html->link($work->user->name, ['controller' => 'Users', 'action' => 'view', $work->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Project') ?></th>
-            <td><?= $work->has('project') ? $this->Html->link($work->project->id, ['controller' => 'Projects', 'action' => 'view', $work->project->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($work->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Attend Time') ?></th>
-            <td><?= h($work->attend_time) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Leave Time') ?></th>
-            <td><?= h($work->leave_time) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Break Time') ?></th>
-            <td><?= h($work->break_time) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Overtime') ?></th>
-            <td><?= h($work->overtime) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Create At') ?></th>
-            <td><?= h($work->create_at) ?></td>
-        </tr>
-    </table>
+<div class="users form large-9 medium-8 columns content">
+    <h3 class="h3_responsive"><?= __('勤怠詳細') ?></h3>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">日付</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('Y/m/d', strtotime($work->create_at)) ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">ユーザー</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $work->user->name ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">プロジェクト</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $work->project->shop_name ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i',strtotime($work->attend_time)) ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i',strtotime($work->leave_time)) ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">休憩時間</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i',strtotime($work->break_time)) ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">残業時間</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i',strtotime($work->overtime)) ?></div>
+    </div>
+
+    <?php if ($admin_flg): ?>
+    <div class="btn_area">
+        <?= $this->Html->link(__('編集'), ['action' => 'edit', $work->id], ['class' => 'btn btn-success edit_delete_btn']) ?>
+        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $work->id], ['class' => 'btn btn-danger edit_delete_btn', 'confirm' => __('勤怠データ１件を削除します。よろしいですか？')]) ?>
+    </div>
+    <?php endif; ?>
+
 </div>
+

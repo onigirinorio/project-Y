@@ -104,7 +104,7 @@ class ShiftsController extends AppController
     public function edit($id = null)
     {
         $shift = $this->Shifts->get($id, [
-            'contain' => []
+            'contain' => ['Users']
         ]);
           $update_at = date('Y-m-d H:i:s');
           //更新者に仮の値を代入 (あとで変更)

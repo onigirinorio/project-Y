@@ -1,62 +1,42 @@
 <?php
 /**
-  * @var \App\View\AppView $this
-  * @var \App\Model\Entity\Shift $shift
-  */
+ * @var \App\View\AppView $this
+ */
 ?>
-<nav class="large-3 medium-4 columns" id="actions-sidebar">
-    <ul class="side-nav">
-        <li class="heading"><?= __('Actions') ?></li>
-        <li><?= $this->Html->link(__('Edit Shift'), ['action' => 'edit', $shift->id]) ?> </li>
-        <li><?= $this->Form->postLink(__('Delete Shift'), ['action' => 'delete', $shift->id], ['confirm' => __('Are you sure you want to delete # {0}?', $shift->id)]) ?> </li>
-        <li><?= $this->Html->link(__('List Shifts'), ['action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New Shift'), ['action' => 'add']) ?> </li>
-        <li><?= $this->Html->link(__('List Users'), ['controller' => 'Users', 'action' => 'index']) ?> </li>
-        <li><?= $this->Html->link(__('New User'), ['controller' => 'Users', 'action' => 'add']) ?> </li>
-    </ul>
-</nav>
-<div class="shifts view large-9 medium-8 columns content">
-    <h3><?= h($shift->id) ?></h3>
-    <table class="vertical-table">
-        <tr>
-            <th scope="row"><?= __('User') ?></th>
-            <td><?= $shift->has('user') ? $this->Html->link($shift->user->name, ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Create User') ?></th>
-            <td><?= h($shift->create_user) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Update User') ?></th>
-            <td><?= h($shift->update_user) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Id') ?></th>
-            <td><?= $this->Number->format($shift->id) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Date') ?></th>
-            <td><?= h($shift->date) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Attend') ?></th>
-            <td><?= h($shift->attend) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Clock') ?></th>
-            <td><?= h($shift->clock) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Create At') ?></th>
-            <td><?= h($shift->create_at) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Upteda At') ?></th>
-            <td><?= h($shift->upteda_at) ?></td>
-        </tr>
-        <tr>
-            <th scope="row"><?= __('Holiday Flag') ?></th>
-            <td><?= $shift->holiday_flag ? __('Yes') : __('No'); ?></td>
-        </tr>
-    </table>
+<div class="shifts form large-9 medium-8 columns content">
+    <h3 class="h3_responsive"><?= __('シフト詳細') ?></h3>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">名前</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->user->name ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">日付</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->date ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->attend ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->clock ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">休日出勤フラグ</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->holiday_flag ?></div>
+    </div>
+
+    <div class="btn_area">
+        <?= $this->Html->link(__('編集'), ['action' => 'edit', $shift->id], ['class' => 'btn btn-success edit_delete_btn']) ?>
+        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $shift->id], ['class' => 'btn btn-danger edit_delete_btn', 'confirm' => __('{0}のシフトを削除します。よろしいですか？', $shift->date)]) ?>
+    </div>
+
 </div>
+
+
+

@@ -71,10 +71,12 @@ class AppController extends Controller
         $user_name = $this->Auth->user('name');
         $user_id = $this->Auth->user('id');
         // 管理者フラグをセット
+        $admin_flg = $this->isAdmin();
 
         $this->isAdmin();
         $this->set('user_name',$user_name);
         $this->set('user_id',$user_id);
+        $this->set('admin_flg', $admin_flg);
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html

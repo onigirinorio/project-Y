@@ -69,6 +69,7 @@ echo $this->Form->control('birth',
         'minYear' => date('Y') - 40,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
         'style' => 'margin-bottom: 20px;height:34px;',
+        'default' => date('2000-1-1'),
     ]
 );
 echo '</div>';

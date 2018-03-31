@@ -59,7 +59,7 @@
 
     <div class="btn_area">
         <?= $this->Html->link(__('編集'), ['action' => 'edit', $user->id], ['class' => 'btn btn-success edit_delete_btn']) ?>
-        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->id], ['class' => 'btn btn-danger edit_delete_btn', 'confirm' => __('ユーザーを削除します。よろしいですか？ # {0}?', $user->id)]) ?>
+        <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->id], ['class' => 'btn btn-danger edit_delete_btn', 'confirm' => __('{0}を削除します。よろしいですか？', $user->name)]) ?>
     </div>
 
 </div>

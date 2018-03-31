@@ -1,118 +1,70 @@
 <?php
-echo $this->Form->control('name',
+
+/* ユーザーを変更できる必要ないのでラベルのみに
+echo $this->Form->control('user_id',
     [
         'label' => [
             'text' => '名前',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
+        'options' => $users,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );
-echo $this->Form->control('name_kana',
-    [
-        'label' => [
-            'text' => '名前(カナ)',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-    ]
-);
-echo $this->Form->control('password',
-    [
-        'label' => [
-            'text' => 'パスワード',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input'
-    ]
-);
+*/
 
-echo $this->Form->control('email',
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">名前</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo $shift->has('user') ? $shift->user->name : $user_name;
+echo $this->Form->hidden('user_id',
     [
-        'label' => [
-            'text' => 'メールアドレス',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'value' => $shift->has('user') ? $shift->user->user_id : $user_id,
     ]
 );
-echo $this->Form->control('tell',
-    [
-        'label' => [
-            'text' => '電話番号',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-    ]
-);
-echo '<div class="form-group"><label class="col-md-2 col-sm-2 col-xs-12 form_label">性別</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio" data-toggle="buttons">';
-if (empty($user->gender)) {
-    $val = 0;
-} else {
-    $val = 1;
-}
-foreach (GENDER as $key => $gender) {
-    echo $this->Form->radio('gender',
-        [$key => $gender]
-        , ['value' => $val]
-    );
-}
-echo '</div></div>';
+echo '</div>';
 
-echo '<div class="form-group"><label class="col-md-2 col-sm-2 col-xs-12 form_label">生年月日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
-echo $this->Form->control('birth',
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo $this->Form->control('date',
     [
         'label' => false,
         'empty' => false,
         'monthNames' => false,
-        'maxYear' => date('Y'),
-        'minYear' => date('Y') - 40,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
         'style' => 'margin-bottom: 20px;height:34px;',
+        'default' => date('Y-m-d', strtotime('+1 day'))
     ]
 );
-echo '</div></div>';
+echo '</div>';
 
-echo $this->Form->control('zip_code',
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo $this->Form->control('attend',
     [
-        'label' => [
-            'text' => '郵便番号',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
+        'label' => false,
+        'empty' => false,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'style' => 'margin-bottom: 20px;height:34px;',
+        'default' => '10:00',
     ]
 );
-echo $this->Form->control('pref',
+echo '</div>';
+
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo $this->Form->control('clock',
     [
-        'label' => [
-            'text' => '都道府県',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'type' => 'select',
-        'options' => PREF,
+        'label' => false,
+        'empty' => false,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'style' => 'margin-bottom: 20px;height:34px;',
+        'default' => '19:00'
     ]
 );
-echo $this->Form->control('address',
+echo '</div>';
+
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">休日出勤フラグ</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo $this->Form->control('holiday_flag',
     [
-        'label' => [
-            'text' => '都道府県以降',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'label' => false,
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_checkbox',
+        'style' => 'margin-bottom: 20px;',
     ]
 );
-echo $this->Form->control('project_id',
-    [
-        'label' => [
-            'text' => 'プロジェクト',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'type' => 'select',
-        'options' => $project_list,
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-        'empty' => true,
-        'default' => 'empty'
-    ]
-);
-?>
+echo '</div>';

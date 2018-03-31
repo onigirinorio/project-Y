@@ -11,10 +11,10 @@
             <tr>
                 <th scope="col"><?= $this->Paginator->sort('date', '日付') ?></th>
                 <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('attend', '出勤時間') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('clock', '退勤時間') ?></th>
-                <th scope="col"><?= $this->Paginator->sort('holiday_flag', '休日フラグ') ?></th>
-                <th scope="col" class="actions"><?= __('Actions') ?></th>
+                <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('attend', '出勤時間') ?></th>
+                <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('clock', '退勤時間') ?></th>
+                <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('holiday_flag', '休日フラグ') ?></th>
+                <th scope="col" class="actions"><?= __('詳細') ?></th>
             </tr>
         </thead>
         <tbody>
@@ -22,9 +22,9 @@
             <tr>
                 <td><?= h($shift->date) ?></td>
                 <td><?= $shift->has('user') ? $this->Html->link($shift->user->name, ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
-                <td><?= date('H:i', strtotime($shift->attend)) ?></td>
-                <td><?= date('H:i', strtotime($shift->clock)) ?></td>
-                <td>
+                <td class="hidden-xs"><?= date('H:i', strtotime($shift->attend)) ?></td>
+                <td class="hidden-xs"><?= date('H:i', strtotime($shift->clock)) ?></td>
+                <td class="hidden-xs">
                   <?php if($shift->holiday_flag == 0): ?>
                   なし
                   <?php else: ?>
@@ -32,8 +32,7 @@
                   <?php endif; ?>
                 </td>
                 <td class="actions">
-                    <?= $this->Html->link(__('詳細'), ['action' => 'edit', $shift->id]) ?>
-                    <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $shift->id], ['confirm' => __('シフト{0}を削除してもよろしいですか？?', $shift->id)]) ?>
+                    <?= $this->Html->link(__('詳細'), ['action' => 'view', $shift->id]) ?>
                 </td>
             </tr>
             <?php endforeach; ?>
