@@ -136,10 +136,22 @@ class WorksTable extends Table
         if (!empty($get_param['search_user_id'])) {
             $query->where(['Works.user_id' => $get_param['search_user_id']]);
         }
-        if (!empty($get_param['search_date'])) {
+
+        if (!empty($get_param['search_date']['year'])) {
             $query->where([
                 'YEAR(create_at)' => $get_param['search_date']['year'],
-                'MONTH(create_at)' => $get_param['search_date']['month']
+            ]);
+        }
+
+        if (!empty($get_param['search_date']['month'])) {
+            $query->where([
+                'MONTH(create_at)' => $get_param['search_date']['month'],
+            ]);
+        }
+
+        if (!empty($get_param['search_date']['day'])) {
+            $query->where([
+                'DAY(create_at)' => $get_param['search_date']['day'],
             ]);
         }
         return $query;

@@ -21,18 +21,27 @@
             <li>
                 <?= $this->Form->year('search_date',
                     [
-                        'default' => '年',
                         'value' => $this->request->getQuery('search_date.year'),
-                        'class' => 'input'
+                        'class' => 'input',
+                        'empty' => '年',
                     ]
                 ) ?>
 
                 <?= $this->Form->month('search_date',
                     [
                         'monthNames' => false,
-                        'default' => '月',
                         'value' => $this->request->getQuery('search_date.month'),
-                        'class' => 'input'
+                        'class' => 'input',
+                        'empty' => '月',
+                    ]
+                ) ?>
+
+
+                <?= $this->Form->day('search_date',
+                    [
+                        'value' => $this->request->getQuery('search_date.day'),
+                        'class' => 'input',
+                        'empty' => '日',
                     ]
                 ) ?>
             </li>

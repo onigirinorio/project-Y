@@ -22,23 +22,26 @@ class WorksController extends AppController
     {
         $select_users = '';
         if ($this->isAdmin() === true) {
-            // ユーザーのセレクトボックス用のデータを取得
+            // 検索で使用するユーザーリスト取得
             $select_users = $this->Works->getSelectUsers();
             // 検索処理
             $query = $this->Works->makeQueryGetParameter($this->request->getQuery());
         } else {
             $query = $this->Works->find()->where(
                 [
-                    'user_id' => $this->Auth->user('id')
+                    'user_id' => $this->Auth->user('id'),
+                    'YEAR(create_at)' => date('Y'),
+                    'MONTH(create_at)' => date('m'),
                 ]
             );
         }
 
-        $this->paginate = array(
-            'contain' => array('Users', 'Projects'),
-            'conditions' => array('Works.delete_flg = 0'),
+        $this->paginate = [
+            'contain' => ['Users', 'Projects'],
+            'conditions' => ['Works.delete_flg = 0'],
             'limit' => 35,
-        );
+            'order' => ['Works.create_at DESC'],
+        ];
 
         $works = $this->paginate($query);
         $this->set(compact('select_users'));
