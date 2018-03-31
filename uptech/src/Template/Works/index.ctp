@@ -6,7 +6,7 @@
 ?>
 <?php if ($admin_flg === true): ?>
     <div class="search_works_area">
-        <h3><?= __('勤怠検索') ?></h3>
+        <h3 class="h3_responsive"><?= __('勤怠検索') ?></h3>
         <?= $this->Form->create('null', ['type' => 'get', 'url' => ['controller' => 'works', 'action' => 'index']]) ?>
         <ul>
             <li>
@@ -61,39 +61,41 @@
 <?php endif; ?>
 
 <?php //$this->Html->link(__('Excel出力'), ['controller' => 'Works', 'action' => 'download_excel'], ['class' => 'btn btn-primary']) ?>
-<h3><?= __('勤怠一覧') ?></h3>
-<table cellpadding="0" cellspacing="0" class="table">
-    <thead>
-    <tr>
-        <th scope="col"><?= $this->Paginator->sort('create_at', '日付') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー') ?></th>
-        <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
-        <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('attend_time', '出勤時間') ?></th>
-        <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('leave_time', '退勤時間') ?></th>
-        <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('break_time', '休憩時間') ?></th>
-        <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('overtime', '残業時間') ?></th>
-        <th scope="col" class="actions"><?= __('詳細') ?></th>
-    </tr>
-    </thead>
-    <tbody>
-    <?php foreach ($works as $work): ?>
+<h3 class="h3_responsive"><?= __('勤怠一覧') ?></h3>
+<div class="table-responsive">
+    <table cellpadding="0" cellspacing="0" class="table">
+        <thead>
         <tr>
-            <td><?= date('Y/m/d', strtotime($work->create_at)) ?></td>
-            <td><?= $work->has('user') ? $this->Html->link($work->user->name, ['controller' => 'Users', 'action' => 'view', $work->user->id]) : '' ?></td>
-            <td><?= $work->has('project') ? $this->Html->link($work->project->shop_name, ['controller' => 'Projects', 'action' => 'edit', $work->project->id]) : '' ?></td>
-            <td class="hidden-xs"><?= date('H:i', strtotime($work->attend_time)) ?></td>
-            <td class="hidden-xs"><?php if ($work->leave_time) {
-                    echo date('H:i', strtotime($work->leave_time));
-                } ?></td>
-            <td class="hidden-xs"><?= date('H:i', strtotime($work->break_time)) ?></td>
-            <td class="hidden-xs"><?= date('H:i', strtotime($work->overtime)) ?></td>
-            <td class="actions">
-                <?= $this->Html->link(__('詳細'), ['action' => 'view', $work->id]) ?>
-            </td>
+            <th scope="col"><?= $this->Paginator->sort('create_at', '日付') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('attend_time', '出勤時間') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('leave_time', '退勤時間') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('break_time', '休憩時間') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('overtime', '残業時間') ?></th>
+            <th scope="col" class="actions"><?= __('詳細') ?></th>
         </tr>
-    <?php endforeach; ?>
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+        <?php foreach ($works as $work): ?>
+            <tr>
+                <td><?= date('Y/m/d', strtotime($work->create_at)) ?></td>
+                <td><?= $work->has('user') ? $this->Html->link($work->user->name, ['controller' => 'Users', 'action' => 'view', $work->user->id]) : '' ?></td>
+                <td><?= $work->has('project') ? $this->Html->link($work->project->shop_name, ['controller' => 'Projects', 'action' => 'edit', $work->project->id]) : '' ?></td>
+                <td class="hidden-xs"><?= date('H:i', strtotime($work->attend_time)) ?></td>
+                <td class="hidden-xs"><?php if ($work->leave_time) {
+                        echo date('H:i', strtotime($work->leave_time));
+                    } ?></td>
+                <td class="hidden-xs"><?= date('H:i', strtotime($work->break_time)) ?></td>
+                <td class="hidden-xs"><?= date('H:i', strtotime($work->overtime)) ?></td>
+                <td class="actions">
+                    <?= $this->Html->link(__('詳細'), ['action' => 'view', $work->id]) ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
 
 <div class="paginator">
     <ul class="pagination">
