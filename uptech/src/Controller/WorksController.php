@@ -176,7 +176,7 @@ class WorksController extends AppController
             $attend = strtotime($work->attend_time);
             $leave = strtotime($work->leave_time);
             $break = strtotime($work->break_time);
-            $work['overtime'] = $this->Works->calc_overtime($attend, $leave, $break);
+            $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
 
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('勤怠データを編集しました。'));
