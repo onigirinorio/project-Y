@@ -75,7 +75,7 @@ class ShiftsController extends AppController
         $shift = $this->Shifts->newEntity();
         $create_at = date('Y-m-d H:i:s');
         //登録者を仮の値を代入 (後で変更)
-        $shift->create_user = 'test';
+        $shift->create_user = $this->Auth->user('name');
         $shift->create_at = $create_at;
 
         if ($this->request->is('post')) {
@@ -106,7 +106,7 @@ class ShiftsController extends AppController
         ]);
           $update_at = date('Y-m-d H:i:s');
           //更新者に仮の値を代入 (あとで変更)
-          $shift->update_user = 'test';
+          $shift->update_user = $this->Auth->user('name');;
           $shift->upteda_at = $update_at;
 
           if ($this->request->is(['patch', 'post', 'put'])) {
@@ -114,7 +114,7 @@ class ShiftsController extends AppController
                   if ($this->Shifts->save($shift)) {
                       $this->Flash->success(__('シフトを編集しました。'));
 
-                      return $this->redirect(['action' => 'index']);
+                      return $this->redirect(['action' => 'view', $id]);
                   }
               $this->Flash->error(__('予期せぬエラーが発生しました。'));
         }
@@ -145,5 +145,25 @@ class ShiftsController extends AppController
             }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * カレンダー画面表示用
+     *
+     * @param string|null $user_id ユーザーID
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function calendar()
+    {
+        if ($this->isAdmin() === true) {
+            // セレクトボックスで使用するユーザーリスト取得
+            $select_users = $this->Shifts->getSelectUsers();
+        }
+        if ($this->request->is('post')) {
+            $search_user_id = $this->request->getData('search_user_id');
+            $this->set(compact('search_user_id'));
+        }
+        $this->set(compact('select_users'));
     }
 }

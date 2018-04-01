@@ -130,6 +130,16 @@ div.input, select.input {
     }
 }
 
+/* カレンダー用 */
+#calendar {
+    margin-bottom: 20px;
+}
+
+.calendar_search {
+    margin-bottom: 20px;
+}
+
+
 /* カードコンポーネント用 */
 .card-wrapper {
     position: relative;

@@ -65,7 +65,7 @@ class WorksTable extends Table
 
         $validator
             ->time('leave_time')
-            ->notEmpty('leave_time', '退勤時間を入力してください。');
+            ->allowEmpty('leave_time');
 
         $validator
             ->time('break_time')

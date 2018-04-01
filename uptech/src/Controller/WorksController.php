@@ -13,6 +13,7 @@ use PHPExcel_IOFactory;
  */
 class WorksController extends AppController
 {
+
     /**
      * Index method
      *
@@ -122,17 +123,6 @@ class WorksController extends AppController
         $this->set('_serialize', ['work']);
     }
 
-    /**
-     * Edit method
-     *
-     * @param string|null $id Work id.
-     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Network\Exception\NotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-    }
-
     public function addLeave()
     {
         $work = $this->Works->find()
@@ -156,6 +146,49 @@ class WorksController extends AppController
             $this->Flash->error(__('退勤の登録に失敗しました。'));
             return $this->redirect(['action' => 'add']);
         }
+    }
+
+    /**
+     * Edit method
+     *
+     * @param string|null $id Work id.
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
+    public function edit($id = null)
+    {
+        // プロジェクトリストを取得
+        $this->Projects = TableRegistry::get('Projects');
+        $projects = $this->Projects->find()->all();
+        $project_list = [];
+        foreach ($projects as $key => $value) {
+            $project_list[$value['id']] = $value['shop_name'];
+        }
+
+        $work = $this->Works->get($id, [
+            'contain' => ['Users', 'Projects']
+        ]);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $work = $this->Works->patchEntity($work, $this->request->getData());
+            // 退勤時間の分の部分を案件によって調整する
+            $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
+            $attend = strtotime($work->attend_time);
+            $leave = strtotime($work->leave_time);
+            $break = strtotime($work->break_time);
+            $work['overtime'] = $this->Works->calc_overtime($attend, $leave, $break);
+
+            if ($this->Works->save($work)) {
+                $this->Flash->success(__('勤怠データを編集しました。'));
+                return $this->redirect(['action' => 'view', $id]);
+            }
+            $this->Flash->error(__('退勤の編集に失敗しました。'));
+            return $this->redirect(['action' => 'add', $id]);
+        }
+
+        $this->set(compact('project_list'));
+        $this->set(compact('work'));
+        $this->set('_serialize', ['work']);
     }
 
     /**

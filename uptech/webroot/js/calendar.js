@@ -1,8 +1,8 @@
-function showCarendar(date){
+function showCarendar(date, search_user_id){
     var shift = [];
     $.each(['shift'],function (i,obj) {
         var json = $.ajax({
-            url: "/ajax/calender/shift/",
+            url: "/ajax/calender/" + search_user_id,
             type : "GET",
             dataType: "json",
             async:false

@@ -7,13 +7,13 @@
     <h3 class="h3_responsive"><?= __('シフト詳細') ?></h3>
 
     <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">名前</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->user->name ?></div>
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">日付</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->date ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">日付</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->date ?></div>
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">名前</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->user->name ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">

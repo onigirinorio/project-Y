@@ -103,4 +103,15 @@ class ShiftsTable extends Table
         return $rules;
     }
 
+    // 以下ビジネスロジック
+
+    // 一覧画面のユーザーセレクトボックス用のデータを取得
+    public function getSelectUsers() {
+        $users = $this->Users->find()->all()->toArray();
+        foreach ($users as $user) {
+            $select_users[$user->id] = $user->name;
+        }
+        return $select_users;
+    }
+
 }

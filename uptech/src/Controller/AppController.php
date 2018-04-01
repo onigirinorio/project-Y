@@ -133,6 +133,7 @@ class AppController extends Controller
 
     /**
      * シフトを取得
+     * @param int
      * @return
      */
     public function getShift($user_id = null){

@@ -6,7 +6,7 @@
 ?>
 <?php if ($admin_flg === true): ?>
     <div class="search_works_area">
-        <h3 class="h3_responsive"><?= __('勤怠検索') ?></h3>
+        <h3 class="h3_responsive"><?= __('勤怠データ検索') ?></h3>
         <?= $this->Form->create('null', ['type' => 'get', 'url' => ['controller' => 'works', 'action' => 'index']]) ?>
         <ul>
             <li>
@@ -61,7 +61,7 @@
 <?php endif; ?>
 
 <?php //$this->Html->link(__('Excel出力'), ['controller' => 'Works', 'action' => 'download_excel'], ['class' => 'btn btn-primary']) ?>
-<h3 class="h3_responsive"><?= __('勤怠一覧') ?></h3>
+<h3 class="h3_responsive"><?= __('勤怠データ一覧') ?></h3>
 <div class="table-responsive">
     <table cellpadding="0" cellspacing="0" class="table">
         <thead>

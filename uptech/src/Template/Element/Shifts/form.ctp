@@ -13,15 +13,6 @@ echo $this->Form->control('user_id',
 );
 */
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">名前</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
-echo $shift->has('user') ? $shift->user->name : $user_name;
-echo $this->Form->hidden('user_id',
-    [
-        'value' => $shift->has('user') ? $shift->user->user_id : $user_id,
-    ]
-);
-echo '</div>';
-
 echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
 echo $this->Form->control('date',
     [
@@ -31,6 +22,15 @@ echo $this->Form->control('date',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
         'style' => 'margin-bottom: 20px;height:34px;',
         'default' => date('Y-m-d', strtotime('+1 day'))
+    ]
+);
+echo '</div>';
+
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">ユーザー</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo $shift->has('user') ? $shift->user->name : $user_name;
+echo $this->Form->hidden('user_id',
+    [
+        'value' => $shift->has('user') ? $shift->user->user_id : $user_id,
     ]
 );
 echo '</div>';

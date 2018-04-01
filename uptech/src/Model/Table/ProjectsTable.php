@@ -60,7 +60,7 @@ class ProjectsTable extends Table
             ->notEmpty('client_id', 'クライアントを選択してください。');
 
         $validator
-            ->boolean('payment_status')
+            ->integer('payment_status')
             ->notEmpty('payment_status', '支払区分を選択してください。');
 
         $validator

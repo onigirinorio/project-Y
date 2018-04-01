@@ -39,9 +39,13 @@ class AjaxController extends AppController
 
     public function calender($type = 'shift')
     {
+        if ($this->isAdmin() === true) {
+            $display_id = $type;
+
+        }
 
         if($this->request->is('ajax')){
-            $data = $this->getShift();
+            $data = $this->getShift($display_id);
         }else{
             $data = null;
         }

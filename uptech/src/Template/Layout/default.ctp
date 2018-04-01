@@ -93,6 +93,7 @@ $title = '勤怠管理ツール';
                       <ul class="dropdown-menu" role="menu">
                         <li role="presentation"><?= $this->Html->link(__('シフト一覧'), ['controller' => 'Shifts', 'action' => 'index']) ?></li>
                         <li role="presentation"><?= $this->Html->link(__('シフト登録'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
+                          <li role="presentation"><?= $this->Html->link(__('カレンダー'), ['controller' => 'Shifts', 'action' => 'calendar']) ?></li>
                       </ul>
                     </li>
                     <li class="dropdown">
