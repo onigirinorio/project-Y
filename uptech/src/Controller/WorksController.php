@@ -138,7 +138,7 @@ class WorksController extends AppController
             $attend = strtotime($work->attend_time);
             $leave = strtotime($work->leave_time);
             $break = strtotime($work->break_time);
-            $work['overtime'] = $this->Works->calc_overtime($attend, $leave, $break);
+            $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('退勤が登録されました。'));
                 return $this->redirect(['action' => 'add']);
@@ -183,7 +183,7 @@ class WorksController extends AppController
                 return $this->redirect(['action' => 'view', $id]);
             }
             $this->Flash->error(__('退勤の編集に失敗しました。'));
-            return $this->redirect(['action' => 'add', $id]);
+            return $this->redirect(['action' => 'view', $id]);
         }
 
         $this->set(compact('project_list'));
