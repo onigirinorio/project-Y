@@ -10,15 +10,20 @@
     <?php
     echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
     echo date('Y/m/d', strtotime($work->create_at));
+    echo $this->Form->hidden('create_at',
+        [
+            'value' => $work->create_at,
+        ]
+    );
     echo '</div>';
 
     echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">ユーザー</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
     echo $work->has('user') ? $work->user->name : $user_name;
-//    echo $this->Form->hidden('user_id',
-//        [
-//            'value' => $work->has('user') ? $work->user->user_id : $user_id,
-//        ]
-//    );
+    echo $this->Form->hidden('user_id',
+        [
+            'value' => $work->has('user') ? $work->user->user_id : $user_id,
+        ]
+    );
     echo '</div>';
 
     echo $this->Form->control('project_id',
