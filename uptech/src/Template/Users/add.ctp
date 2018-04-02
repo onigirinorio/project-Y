@@ -15,7 +15,7 @@ echo $this->Html->css('Users/add', ['block' => true]);
 <div class="btn_area">
     <?= $this->Form->button(__('登録'), [
         'text' => '登録',
-        'class' => 'btn btn-primary'
+        'class' => 'btn btn-primary submit_btn'
     ]) ?>
 </div>
 <?= $this->Form->end() ?>

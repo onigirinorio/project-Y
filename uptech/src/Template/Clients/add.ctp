@@ -11,7 +11,7 @@
     <?= $this->element('Clients/form', ['client' => $client]) ?>
 
     <div class="btn_area">
-        <?= $this->Form->button(__('登録'), ['class' => 'btn btn-primary']) ?>
+        <?= $this->Form->button(__('登録'), ['class' => 'btn btn-primary submit_btn']) ?>
     </div>
     <?= $this->Form->end() ?>
 </div>
