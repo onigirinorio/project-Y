@@ -13,7 +13,7 @@ echo $this->Form->control('user_id',
 );
 */
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('date',
     [
         'label' => false,
@@ -35,7 +35,7 @@ echo $this->Form->hidden('user_id',
 );
 echo '</div>';
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('attend',
     [
         'label' => false,
@@ -47,7 +47,7 @@ echo $this->Form->control('attend',
 );
 echo '</div>';
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('clock',
     [
         'label' => false,

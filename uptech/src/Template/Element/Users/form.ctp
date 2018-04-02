@@ -59,7 +59,7 @@ foreach (GENDER as $key => $gender) {
 }
 echo '</div>';
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">生年月日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">生年月日</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('birth',
     [
         'label' => false,

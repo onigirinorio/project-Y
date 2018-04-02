@@ -77,6 +77,32 @@ div.input, select.input {
     transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
 
+.form_date_select {
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.form_date_select select {
+    display: inline-block;
+    width: auto;
+    vertical-align: middle;
+    height: 34px;
+    margin-right: 10px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
 .form_checkbox {
     margin-left: 0;
 }
@@ -112,6 +138,10 @@ div.input, select.input {
 .regist_work_btn {
     width: 100%;
     height: 50px;
+}
+
+.input_inline {
+    display: inline-block;
 }
 
 @media (max-width: 767px) {

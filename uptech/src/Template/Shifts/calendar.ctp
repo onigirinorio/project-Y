@@ -15,7 +15,7 @@
             [
                 'value' => $this->request->getData('search_user_id'),
                 'empty' => 'ユーザーを選択してください',
-                'class' => 'input'
+                'class' => 'input form_input'
             ]
         ) ?>
         <?= $this->Form->submit(__('ユーザー切替'), ['class' => 'btn btn-primary']) ?>

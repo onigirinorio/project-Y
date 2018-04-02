@@ -55,7 +55,7 @@ echo $this->Form->control('in_minutes',
     ]
 );
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">開始日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">開始日</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('start_date',
     [
         'type' => 'date',
@@ -70,7 +70,7 @@ echo $this->Form->control('start_date',
 );
 echo '</div>';
 
-echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">終了日</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">終了日</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('end_date',
     [
         'type' => 'date',

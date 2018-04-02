@@ -14,7 +14,7 @@
                     [
                         'value' => $this->request->getQuery('search_user_id'),
                         'empty' => 'ユーザーを選択してください',
-                        'class' => 'input'
+                        'class' => 'input form_input '
                     ]
                 ) ?>
             </li>
@@ -22,7 +22,7 @@
                 <?= $this->Form->year('search_date',
                     [
                         'value' => $this->request->getQuery('search_date.year'),
-                        'class' => 'input',
+                        'class' => 'input form_input input_inline',
                         'empty' => '年',
                     ]
                 ) ?>
@@ -31,7 +31,7 @@
                     [
                         'monthNames' => false,
                         'value' => $this->request->getQuery('search_date.month'),
-                        'class' => 'input',
+                        'class' => 'input form_input input_inline',
                         'empty' => '月',
                     ]
                 ) ?>
@@ -40,7 +40,7 @@
                 <?= $this->Form->day('search_date',
                     [
                         'value' => $this->request->getQuery('search_date.day'),
-                        'class' => 'input',
+                        'class' => 'input form_input input_inline',
                         'empty' => '日',
                     ]
                 ) ?>
