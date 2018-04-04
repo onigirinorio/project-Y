@@ -5,6 +5,7 @@ echo $this->Form->control('shop_name',
             'text' => '店舗名',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
+        'placeholder' => '例）ビッグカメラ白金台',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );
@@ -14,7 +15,6 @@ echo $this->Form->control('client_id',
             'text' => 'クライアント名',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
-
         'type' => 'select',
         'options' => $clientList,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
@@ -38,6 +38,7 @@ echo $this->Form->control('price',
             'text' => '金額',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
+        'placeholder' => '例）1900',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );
@@ -101,6 +102,7 @@ echo $this->Form->control('expense',
             'text' => '交通費',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
+        'placeholder' => '15000',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]
 );

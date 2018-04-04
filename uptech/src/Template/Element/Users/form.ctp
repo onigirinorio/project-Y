@@ -6,15 +6,17 @@ echo $this->Form->control('name',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '例）田中太郎'
     ]
 );
 echo $this->Form->control('name_kana',
     [
         'label' => [
-            'text' => '名前(カナ)',
+            'text' => '名前（カナ）',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '例）タナカタロウ',
     ]
 );
 echo $this->Form->control('password',
@@ -23,7 +25,10 @@ echo $this->Form->control('password',
             'text' => 'パスワード',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input'
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '半角英数字８文字以上１６文字以下',
+        'minlength' => '8',
+        'maxlength' => '16',
     ]
 );
 
@@ -34,6 +39,7 @@ echo $this->Form->control('email',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '例）test@test.com',
     ]
 );
 echo $this->Form->control('tell',
@@ -43,6 +49,7 @@ echo $this->Form->control('tell',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '例）00011112222',
     ]
 );
 echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">性別</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio" data-toggle="buttons">';
@@ -81,6 +88,8 @@ echo $this->Form->control('zip_code',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'max' => 7,
+        'placeholder' => '例）1234567'
     ]
 );
 echo $this->Form->control('pref',
@@ -101,6 +110,7 @@ echo $this->Form->control('address',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '例）札幌市北海道ビル１０１',
     ]
 );
 echo $this->Form->control('project_id',
