@@ -57,6 +57,7 @@
         <?= $this->Form->hidden('date_m', ['value' => $this->request->getQuery('search_date.month')]) ?>
         <?= $this->Form->submit(__('Excel出力'), ['class' => 'btn btn-primary']) ?>
         <?= $this->Form->end() ?>
+        <p>※Excel出力をする</p>
     </div>
 <?php endif; ?>
 
