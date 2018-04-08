@@ -10,7 +10,7 @@ use Cake\Validation\Validator;
  * Clients Model
  *
  * @property \App\Model\Table\ClientsTable|\Cake\ORM\Association\BelongsTo $Clients
- * @property \App\Model\Table\ClientsTable|\Cake\ORM\Association\HasMany $Clients
+ * @property \App\Model\Table\ClientsTable|\Cake\ORM\Association\HasMany $Client
  * @property \App\Model\Table\ProjectsTable|\Cake\ORM\Association\HasMany $Projects
  *
  * @method \App\Model\Entity\Client get($primaryKey, $options = [])
