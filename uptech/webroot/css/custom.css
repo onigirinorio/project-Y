@@ -15,7 +15,6 @@
     text-align: center;
     color: #fff;
     font-weight: bold;
-    margin-top:-20px;
     padding:10px 0;
 }
 .success {
@@ -26,6 +25,10 @@
 }
 .error-message {
     color: #D13E48;
+}
+
+.navbar {
+    margin-bottom: 0;
 }
 
 /* フォームカスタマイズ */
@@ -155,7 +158,6 @@ div.input, select.input {
         width: 49%;
     }
     .h3_responsive {
-        margin-top: 0;
         font-size: 20px;
     }
     .area_regist_works {
@@ -169,7 +171,7 @@ div.input, select.input {
 }
 
 .calendar_search {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 

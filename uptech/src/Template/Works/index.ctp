@@ -57,7 +57,7 @@
         <?= $this->Form->hidden('date_m', ['value' => $this->request->getQuery('search_date.month')]) ?>
         <?= $this->Form->submit(__('Excel出力'), ['class' => 'btn btn-primary']) ?>
         <?= $this->Form->end() ?>
-        <p>※Excel出力をする</p>
+        <p>※Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。</p>
     </div>
 <?php endif; ?>
 

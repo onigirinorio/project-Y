@@ -48,6 +48,12 @@ class AppController extends Controller
 
         //ログイン認証の設定
         $this->loadComponent('Auth', [
+            'authenticate' => [
+                'Form' => [
+                    'userModel' => 'Users',
+                    'fields' => ['username' => 'email', 'password' => 'password']
+                ]
+            ],
             'loginAction' => [
                 'controller' => '/',
                 'action' => 'login',
@@ -56,13 +62,11 @@ class AppController extends Controller
                 'controller' => '/',
                 'action' => '' //top
             ],
-            'authenticate' => [
-                'Form' => [
-                    'userModel' => 'Users',
-                    'fields' => ['username' => 'email', 'password' => 'password']
-                ]
+            'logoutRedirect' => [
+                'controller' => '/',
+                'action' => 'login',
             ],
-            'authError' => __('')
+            'authError' => __('ログイン情報が間違っています。')
         ]);
 
         // ログイン判定
