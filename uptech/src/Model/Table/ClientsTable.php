@@ -5,6 +5,7 @@ use Cake\ORM\Query;
 use Cake\ORM\RulesChecker;
 use Cake\ORM\Table;
 use Cake\Validation\Validator;
+use function Sodium\add;
 
 /**
  * Clients Model
@@ -53,28 +54,50 @@ class ClientsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
+            ->allowEmpty('id', 'create')
+            // 店舗名
             ->scalar('client_name')
             ->requirePresence('client_name', 'create')
-            ->notEmpty('client_name', 'クライアント名を入力してください。');
-
-        $validator
-            ->integer('tell')
-            ->notEmpty('tell', '電話番号を入力してください。');
-
-        $validator
-            ->integer('zip_code')
-            ->notEmpty('zip_code', '郵便番号を入力してください。');
-
-        $validator
+            ->notEmpty('client_name', 'クライアント名を入力してください。')
+            ->add('client_name', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 50],
+                    'message' => 'クライアント名は50文字以内で入力してください。'
+                ]
+            ])
+            // 電話番号
+            ->integer('tell', '電話番号には数字のみを入力してください。')
+            ->notEmpty('tell', '電話番号を入力してください。')
+            ->add('tell', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 11],
+                    'message' => '電話番号は11桁以内で入力してください。'
+                ]
+            ])
+            // 郵便番号
+            ->integer('zip_code', '郵便番号には数字のみを入力してください')
+            ->notEmpty('zip_code', '郵便番号を入力してください。')
+            ->add('zip_code', [
+                'minLength' => [
+                    'rule' => ['minLength', 7],
+                    'message' => '郵便番号は7桁で入力してください。'
+                ],
+                'maxLength' => [
+                    'rule' => ['maxLength', 7],
+                    'message' => '郵便番号は7桁で入力してください。',
+                ]
+            ])
             ->scalar('pref')
-            ->notEmpty('pref', '都道府県を入力してください。');
-
-        $validator
+            ->notEmpty('pref', '都道府県を入力してください。')
+            // 住所
             ->scalar('address')
-            ->notEmpty('address', '住所を入力してください。');
+            ->notEmpty('address', '住所を入力してください。')
+            ->add('address', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 256],
+                    'message' => '住所は256文字以内で入力してください。'
+                ]
+            ]);
 
         return $validator;
     }

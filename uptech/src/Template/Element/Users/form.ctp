@@ -6,7 +6,8 @@ echo $this->Form->control('name',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-        'placeholder' => '例）田中太郎'
+        'maxlength' => '36',
+        'placeholder' => '例）田中太郎',
     ]
 );
 echo $this->Form->control('name_kana',
@@ -16,6 +17,7 @@ echo $this->Form->control('name_kana',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'maxlength' => '36',
         'placeholder' => '例）タナカタロウ',
     ]
 );
@@ -39,6 +41,7 @@ echo $this->Form->control('email',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'maxlength' => '256',
         'placeholder' => '例）test@test.com',
     ]
 );
@@ -49,6 +52,7 @@ echo $this->Form->control('tell',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'maxlength' => '11',
         'placeholder' => '例）00011112222',
     ]
 );
@@ -87,8 +91,9 @@ echo $this->Form->control('zip_code',
             'text' => '郵便番号',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
+        'type' => 'text',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-        'max' => 7,
+        'maxlength' => 7,
         'placeholder' => '例）1234567'
     ]
 );

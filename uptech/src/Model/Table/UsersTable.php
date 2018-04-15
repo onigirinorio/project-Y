@@ -53,55 +53,84 @@ class UsersTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
+            ->allowEmpty('id', 'create')
+            // ユーザー名
             ->scalar('name')
-            ->notEmpty('name', 'ユーザー名を入力してください。');
-
-        $validator
+            ->notEmpty('name', 'ユーザー名を入力してください。')
+            ->add('name', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 36],
+                    'message' => 'ユーザー名は36文字以内で入力してください。'
+                ]
+            ])
+            // ユーザー名(カナ)
             ->scalar('name_kana')
-            ->notEmpty('name_kana', 'ユーザー名(カナ)を入力してください。');
-        $validator
+            ->notEmpty('name_kana', 'ユーザー名(カナ)を入力してください。')
+            ->add('name_kana', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 36],
+                    'message' => 'ユーザー名(カナ)は36文字以内で入力してください。'
+                ]
+            ])
+            // パスワード
             ->scalar('password')
             ->notEmpty('password', 'パスワードを入力してください。')
             ->add('password', [
                 'minLength' => [
                     'rule' => ['minLength', 6],
                     'last' => true,
-                    'message' => 'パスワードは６文字以上、１６文字以内で入力してください。'
+                    'message' => 'パスワードは6文字以上、16文字以内で入力してください。'
                 ],
                 'maxLength' => [
                     'rule' => ['maxLength', 16],
-                    'message' => 'パスワードは６文字以上、１６文字以内で入力してください。'
+                    'message' => 'パスワードは6文字以上、16文字以内で入力してください。'
                 ]
-            ]);
-
-        $validator
+            ])
+            // メールアドレス
             ->email('email')
-            ->notEmpty('email', 'メールアドレスを入力してください。');
-
-        $validator
-            ->integer('tell')
-            ->notEmpty('tell', '電話番号を入力してください。');
-
-        $validator
+            ->notEmpty('email', 'メールアドレスを入力してください。')
+            ->add('email', [
+                'validFormat' => [
+                    'rule'=> 'email',
+                    'message' => 'メールアドレスの形式が正しくありません。'
+                ],
+                'maxLength' => [
+                    'rule' => ['maxLength', 256],
+                    'message' => 'メールアドレスは256文字以内で入力してください。'
+                ]
+            ])
+            // 電話番号
+            ->integer('tell', '電話番号には数字のみを入力してください。')
+            ->notEmpty('tell', '電話番号を入力してください。')
+            ->add('tell', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 11],
+                    'message' => '電話番号は11桁以内で入力してください。'
+                ]
+            ])
+            // 性別
             ->boolean('gendar')
-            ->notEmpty('gendar', '性別を入力してください。');
-
-        $validator
+            ->notEmpty('gendar', '性別を入力してください。')
+            // 生年月日
             ->date('birth')
-            ->notEmpty('birth', '生年月日を入力してください。');
-
-        $validator
-            ->integer('zip_code')
-            ->notEmpty('zip_code', '郵便番号を入力してください。');
-
-        $validator
+            ->notEmpty('birth', '生年月日を入力してください。')
+            // 郵便番号
+            ->integer('zip_code', '郵便番号には数字のみを入力してください。')
+            ->notEmpty('zip_code', '郵便番号を入力してください。')
+            ->add('zip_code', [
+                'minLength' => [
+                    'rule' => ['minLength', 7],
+                    'message' => '郵便番号は7桁で入力してください。'
+                ],
+                'maxLength' => [
+                    'rule' => ['maxLength', 7],
+                    'message' => '郵便番号は7桁で入力してください。',
+                ]
+            ])
+            // 都道府県
             ->scalar('pref')
-            ->notEmpty('pref', '都道府県を入力してください。');
-
-        $validator
+            ->notEmpty('pref', '都道府県を入力してください。')
+            // 住所
             ->scalar('address')
             ->notEmpty('address', '住所を入力してください。');
 

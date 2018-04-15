@@ -24,6 +24,9 @@
 .error {
     background-color: #D13E48;
 }
+.error-message {
+    color: #D13E48;
+}
 
 /* フォームカスタマイズ */
 div.input, select.input {

@@ -53,37 +53,35 @@ class ProjectsTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
+            ->allowEmpty('id', 'create')
+            // クライアント名
             ->integer('client_id')
-            ->notEmpty('client_id', 'クライアントを選択してください。');
-
-        $validator
+            ->notEmpty('client_id', 'クライアント名を選択してください。')
+            // 支払い区分
             ->integer('payment_status')
-            ->notEmpty('payment_status', '支払区分を選択してください。');
-
-        $validator
-            ->integer('price')
-            ->notEmpty('price', '金額を入力してください。');
-
-        $validator
+            ->notEmpty('payment_status', '支払区分を選択してください。')
+            // 金額
+            ->integer('price', '金額は数字のみを入力してください。')
+            ->notEmpty('price', '金額を入力してください。')
+            // 店舗名
             ->scalar('shop_name')
-            ->notEmpty('shop_name', '店舗名を入力してください。');
-
-        $validator
+            ->notEmpty('shop_name', '店舗名を入力してください。')
+            ->add('shop_name', [
+                'maxLength' => [
+                    'rule' => ['maxLength', 50],
+                    'message' => '店舗名は50文字以内で入力してください。'
+                ]
+            ])
+            // 開始日
             ->date('start_date')
-            ->allowEmpty('start_date');
-
-        $validator
+            ->allowEmpty('start_date')
+            // 終了日
             ->date('end_date')
-            ->allowEmpty('end_date');
-
-        $validator
+            ->allowEmpty('end_date')
+            // 交通費
             ->integer('expense')
-            ->allowEmpty('expense');
-
-        $validator
+            ->allowEmpty('expense')
+            // 交通費フラグ
             ->boolean('expense_status')
             ->allowEmpty('expense_status');
 
