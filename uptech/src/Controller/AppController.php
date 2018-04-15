@@ -66,7 +66,7 @@ class AppController extends Controller
                 'controller' => '/',
                 'action' => 'login',
             ],
-            'authError' => __('ログイン情報が間違っています。')
+            'authError' => __('長時間操作がなかった為、ログアウトしました。')
         ]);
 
         // ログイン判定
