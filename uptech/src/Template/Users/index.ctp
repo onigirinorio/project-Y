@@ -36,11 +36,11 @@
                 </td>
                 <td class="hidden-xs"><?= h($user->birth) ?></td>
                 <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'view', $user->project->id]) : '未登録' ?></td>
-                <td><?= $user->has('project') ?  h($user->project->shop_name) : '未登録' ?></td>
-                <td><?= isset($user->start_date) ? date('Y/m/d', strtotime($user->start_date)) : '未登録' ?></td>
-                <td><?= isset($user->end_date) ? date('Y/m/d', strtotime($user->end_date)) : '未登録' ?></td>
-                <td><?= isset($user->end_date) ? h($user->expense_route) : '未登録' ?></td>
-                <td><?= isset($user->expense_price) ? h($user->expense_price) : '未登録' ?></td>
+                <td class="hidden-xs"><?= $user->has('project') ?  h($user->project->shop_name) : '未登録' ?></td>
+                <td class="hidden-xs"><?= isset($user->start_date) ? date('Y/m/d', strtotime($user->start_date)) : '未登録' ?></td>
+                <td class="hidden-xs"><?= isset($user->end_date) ? date('Y/m/d', strtotime($user->end_date)) : '未登録' ?></td>
+                <td class="hidden-xs"><?= isset($user->end_date) ? h($user->expense_route) : '未登録' ?></td>
+                <td class="hidden-xs"><?= isset($user->expense_price) ? h($user->expense_price) : '未登録' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('詳細'), ['action' => 'view', $user->id]) ?>
                 </td>
