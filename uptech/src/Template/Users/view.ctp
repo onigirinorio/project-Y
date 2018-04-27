@@ -52,6 +52,26 @@
     </div>
 
     <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">開始日</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('Y/m/d', strtotime($user->start_date)) ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">終了日</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('Y/m/d', strtotime($user->end_date)) ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">交通経路</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->expense_route ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">交通費</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->expense_price ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">プロジェクト</div>
         <div
             class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->has('project') ? $user->project->shop_name : '' ?></div>

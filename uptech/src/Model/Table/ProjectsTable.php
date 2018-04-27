@@ -72,18 +72,9 @@ class ProjectsTable extends Table
                     'message' => '店舗名は50文字以内で入力してください。'
                 ]
             ])
-            // 開始日
-            ->date('start_date')
-            ->allowEmpty('start_date')
-            // 終了日
-            ->date('end_date')
-            ->allowEmpty('end_date')
             // 交通費
             ->integer('expense')
-            ->allowEmpty('expense')
-            // 交通費フラグ
-            ->boolean('expense_status')
-            ->allowEmpty('expense_status');
+            ->allowEmpty('expense');
 
         return $validator;
     }

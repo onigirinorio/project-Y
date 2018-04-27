@@ -13,7 +13,12 @@
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('name_kana', '名前(カナ)') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('gendar', '性別') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('birth', '生年月日') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('project_id', '案件名') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('project_id', '店舗名') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('expense_route', '交通経路') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('expense_price', '交通費') ?></th>
             <th scope="col" class="actions"><?= __('詳細') ?></th>
         </tr>
         </thead>
@@ -30,7 +35,12 @@
                     <?php endif ?>
                 </td>
                 <td class="hidden-xs"><?= h($user->birth) ?></td>
-                <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'view', $user->project->id]) : '' ?></td>
+                <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'view', $user->project->id]) : '未登録' ?></td>
+                <td><?= $user->has('project') ?  h($user->project->shop_name) : '未登録' ?></td>
+                <td><?= isset($user->start_date) ? date('Y/m/d', strtotime($user->start_date)) : '未登録' ?></td>
+                <td><?= isset($user->end_date) ? date('Y/m/d', strtotime($user->end_date)) : '未登録' ?></td>
+                <td><?= isset($user->end_date) ? h($user->expense_route) : '未登録' ?></td>
+                <td><?= isset($user->expense_price) ? h($user->expense_price) : '未登録' ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('詳細'), ['action' => 'view', $user->id]) ?>
                 </td>

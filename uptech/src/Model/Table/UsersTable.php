@@ -132,7 +132,20 @@ class UsersTable extends Table
             ->notEmpty('pref', '都道府県を入力してください。')
             // 住所
             ->scalar('address')
-            ->notEmpty('address', '住所を入力してください。');
+            ->notEmpty('address', '住所を入力してください。')
+            // 開始日
+            ->date('start_date')
+            ->allowEmpty('start_date')
+            // 終了日
+            ->date('end_date')
+            ->allowEmpty('end_date')
+            // 交通経路
+            ->scalar('expense_route')
+            ->notEmpty('expense_route', '交通経路を入力してください。1月の間で変動する場合は特殊と入力してください。')
+            // 交通費
+            ->integer('expense_price')
+            ->allowEmpty('expense_price');
+
 
         return $validator;
     }

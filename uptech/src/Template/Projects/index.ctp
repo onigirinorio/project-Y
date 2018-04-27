@@ -9,12 +9,10 @@
         <table cellpadding="0" cellspacing="0" class="table">
             <thead>
                 <tr>
-                    <th scope="col"><?= $this->Paginator->sort('shop_name', '店舗') ?></th>
+                    <th scope="col"><?= $this->Paginator->sort('shop_name', '案件名') ?></th>
                     <th scope="col"><?= $this->Paginator->sort('client_id', 'クライアント') ?></th>
                     <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('payment_status', '支払区分') ?></th>
                     <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('price', '金額') ?></th>
-                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
-                    <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('end_date', '終了日') ?></th>
                     <th scope="col" class="actions"><?= __('詳細') ?></th>
                 </tr>
             </thead>
@@ -40,8 +38,6 @@
                             <?php endif; ?>
                         </td>
                         <td class="hidden-xs"><?= number_format($project->price) ?>円</td>
-                        <td class="hidden-xs"><?= date('Y/m/d', strtotime($project->start_date)) ?></td>
-                        <td class="hidden-xs"><?= date('Y/m/d', strtotime($project->end_date)) ?></td>
                         <td class="actions">
                           <?= $this->Html->link(__('詳細'), ['action' => 'view', $project->id]) ?>
                         </td>

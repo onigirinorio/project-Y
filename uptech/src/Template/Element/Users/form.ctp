@@ -118,6 +118,60 @@ echo $this->Form->control('address',
         'placeholder' => '例）札幌市北海道ビル１０１',
     ]
 );
+
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">開始日</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
+echo $this->Form->control('start_date',
+    [
+        'type' => 'date',
+        'label' => false,
+        'empty' => false,
+        'monthNames' => false,
+        'maxYear' => date('Y') + 5,
+        'minYear' => date('Y') - 5,
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'style' => 'margin-bottom: 20px;height:34px;',
+    ]
+);
+echo '</div>';
+
+echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">終了日</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
+echo $this->Form->control('end_date',
+    [
+        'type' => 'date',
+        'label' => false,
+        'empty' => false,
+        'monthNames' => false,
+        'maxYear' => date('Y') + 5,
+        'minYear' => date('Y') - 5,
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'style' => 'margin-bottom: 20px;height:34px;',
+    ]
+);
+echo '</div>';
+
+echo $this->Form->control('expense_route',
+    [
+        'label' => [
+            'text' => '交通経路',
+            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+        ],
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'maxlength' => '126',
+        'placeholder' => '例）渋谷-白金台　※ハイフンは半角を使用してください',
+    ]
+);
+
+echo $this->Form->control('expense_price',
+    [
+        'label' => [
+            'text' => '交通費',
+            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+        ],
+        'placeholder' => '例）15000',
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+    ]
+);
+
 echo $this->Form->control('project_id',
     [
         'label' => [

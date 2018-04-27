@@ -32,23 +32,8 @@
     </div>
 
     <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">開始日</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $project->start_date ?></div>
-    </div>
-
-    <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">終了日</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $project->end_date ?></div>
-    </div>
-
-    <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">交通費区分</div>
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $project->expense_status ?></div>
-    </div>
-
-    <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">交通費</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $project->expense ?></div>
     </div>
 
     <div class="btn_area">
