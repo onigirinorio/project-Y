@@ -1,9 +1,11 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use PHPExcel_IOFactory;
+
 /**
  * Works Controller
  *
@@ -109,7 +111,7 @@ class WorksController extends AppController
                 ->where(['user_id' => $this->Auth->user('id')])
                 ->order(['create_at' => 'DESC'])
                 ->first();
-            if (!empty($latest_work) &&date('Y-m-d', strtotime($latest_work->create_at)) == date('Y-m-d')) {
+            if (!empty($latest_work) && date('Y-m-d', strtotime($latest_work->create_at)) == date('Y-m-d')) {
                 $this->Flash->error(__('既に出勤が登録されています。'));
                 return $this->redirect(['action' => 'add']);
             }
@@ -179,8 +181,8 @@ class WorksController extends AppController
             // 退勤時間の分の部分を案件によって調整する
             $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
             $attend = strtotime($work->attend_time);
-            $leave = strtotime($work->leave_time);
-            $break = strtotime($work->break_time);
+            $leave  = strtotime($work->leave_time);
+            $break  = strtotime($work->break_time);
             $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
 
             if ($this->Works->save($work)) {
@@ -226,26 +228,48 @@ class WorksController extends AppController
     public function downloadExcel()
     {
         $data = $this->request->getData();
+
+        // ユーザー、年、月の選択がされているかチェックする
+        if (empty($data['user_id']) || !isset($data['date_y']) || !isset($data['date_m']) || !empty($data['date_d'])) {
+            $this->Flash->error('Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。');
+            return $this->return_works_list($data);
+        }
+
+
         $this->Users = TableRegistry::get('Users');
         $user = $this->Users->get($data['user_id']);
 
         // 勤怠データ取得
         $works = $this->Works->find()
             ->where(
-                    [
-                        'Works.user_id' => $data['user_id'],
-                        'YEAR(create_at)' => $data['date_y'],
-                        'MONTH(create_at)' => $data['date_m']
-                    ]
-                )
+                [
+                    'Works.user_id' => $data['user_id'],
+                    'YEAR(create_at)' => $data['date_y'],
+                    'MONTH(create_at)' => $data['date_m']
+                ]
+            )
             ->all()
             ->toArray();
+
+        // 勤怠データが存在するかチェックする
+        if (empty($works)) {
+            $this->Flash->error('指定された条件の勤怠データは存在しませんでした。');
+            return $this->return_works_list($data);
+        }
+
+        // 全ての勤怠データで退勤時間が入力されているかチェックする
+        foreach ($works as $work) {
+            if (is_null($work['leave_time'])) {
+                $this->Flash->error('退勤時間が入力されていない勤怠データが存在します。');
+                return $this->return_works_list($data);
+            }
+        }
 
         // 入出力の情報設定
         $driPath    = realpath(WWW_ROOT) . "/excel/";
         $inputPath  = $driPath . "template.xls";
         $sheetName  = "Sheet1";
-        $outputFile = $user['name'] . "_" . $data['date_y']. "_" . $data['date_m'] . ".xls";
+        $outputFile = $user['name'] . "_" . $data['date_y'] . "_" . $data['date_m'] . ".xls";
 
         // Excalファイル作成
         $reader = PHPExcel_IOFactory::createReader('Excel5');
@@ -298,7 +322,8 @@ class WorksController extends AppController
      * @param int $format 案件が持つX分刻みにする、のXの部分の数値(例:15分刻みにする場合は15)
      * @return int フォーマットで丸められた分の数値
      */
-    private function format_time_to_project($leave_time, $format) {
+    private function format_time_to_project($leave_time, $format)
+    {
         $leave_time_minuite = date('i', strtotime($leave_time));
         $minute = floor($leave_time_minuite / $format) * $format;
         $result = substr_replace($leave_time, $minute, -2);
@@ -312,11 +337,31 @@ class WorksController extends AppController
      * @param array $columns フォーマットするデータを持つカラムの配列
      * @return array
      */
-    private function format_time_to_excel($data, $columns) {
+    private function format_time_to_excel($data, $columns)
+    {
         $result = [];
         foreach ($columns as $column) {
             $result[$column] = date('H:i', strtotime($data[$column]));
         }
         return $result;
+    }
+
+    /**
+     * 検索結果を維持したまま一覧ページへリダイレクトする
+     * @param array $data リダイレクト先に渡すパラメータの配列
+     */
+    public function return_works_list($data)
+    {
+        $this->redirect((
+        [
+            'action' => 'index',
+            '?' => [
+                'search_user_id' => isset($data['user_id']) ? $data['user_id'] : '',
+                'search_date[year]' => isset($data['date_y']) ? $data['date_y'] : '',
+                'search_date[month]' => isset($data['date_m']) ? $data['date_m'] : '',
+                'search_date[day]' => isset($data['date_d']) ? $data['date_d'] : ''
+            ]
+        ]
+        ));
     }
 }

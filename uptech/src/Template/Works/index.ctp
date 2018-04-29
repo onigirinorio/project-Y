@@ -14,7 +14,7 @@
                     [
                         'value' => $this->request->getQuery('search_user_id'),
                         'empty' => 'ユーザーを選択してください',
-                        'class' => 'input form_input '
+                        'class' => 'input form_input ',
                     ]
                 ) ?>
             </li>
