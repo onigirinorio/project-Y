@@ -51,13 +51,15 @@
         </ul>
         <?= $this->Form->end() ?>
 
-        <?= $this->Form->create('null', ['type' => 'post', 'url' => ['controller' => 'Works', 'action' => 'download_excel']]) ?>
-        <?= $this->Form->hidden('user_id', ['value' => $this->request->getQuery('search_user_id')]) ?>
-        <?= $this->Form->hidden('date_y', ['value' => $this->request->getQuery('search_date.year')]) ?>
-        <?= $this->Form->hidden('date_m', ['value' => $this->request->getQuery('search_date.month')]) ?>
-        <?= $this->Form->submit(__('Excel出力'), ['class' => 'btn btn-primary']) ?>
-        <?= $this->Form->end() ?>
-        <p>※Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。</p>
+        <?php if ($user_agent === 'pc'): // excel出力表示はPCのみ?>
+            <?= $this->Form->create('null', ['type' => 'post', 'url' => ['controller' => 'Works', 'action' => 'download_excel']]) ?>
+            <?= $this->Form->hidden('user_id', ['value' => $this->request->getQuery('search_user_id')]) ?>
+            <?= $this->Form->hidden('date_y', ['value' => $this->request->getQuery('search_date.year')]) ?>
+            <?= $this->Form->hidden('date_m', ['value' => $this->request->getQuery('search_date.month')]) ?>
+            <?= $this->Form->submit(__('Excel出力'), ['class' => 'btn btn-primary']) ?>
+            <?= $this->Form->end() ?>
+            <p>※Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。</p>
+        <?php endif; ?>
     </div>
 <?php endif; ?>
 
