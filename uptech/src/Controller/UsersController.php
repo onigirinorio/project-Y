@@ -58,7 +58,13 @@ class UsersController extends AppController
      */
     public function view($id = null)
     {
-        $this->userIsAdmin();
+        // 管理者以外引数とログイン中のIDが一致しない時
+        if(!$this->isAdmin() && $id != $this->Auth->user('id')){
+            $this->redirect([
+                'controller' => 'Home',
+                'action' => 'index'
+            ]);
+        }
         $user = $this->Users->get($id, [
             'contain' => ['Works', 'Projects']
         ]);
@@ -152,16 +158,17 @@ class UsersController extends AppController
     }
 
     /**
-     * ユーザー画面のみ管理者以外をedit(自分のIDのみ)とaddに行かせるため
+     * 管理者以外は自分自身のデータしか編集できない用制限をする
      *
      */
     private function userIsAdmin(){
         if(!$this->isAdmin() && $this->isLogin()) {
             // 管理者以外、ログイン中
             $this->redirect([
-                'controller' => 'Home',
+                'controller' => 'Users',
                 'action' => 'index'
             ]);
+            exit;
         } elseif ($this->request->getParam('action') === 'add' && !$this->isLogin()) {
             // 未ログイン、新規登録画面
             return true;

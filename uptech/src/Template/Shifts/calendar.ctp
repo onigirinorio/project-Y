@@ -15,7 +15,8 @@
             [
                 'value' => $this->request->getData('search_user_id'),
                 'empty' => 'ユーザーを選択してください',
-                'class' => 'input form_input'
+                'class' => 'input form_input',
+                'default' => $search_user_id
             ]
         ) ?>
         <?= $this->Form->submit(__('ユーザー切替'), ['class' => 'btn btn-primary']) ?>
@@ -77,11 +78,12 @@
     $(document).ready(function () {
         // 引数がPHPの値を使用するため仮で入れておく。
         showCarendar("<?= date('Y-m-d H:i:s')?>", <?= $search_user_id ?>);
-
+/*
         $(document).on('click', '.fc-day', function () {
             var date = $(this).data('date');
             $('.modal').modal('show');
             $('.modal-title').text(date + 'のシフトを修正')
         });
+*/
     });
 </script>

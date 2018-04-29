@@ -27,10 +27,10 @@ function showCarendar(date, search_user_id){
             if(obj['attend_time'] !== null){
                 attended = new Date(obj['attend_time']);
             }
-            if((date < now && attended === null)　|| (attended !== null && date < attended)){
+            if((date < now && attended === null) || (attended !== null && obj['shift_attend'] < obj['attend_time'])){
                 event['color'] = 'red';
             }
-            if(obj['shift_attend'] <= obj['attend_time'] && obj['shift_clock'] >= obj['leave_time']){
+            if(attended !== null && obj['shift_attend'] >= obj['attend_time']){
                 event['color'] = 'green';
             }
             console.log(new Date(event['start']));

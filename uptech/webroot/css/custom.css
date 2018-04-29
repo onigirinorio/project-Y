@@ -167,11 +167,11 @@ div.input, select.input {
 
 /* カレンダー用 */
 #calendar {
-    margin-bottom: 20px;
+    margin: 20px 0;
 }
 
 .calendar_search {
-    margin: 20px 0;
+    margin-top: 20px;
 }
 
 

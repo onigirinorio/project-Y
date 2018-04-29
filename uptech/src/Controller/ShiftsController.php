@@ -149,21 +149,18 @@ class ShiftsController extends AppController
 
     /**
      * カレンダー画面表示用
-     *
-     * @param string|null $user_id ユーザーID
-     * @return \Cake\Http\Response|null Redirects to index.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
     public function calendar()
     {
+        $search_user_id = $this->Auth->user('id');
         if ($this->isAdmin() === true) {
             // セレクトボックスで使用するユーザーリスト取得
             $select_users = $this->Shifts->getSelectUsers();
         }
         if ($this->request->is('post')) {
             $search_user_id = $this->request->getData('search_user_id');
-            $this->set(compact('search_user_id'));
         }
+        $this->set(compact('search_user_id'));
         $this->set(compact('select_users'));
     }
 }

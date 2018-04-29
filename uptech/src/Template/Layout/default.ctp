@@ -111,7 +111,7 @@ $title = '勤怠管理ツール';
                 </ul>
                 <ul class="nav navbar-nav navbar-right" style="padding-left: 15px;">
                     <li class="nav navbar-nav">
-                        <?= $this->Html->link(__($user_name . 'さん'), ['controller' => 'Users', 'action' => 'edit', $user_id]) ?>
+                        <?= $this->Html->link(__($user_name . 'さん'), ['controller' => 'Users', 'action' => 'view', $user_id]) ?>
                     </li>
                     <li class="nav navbar-nav">
                         <?= $this->Html->link(__('ログアウト'), ['controller' => 'Home', 'action' => 'logout']) ?>
