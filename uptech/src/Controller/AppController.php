@@ -76,11 +76,14 @@ class AppController extends Controller
         $user_id = $this->Auth->user('id');
         // 管理者フラグをセット
         $admin_flg = $this->isAdmin();
+        // ユーザーエージェントを取得
+        $user_agent = $this->get_user_agent();
 
         $this->isAdmin();
-        $this->set('user_name',$user_name);
-        $this->set('user_id',$user_id);
-        $this->set('admin_flg', $admin_flg);
+        $this->set(compact('user_agent'));
+        $this->set(compact('user_name'));
+        $this->set(compact('user_id'));
+        $this->set(compact('admin_flg'));
         /*
          * Enable the following components for recommended CakePHP security settings.
          * see https://book.cakephp.org/3.0/en/controllers/components/security.html
@@ -134,11 +137,10 @@ class AppController extends Controller
     }
 
 
-
     /**
      * シフトを取得
-     * @param int
-     * @return
+     * @param int $user_id 取得するユーザーID
+     * @return array
      */
     public function getShift($user_id = null){
         $shifts = TableRegistry::get('Shifts');
@@ -180,6 +182,34 @@ class AppController extends Controller
             $val['shift_clock'] = $val['shift_clock']->i18nFormat('HH:mm:ss');
         }
         return $query;
+    }
+
+
+    /**
+     * ユーザーエージェントを取得
+     * @return string ユーザーエージェントの種別（pc,smart,tablet,cellphone）
+     */
+    public function get_user_agent() {
+        $ua = $_SERVER['HTTP_USER_AGENT'];
+
+        if ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false) || (strpos($ua, 'iPhone') !== false) || (strpos($ua, 'Windows Phone') !== false)) {
+            // スマートフォンからアクセスされた場合
+            $ua = 'smart';
+
+        } elseif ((strpos($ua, 'Android') !== false) || (strpos($ua, 'iPad') !== false)) {
+            // タブレットからアクセスされた場合
+            $ua = 'tablet';
+
+        } elseif ((strpos($ua, 'DoCoMo') !== false) || (strpos($ua, 'KDDI') !== false) || (strpos($ua, 'SoftBank') !== false) || (strpos($ua, 'Vodafone') !== false) || (strpos($ua, 'J-PHONE') !== false)) {
+            // 携帯からアクセスされた場合
+            $ua = 'cellphone';
+
+        } else {
+            // その他（PC）からアクセスされた場合
+            $ua = 'pc';
+        }
+
+        return $ua;
     }
 
 }

@@ -17,7 +17,6 @@ function showCarendar(date, search_user_id){
     var shiftEvent =[];
     if(shift.length !== 0){
         $.each(shift[0], function (i, obj) {
-            console.log(obj);
             var event = [];
             event['start'] = obj['date'] +' '+ obj['shift_attend'];
             event['end'] = obj['date'] +' '+ obj['shift_clock'];
@@ -33,7 +32,6 @@ function showCarendar(date, search_user_id){
             if(attended !== null && obj['shift_attend'] >= obj['attend_time']){
                 event['color'] = 'green';
             }
-            console.log(new Date(event['start']));
             shiftEvent.push(event);
         });
     }

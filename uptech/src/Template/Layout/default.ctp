@@ -37,11 +37,12 @@ $title = '勤怠管理ツール';
     <?= $this->fetch('js-element') ?>
 </head>
 <body>
-    <?php if($is_login): ?>
+<?php if ($is_login): ?>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-header1">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#navbar-header1">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -53,48 +54,52 @@ $title = '勤怠管理ツール';
             </div>
             <div class="collapse navbar-collapse" id="navbar-header1">
                 <ul class="nav navbar-nav">
-                    <?php if($admin_flg === true): ?>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                            ユーザー管理
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><?= $this->Html->link(__('ユーザー一覧'), ['controller'=>'Users','action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('ユーザー登録'), ['controller'=>'Users','action' => 'add']) ?></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                            案件管理
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><?= $this->Html->link(__('案件一覧'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('案件登録'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                            クライアント管理
-                            <span class="caret"></span>
-                        </a>
-                        <ul class="dropdown-menu" role="menu">
-                            <li role="presentation"><?= $this->Html->link(__('クライアント一覧'), ['controller' => 'Clients', 'action' => 'index']) ?></li>
-                            <li role="presentation"><?= $this->Html->link(__('クライアント登録'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
-                        </ul>
-                    </li>
+                    <?php if ($admin_flg === true): ?>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                                ユーザー管理
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><?= $this->Html->link(__('ユーザー一覧'), ['controller' => 'Users', 'action' => 'index']) ?></li>
+                                <li role="presentation"><?= $this->Html->link(__('ユーザー登録'), ['controller' => 'Users', 'action' => 'add']) ?></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                                案件管理
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><?= $this->Html->link(__('案件一覧'), ['controller' => 'Projects', 'action' => 'index']) ?></li>
+                                <li role="presentation"><?= $this->Html->link(__('案件登録'), ['controller' => 'Projects', 'action' => 'add']) ?></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                                クライアント管理
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li role="presentation"><?= $this->Html->link(__('クライアント一覧'), ['controller' => 'Clients', 'action' => 'index']) ?></li>
+                                <li role="presentation"><?= $this->Html->link(__('クライアント登録'), ['controller' => 'Clients', 'action' => 'add']) ?></li>
+                            </ul>
+                        </li>
                     <?php endif ?>
                     <li class="dropdown">
-                      <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
-                        シフト管理
-                        <span class="caret"></span>
-                      </a>
-                      <ul class="dropdown-menu" role="menu">
-                        <li role="presentation"><?= $this->Html->link(__('シフト一覧'), ['controller' => 'Shifts', 'action' => 'index']) ?></li>
-                        <li role="presentation"><?= $this->Html->link(__('シフト登録'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
-                          <li role="presentation"><?= $this->Html->link(__('カレンダー'), ['controller' => 'Shifts', 'action' => 'calendar']) ?></li>
-                      </ul>
+                        <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
+                            シフト管理
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" role="menu">
+                            <li role="presentation"><?= $this->Html->link(__('シフト一覧'), ['controller' => 'Shifts', 'action' => 'index']) ?></li>
+                            <li role="presentation"><?= $this->Html->link(__('シフト登録'), ['controller' => 'Shifts', 'action' => 'add']) ?></li>
+
+                            <?php if ($user_agent === 'pc'): // カレンダー表示はPCのみ?>
+                                <li role="presentation"><?= $this->Html->link(__('カレンダー'), ['controller' => 'Shifts', 'action' => 'calendar']) ?></li>
+                            <?php endif; ?>
+
+                        </ul>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -103,7 +108,7 @@ $title = '勤怠管理ツール';
                         </a>
                         <ul class="dropdown-menu" role="menu">
                             <li role="presentation"><?= $this->Html->link(__('出退勤一覧'), ['controller' => 'Works', 'action' => 'index']) ?></li>
-                            <?php if($admin_flg === false): ?>
+                            <?php if ($admin_flg === false): ?>
                                 <li role="presentation"><?= $this->Html->link(__('出退勤登録'), ['controller' => 'Works', 'action' => 'add']) ?></li>
                             <?php endif; ?>
                         </ul>
@@ -120,14 +125,14 @@ $title = '勤怠管理ツール';
             </div>
         </div>
     </nav>
-    <?php else: ?>
+<?php else: ?>
 
-    <?php endif ?>
-    <?= $this->Flash->render() ?>
-    <div class="container clearfix">
-        <?= $this->fetch('content') ?>
-    </div>
-    <footer>
-    </footer>
+<?php endif ?>
+<?= $this->Flash->render() ?>
+<div class="container clearfix">
+    <?= $this->fetch('content') ?>
+</div>
+<footer>
+</footer>
 </body>
 </html>
