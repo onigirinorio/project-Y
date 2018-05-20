@@ -95,7 +95,15 @@ class WorksController extends AppController
             //残業時間をデフォルトで0に
             $work->overtime = '0:00';
             // 登録する勤怠の日付のシフトを取得、シフトがなければ出勤登録させない
-            $shift = $this->Shifts->find()->where(['date' => date('Y-m-d', strtotime($work->create_at))])->first();
+            $shift = $this->Shifts->find()
+                ->where(
+                    [
+                        'user_id' => $user->id,
+                        'date' => date('Y-m-d', strtotime($work->create_at))
+                    ]
+                )
+                ->first();
+
             if ($shift == null) {
                 $this->Flash->error(__('本日はシフト登録されていません。'));
                 return $this->redirect(['action' => 'add']);
@@ -108,7 +116,7 @@ class WorksController extends AppController
 
             // 既に出勤が登録されていたら保存しない
             $latest_work = $this->Works->find()
-                ->where(['user_id' => $this->Auth->user('id')])
+                ->where(['user_id' => $user->id])
                 ->order(['create_at' => 'DESC'])
                 ->first();
             if (!empty($latest_work) && date('Y-m-d', strtotime($latest_work->create_at)) == date('Y-m-d')) {
@@ -292,7 +300,7 @@ class WorksController extends AppController
             if (isset($work)) {
                 // excel用にTimeオブジェクトをフォーマットするカラムをセット
                 $columns = ['attend_time', 'leave_time', 'break_time', 'overtime'];
-                //excel用にTimeオブジェクトをフォーマットする
+                // excel用にTimeオブジェクトをフォーマットする
                 $times = $this->format_time_to_excel($work, $columns);
 
                 $rowNum = 4 + $i;
