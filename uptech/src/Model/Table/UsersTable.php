@@ -84,6 +84,10 @@ class UsersTable extends Table
                 'maxLength' => [
                     'rule' => ['maxLength', 16],
                     'message' => 'パスワードは6文字以上、16文字以内で入力してください。'
+                ],
+                'comWith' => [  //←任意のバリデーション名
+                    'rule' => ['compareWith','password_check'],  //←バリデーションのルール
+                    'message' => '確認用のパスワードと一致しません'  //←エラー時のメッセージ
                 ]
             ])
             // メールアドレス

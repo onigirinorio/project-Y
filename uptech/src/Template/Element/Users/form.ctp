@@ -28,12 +28,24 @@ echo $this->Form->control('password',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-        'placeholder' => '半角英数字８文字以上１６文字以下',
+        'placeholder' => '半角英数字８文字以上１６文字以下で入力してください。',
         'minlength' => '8',
         'maxlength' => '16',
     ]
 );
-
+echo $this->Form->control('password_check',
+    [
+        'label' => [
+            'text' => 'パスワード(確認用)',
+            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+        ],
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'placeholder' => '半角英数字８文字以上１６文字以下で入力してください。',
+        'minlength' => '8',
+        'maxlength' => '16',
+        'type' => 'password',
+    ]
+);
 echo $this->Form->control('email',
     [
         'label' => [
