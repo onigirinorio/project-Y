@@ -84,7 +84,7 @@
             ],
             'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             'empty' => false,
-            'default' => 'empty',
+            'default' => null,
             'maxlength' => 20
         ]
     );
@@ -97,7 +97,7 @@
             ],
             'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             'empty' => false,
-            'default' => 'empty'
+            'default' => 0,
         ]
     );
 
