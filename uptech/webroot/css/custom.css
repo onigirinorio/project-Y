@@ -144,6 +144,7 @@ div.input, select.input {
 .regist_work_btn {
     width: 100%;
     height: 50px;
+    margin-top: 10px;
 }
 
 .input_inline {

@@ -3,6 +3,14 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Work[]|\Cake\Collection\CollectionInterface $works
  */
+
+// フォームヘルパーのdiv要素を調整
+$this->Form->templates([
+
+    'inputContainer' => '{{content}}',
+    'inputContainerError' => '{{content}}{{error}}',
+    'submitContainer' => '{{content}}',
+]);
 ?>
 <?php if ($admin_flg === true): ?>
     <div class="search_works_area">
@@ -45,21 +53,38 @@
                     ]
                 ) ?>
             </li>
+            <li>
+                <label>交通費データを含める</label>
+                <?= $this->Form->checkbox('transport_expenses_flg',
+                    [
+                        'class' => '',
+                        'checked' => !empty($this->request->getQuery('transport_expenses_flg')),
+                    ]
+                ) ?>
+            </li>
 
             <?php //$this->Form->input('date', ['type' => 'datetime', 'dateFormat' => 'YM', 'default' => date('Y-m'), 'monthNames' => false,]) ?>
-            <li><?= $this->Form->submit(__('検索'), ['class' => 'btn btn-primary']) ?></li>
+            <li>
+                <?= $this->Form->submit(__('検索'),
+                    [
+                        'class' => 'btn btn-primary',
+                    ]
+                )?>
+
+                <?php if ($user_agent === 'pc'): // excel出力表示はPCのみ?>
+                <?= $this->Form->submit(__('Excel出力'),
+                    [
+                        'class' => 'btn btn-primary',
+                        'name' => 'export_excel',
+                    ]
+                ) ?>
+                <p>※Excel出力をする際はユーザー・年・月を設定した状態で出力してください。</p>
+                <?php endif; ?>
+            </li>
+
         </ul>
         <?= $this->Form->end() ?>
 
-        <?php if ($user_agent === 'pc'): // excel出力表示はPCのみ?>
-            <?= $this->Form->create('null', ['type' => 'post', 'url' => ['controller' => 'Works', 'action' => 'download_excel']]) ?>
-            <?= $this->Form->hidden('user_id', ['value' => $this->request->getQuery('search_user_id')]) ?>
-            <?= $this->Form->hidden('date_y', ['value' => $this->request->getQuery('search_date.year')]) ?>
-            <?= $this->Form->hidden('date_m', ['value' => $this->request->getQuery('search_date.month')]) ?>
-            <?= $this->Form->submit(__('Excel出力'), ['class' => 'btn btn-primary']) ?>
-            <?= $this->Form->end() ?>
-            <p>※Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。</p>
-        <?php endif; ?>
     </div>
 <?php endif; ?>
 
@@ -76,6 +101,8 @@
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('leave_time', '退勤時間') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('break_time', '休憩時間') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('overtime', '残業時間') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('remarks', '備考有無') ?></th>
+            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('transport_expenses', '交通費') ?></th>
             <th scope="col" class="actions"><?= __('詳細') ?></th>
         </tr>
         </thead>
@@ -91,6 +118,8 @@
                     } ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($work->break_time)) ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($work->overtime)) ?></td>
+                <td class="hidden-xs"><?= isset($work->remarks) ? '有' : '無' ?></td>
+                <td class="hidden-xs"><?= $work->transport_expenses ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('詳細'), ['action' => 'view', $work->id]) ?>
                 </td>

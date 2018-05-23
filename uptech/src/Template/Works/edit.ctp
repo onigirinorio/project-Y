@@ -76,6 +76,31 @@
     );
     echo '</div>';
 
+    echo $this->Form->control('remarks',
+        [
+            'label' => [
+                'text' => '備考',
+                'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+            ],
+            'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+            'empty' => false,
+            'default' => 'empty',
+            'maxlength' => 20
+        ]
+    );
+
+    echo $this->Form->control('transport_expenses',
+        [
+            'label' => [
+                'text' => '交通費',
+                'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+            ],
+            'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+            'empty' => false,
+            'default' => 'empty'
+        ]
+    );
+
     ?>
 
     <div class="btn_area">

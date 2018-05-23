@@ -76,6 +76,20 @@ class WorksTable extends Table
             ->allowEmpty('overtime');
 
         $validator
+            ->allowEmpty('remarks')
+            ->add('remarks', [
+                    'maxLength' => [
+                        'rule' => ['maxLength', 20],
+                        'message' => '備考は20文字以内で入力してください。'
+                    ]
+                ]
+            );
+
+        $validator
+            ->integer('transport_expenses')
+            ->allowEmpty('transport_expenses');
+
+        $validator
             ->dateTime('create_at')
             ->allowEmpty('create_at');
 

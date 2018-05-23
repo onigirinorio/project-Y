@@ -53,6 +53,25 @@
             ]
         );
 
+        echo '<div>';
+        echo $this->Form->control('remarks',
+            [
+                'label' => '備考',
+                'class' => 'form-control',
+                'default' => ''
+            ]
+        );
+        echo '</div>';
+
+        echo $this->Form->control('transport_expenses',
+            [
+                'label' => '交通費',
+                'class' => 'form-control',
+                'default' => '',
+                'max' => 99999999999,
+            ]
+        );
+
         echo $this->Form->hidden('leave_time',
             [
                 'value' => date('H:i')

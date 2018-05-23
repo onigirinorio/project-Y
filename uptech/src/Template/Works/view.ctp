@@ -41,6 +41,16 @@
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i',strtotime($work->overtime)) ?></div>
     </div>
 
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">備考</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $work->remarks ?></div>
+    </div>
+
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">交通費</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $work->transport_expenses ?>円</div>
+    </div>
+
     <?php if ($admin_flg): ?>
     <div class="btn_area">
         <?= $this->Html->link(__('編集'), ['action' => 'edit', $work->id], ['class' => 'btn btn-success edit_delete_btn']) ?>

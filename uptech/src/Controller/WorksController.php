@@ -22,18 +22,25 @@ class WorksController extends AppController
     }
 
     /**
-     * Index method
+     * 出退勤一覧
      *
      * @return \Cake\Http\Response|void
      */
     public function index()
     {
+        $data = $this->request->getQuery();
+
+        // excel出力ボタンが押された場合,excel出力処理へ
+        if (isset($data['export_excel'])) {
+            $this->downloadExcel($data);
+        }
+
         $select_users = '';
         if ($this->isAdmin() === true) {
             // 検索で使用するユーザーリスト取得
             $select_users = $this->Works->getSelectUsers();
             // 検索処理
-            $query = $this->Works->makeQueryGetParameter($this->request->getQuery());
+            $query = $this->Works->makeQueryGetParameter($data);
         } else {
             $query = $this->Works->find()->where(
                 [
@@ -58,7 +65,7 @@ class WorksController extends AppController
     }
 
     /**
-     * View method
+     * 出退勤詳細
      *
      * @param string|null $id Work id.
      * @return \Cake\Http\Response|void
@@ -75,7 +82,7 @@ class WorksController extends AppController
     }
 
     /**
-     * Add method
+     * 出勤登録
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -138,6 +145,13 @@ class WorksController extends AppController
         $this->set('_serialize', ['work']);
     }
 
+
+    /**
+     * 退勤登録
+     *
+     * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
+     * @throws \Cake\Network\Exception\NotFoundException When record not found.
+     */
     public function addLeave()
     {
         $work = $this->Works->find()
@@ -164,7 +178,7 @@ class WorksController extends AppController
     }
 
     /**
-     * Edit method
+     * 出退勤編集
      *
      * @param string|null $id Work id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
@@ -207,7 +221,7 @@ class WorksController extends AppController
     }
 
     /**
-     * Delete method
+     * 出退勤削除
      *
      * @param string|null $id Work id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -230,30 +244,38 @@ class WorksController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
     /**
-     * Excel出力用
+     * 勤怠Excel出力用
+     * @param array|null $data 勤怠一覧にて設定された検索条件
+     * @return null
+     * @TODO コンポーネントとして切り出す
      */
-    public function downloadExcel()
+    public function downloadExcel($data = null)
     {
-        $data = $this->request->getData();
+        // $data = $this->request->getData();
+        $search_user_id = $data['search_user_id'];
+        $search_year = $data['search_date']['year'];
+        $search_month = $data['search_date']['month'];
+        $search_day = $data['search_date']['day'];
+        $transport_expenses_flg = $data['transport_expenses_flg'] === '1';
 
         // ユーザー、年、月の選択がされているかチェックする
-        if (empty($data['user_id']) || !isset($data['date_y']) || !isset($data['date_m']) || !empty($data['date_d'])) {
+        if (empty($search_user_id) || !isset($search_year) || !isset($search_month) || !empty($search_day)) {
             $this->Flash->error('Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。');
             return $this->return_works_list($data);
         }
 
-
         $this->Users = TableRegistry::get('Users');
-        $user = $this->Users->get($data['user_id']);
+        $user = $this->Users->get($search_user_id);
 
         // 勤怠データ取得
         $works = $this->Works->find()
             ->where(
                 [
-                    'Works.user_id' => $data['user_id'],
-                    'YEAR(create_at)' => $data['date_y'],
-                    'MONTH(create_at)' => $data['date_m']
+                    'Works.user_id' => $search_user_id,
+                    'YEAR(create_at)' => $search_year,
+                    'MONTH(create_at)' => $search_month,
                 ]
             )
             ->all()
@@ -276,8 +298,11 @@ class WorksController extends AppController
         // 入出力の情報設定
         $driPath    = realpath(WWW_ROOT) . "/excel/";
         $inputPath  = $driPath . "template.xls";
+        if ($transport_expenses_flg) {
+            $inputPath  = $driPath . "template_travel_expenses.xls";
+        }
         $sheetName  = "Sheet1";
-        $outputFile = $user['name'] . "_" . $data['date_y'] . "_" . $data['date_m'] . ".xls";
+        $outputFile = $user['name'] . "_" . $search_year . "_" . $search_month . ".xls";
 
         // Excalファイル作成
         $reader = PHPExcel_IOFactory::createReader('Excel5');
@@ -287,8 +312,8 @@ class WorksController extends AppController
         // ユーザー名記入
         $sheet->setCellValue('V1', $user['name']);
         // 日付記入
-        $sheet->setCellValue('A1', $data['date_y']);
-        $sheet->setCellValue('G1', ltrim($data['date_m'], "0"));
+        $sheet->setCellValue('A1', $search_year);
+        $sheet->setCellValue('G1', ltrim($search_month, "0"));
         // 稼働データ記入
         for ($i = 0; $i < 31; $i++) {
             $work = null;
@@ -308,6 +333,10 @@ class WorksController extends AppController
                 $sheet->setCellValue('J' . $rowNum, $times['leave_time']);
                 $sheet->setCellValue('O' . $rowNum, $times['break_time']);
                 $sheet->setCellValue('Y' . $rowNum, $times['overtime']);
+                $sheet->setCellValue('AD' . $rowNum, $work->remarks);
+                if ($transport_expenses_flg) {
+                    $sheet->setCellValue('AL' . $rowNum, $work->transport_expenses);
+                }
             }
         }
 
@@ -322,6 +351,7 @@ class WorksController extends AppController
         return $this->redirect(['action' => 'index']);
         exit;
     }
+
 
     /**
      * 登録された退勤時間を案件の〜分刻みに合わせる。
@@ -364,10 +394,10 @@ class WorksController extends AppController
         [
             'action' => 'index',
             '?' => [
-                'search_user_id' => isset($data['user_id']) ? $data['user_id'] : '',
-                'search_date[year]' => isset($data['date_y']) ? $data['date_y'] : '',
-                'search_date[month]' => isset($data['date_m']) ? $data['date_m'] : '',
-                'search_date[day]' => isset($data['date_d']) ? $data['date_d'] : ''
+                'search_user_id' => isset($data['search_user_id']) ? $data['search_user_id'] : '',
+                'search_date[year]' => isset($data['search_date']['year']) ? $data['search_date']['year'] : '',
+                'search_date[month]' => isset($data['search_date']['month']) ? $data['search_date']['month'] : '',
+                'search_date[day]' => isset($data['search_date']['day']) ? $data['search_date']['day'] : ''
             ]
         ]
         ));
