@@ -77,6 +77,11 @@
             class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->has('project') ? $user->project->shop_name : '' ?></div>
     </div>
 
+    <div class="view_row_wrapper clearfix">
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">勤務先</div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->work_location ?></div>
+    </div>
+
     <div class="btn_area">
         <?= $this->Html->link(__('編集'), ['action' => 'edit', $user->id], ['class' => 'btn btn-success edit_delete_btn']) ?>
         <?php if ($admin_flg): ?>

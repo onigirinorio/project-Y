@@ -197,3 +197,15 @@ echo $this->Form->control('project_id',
         'default' => 'empty'
     ]
 );
+
+echo $this->Form->control('work_location',
+    [
+        'label' => [
+            'text' => '勤務先',
+            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+        ],
+        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+        'maxlength' => '126',
+        'placeholder' => '例）ソフトバンクショップ渋谷店',
+    ]
+);

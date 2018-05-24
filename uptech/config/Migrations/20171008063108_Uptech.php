@@ -65,7 +65,7 @@ class Uptech extends AbstractMigration
                 'null' => true,
             ])
             ->addColumn('shop_name', 'string', [
-                'comment' => '店舗名',
+                'comment' => '案件名',
                 'default' => null,
                 'limit' => 128,
                 'null' => true,

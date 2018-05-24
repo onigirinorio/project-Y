@@ -55,7 +55,7 @@ class ClientsTable extends Table
         $validator
             ->integer('id')
             ->allowEmpty('id', 'create')
-            // 店舗名
+            // クライアント名
             ->scalar('client_name')
             ->requirePresence('client_name', 'create')
             ->notEmpty('client_name', 'クライアント名を入力してください。')

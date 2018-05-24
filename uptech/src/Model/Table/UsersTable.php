@@ -148,7 +148,10 @@ class UsersTable extends Table
             ->notEmpty('expense_route', '交通経路を入力してください。1月の間で変動する場合は特殊と入力してください。')
             // 交通費
             ->integer('expense_price')
-            ->allowEmpty('expense_price');
+            ->allowEmpty('expense_price')
+            // 勤務先
+            ->integer('work_location')
+            ->allowEmpty('work_location');
 
 
         return $validator;

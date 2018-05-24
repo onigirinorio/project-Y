@@ -63,13 +63,13 @@ class ProjectsTable extends Table
             // 金額
             ->integer('price', '金額は数字のみを入力してください。')
             ->notEmpty('price', '金額を入力してください。')
-            // 店舗名
+            // 案件名
             ->scalar('shop_name')
-            ->notEmpty('shop_name', '店舗名を入力してください。')
+            ->notEmpty('shop_name', '案件名を入力してください。')
             ->add('shop_name', [
                 'maxLength' => [
                     'rule' => ['maxLength', 50],
-                    'message' => '店舗名は50文字以内で入力してください。'
+                    'message' => '案件名は50文字以内で入力してください。'
                 ]
             ])
             // 交通費

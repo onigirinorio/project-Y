@@ -7,7 +7,7 @@
     <h3 class="h3_responsive"><?= __('案件詳細') ?></h3>
 
     <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">店舗名</div>
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">案件名</div>
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $project->shop_name ?></div>
     </div>
 
