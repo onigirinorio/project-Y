@@ -150,7 +150,7 @@ class UsersTable extends Table
             ->integer('expense_price')
             ->allowEmpty('expense_price')
             // 勤務先
-            ->integer('work_location')
+            ->scalar('work_location')
             ->allowEmpty('work_location');
 
 
