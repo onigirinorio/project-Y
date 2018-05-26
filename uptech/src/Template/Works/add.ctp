@@ -40,7 +40,6 @@ $this->Html->script('geolocation', ['block' => true]);
         echo $this->Form->unlockField('location_add');
         ?>
         <div id="btn_work_add" class="btn btn-primary regist_work_btn" style="padding-top: 15px;">出勤</div>
-        <?//= $this->Form->button(__('出勤'), ['class' => 'btn btn-primary regist_work_btn']) ?>
         <?= $this->Form->end() ?>
     </div>
 
@@ -112,9 +111,7 @@ $this->Html->script('geolocation', ['block' => true]);
         echo $this->Form->unlockField('location_leave');
         ?>
 
-
         <div id="btn_work_leave" class="btn btn-primary regist_work_btn" style="padding-top: 15px;">退勤</div>
-        <?//= $this->Form->button(__('退勤'), ['class' => 'btn btn-primary regist_work_btn']) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>
