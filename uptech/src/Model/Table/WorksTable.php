@@ -57,25 +57,25 @@ class WorksTable extends Table
     {
         $validator
             ->integer('id')
-            ->allowEmpty('id', 'create');
+            ->allowEmpty('id', 'create')
 
-        $validator
+            // 出勤時間
             ->time('attend_time')
-            ->notEmpty('attend_time', '出勤時間を入力してください。');
+            ->notEmpty('attend_time', '出勤時間を入力してください。')
 
-        $validator
+            // 退勤時間
             ->time('leave_time')
-            ->allowEmpty('leave_time');
+            ->allowEmpty('leave_time')
 
-        $validator
+            // 休憩時間
             ->time('break_time')
-            ->notEmpty('break_time', '休憩時間を入力してください。');
+            ->notEmpty('break_time', '休憩時間を入力してください。')
 
-        $validator
+            // 残業時間
             ->time('overtime')
-            ->allowEmpty('overtime');
+            ->allowEmpty('overtime')
 
-        $validator
+            // 備考
             ->allowEmpty('remarks')
             ->add('remarks', [
                     'maxLength' => [
@@ -83,13 +83,21 @@ class WorksTable extends Table
                         'message' => '備考は20文字以内で入力してください。'
                     ]
                 ]
-            );
+            )
 
-        $validator
+            // 出勤場所
+            ->scalar('location_add')
+            ->allowEmpty('location_add')
+
+            // 退勤場所
+            ->scalar('location_leave')
+            ->allowEmpty('location_leave')
+
+            // 交通費
             ->integer('transport_expenses')
-            ->allowEmpty('transport_expenses');
+            ->allowEmpty('transport_expenses')
 
-        $validator
+            // 作成時間
             ->dateTime('create_at')
             ->allowEmpty('create_at');
 

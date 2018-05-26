@@ -101,6 +101,30 @@
         ]
     );
 
+    echo $this->Form->control('location_add',
+        [
+            'label' => [
+                'text' => '出勤場所',
+                'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+            ],
+            'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+            'empty' => false,
+            'default' => null,
+        ]
+    );
+
+    echo $this->Form->control('location_leave',
+        [
+            'label' => [
+                'text' => '退勤場所',
+                'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+            ],
+            'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+            'empty' => false,
+            'default' => null,
+        ]
+    );
+
     ?>
 
     <div class="btn_area">

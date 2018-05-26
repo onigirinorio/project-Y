@@ -106,7 +106,8 @@ class WorksController extends AppController
                 ->where(
                     [
                         'user_id' => $user->id,
-                        'date' => date('Y-m-d', strtotime($work->create_at))
+                        'date' => date('Y-m-d', strtotime($work->create_at)),
+                        'delete_flg' => 0,
                     ]
                 )
                 ->first();
@@ -123,7 +124,12 @@ class WorksController extends AppController
 
             // 既に出勤が登録されていたら保存しない
             $latest_work = $this->Works->find()
-                ->where(['user_id' => $user->id])
+                ->where(
+                    [
+                        'user_id' => $user->id,
+                        'delete_flg' => 0,
+                    ]
+                )
                 ->order(['create_at' => 'DESC'])
                 ->first();
             if (!empty($latest_work) && date('Y-m-d', strtotime($latest_work->create_at)) == date('Y-m-d')) {
@@ -154,11 +160,26 @@ class WorksController extends AppController
      */
     public function addLeave()
     {
+        $year = date('Y');
+        $month = date('m');
+        $day = date('d');
         $work = $this->Works->find()
-            ->where(['user_id' => $this->Auth->user('id')])
-            ->order(['create_at' => 'DESC'])
+            ->where(
+                [
+                    'user_id' => $this->Auth->user('id'),
+                    'YEAR(create_at)' => $year,
+                    'MONTH(create_at)'=> $month,
+                    'DAY(create_at)'=> $day,
+                    'Works.delete_flg' => 0,
+                ]
+            )
             ->contain('Projects')
             ->first();
+
+        if (empty($work)) {
+            $this->Flash->error(__('本日の出勤データが登録されていません。'));
+            return $this->redirect(['action' => 'add']);
+        }
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
