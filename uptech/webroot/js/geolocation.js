@@ -10,7 +10,7 @@ $(function(){
     } else { // Geolocation APIに対応していない
         alert("この端末では位置情報が取得できません");
     }
-    
+
     $("#btn_work_add").on('click', function () {
         var input_name = '[name=location_add]',
             target = document.getElementById("form_add");
@@ -39,6 +39,8 @@ $(function(){
                     dataType: 'json',
                     data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
                         json: '',
+                        lr: 100,
+                        ar: 1000,
                         lat: lat,
                         lon: lon,
                     },
@@ -49,7 +51,7 @@ $(function(){
                         var result = response.result;
                         var location = result.prefecture.pname + result.municipality.mname + result.local[0].section + result.local[0].homenumber;
                         $(input_name).val(location);
-                        target.submit();
+                        //target.submit();
                     })
                     // ・サーバからステータスコード400以上が返ってきたとき
                     // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
