@@ -282,7 +282,7 @@ class WorksController extends AppController
         $transport_expenses_flg = $data['transport_expenses_flg'] === '1';
 
         // ユーザー、年、月の選択がされているかチェックする
-        if (empty($search_user_id) || !isset($search_year) || !isset($search_month) || !empty($search_day)) {
+        if (empty($search_user_id) || empty($search_year) || empty($search_month) || !empty($search_day)) {
             $this->Flash->error('Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。');
             return $this->return_works_list($data);
         }
@@ -297,6 +297,7 @@ class WorksController extends AppController
                     'Works.user_id' => $search_user_id,
                     'YEAR(create_at)' => $search_year,
                     'MONTH(create_at)' => $search_month,
+                    'delete_flg' => 0,
                 ]
             )
             ->all()
@@ -408,10 +409,11 @@ class WorksController extends AppController
     /**
      * 検索結果を維持したまま一覧ページへリダイレクトする
      * @param array $data リダイレクト先に渡すパラメータの配列
+     * @return object リダイレクト先
      */
     public function return_works_list($data)
     {
-        $this->redirect((
+        return $this->redirect((
         [
             'action' => 'index',
             '?' => [
