@@ -1,18 +1,5 @@
 <?php
 
-/* ユーザーを変更できる必要ないのでラベルのみに
-echo $this->Form->control('user_id',
-    [
-        'label' => [
-            'text' => '名前',
-            'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
-        ],
-        'options' => $users,
-        'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
-    ]
-);
-*/
-
 echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
 echo $this->Form->control('date',
     [

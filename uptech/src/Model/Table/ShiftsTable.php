@@ -51,38 +51,31 @@ class ShiftsTable extends Table
     public function validationDefault(Validator $validator)
     {
         $validator
+            // ID
             ->integer('id')
-            ->allowEmpty('id', 'create');
-
-        $validator
+            ->allowEmpty('id', 'create')
+            // 日付
             ->date('date')
-            ->notEmpty('date', '日付を入力してください。');
-
-        $validator
+            ->notEmpty('date', '日付を入力してください。')
+            // 出勤予定時間
             ->time('attend')
-            ->allowEmpty('attend', '出勤時間を入力してください。');
-
-        $validator
+            ->notEmpty('attend', '出勤時間を入力してください。')
+            // 退勤予定時間
             ->time('clock')
-            ->allowEmpty('clock', '退勤時間を入力してください。');
-
-        $validator
+            ->notEmpty('clock', '退勤時間を入力してください。')
+            // 休日フラグ
             ->boolean('holiday_flag')
-            ->allowEmpty('holiday_flag');
-
-        $validator
+            ->allowEmpty('holiday_flag')
+            // シフト作成者
             ->scalar('create_user')
-            ->allowEmpty('create_user');
-
-        $validator
+            ->allowEmpty('create_user')
+            // 作成日時
             ->dateTime('create_at')
-            ->allowEmpty('create_at');
-
-        $validator
+            ->allowEmpty('create_at')
+            // シフト更新者
             ->scalar('update_user')
-            ->allowEmpty('update_user');
-
-        $validator
+            ->allowEmpty('update_user')
+            // 更新日時
             ->dateTime('upteda_at')
             ->allowEmpty('upteda_at');
 

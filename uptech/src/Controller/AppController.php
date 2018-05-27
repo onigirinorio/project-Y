@@ -39,6 +39,10 @@ class AppController extends Controller
      *
      * @return void
      */
+
+    // 各コントローラーで使用できるクラス変数を定義
+    protected $is_login, $user_name, $user_id, $admin_flg, $user_agent;
+
     public function initialize()
     {
         parent::initialize();
@@ -69,25 +73,20 @@ class AppController extends Controller
             'authError' => __('長時間操作がなかった為、ログアウトしました。')
         ]);
 
-        // ログイン判定
-        $this->isLogin();
-        // ユーザー情報をビューにセット
-        $user_name = $this->Auth->user('name');
-        $user_id = $this->Auth->user('id');
-        // 管理者フラグをセット
-        $admin_flg = $this->isAdmin();
-        // ユーザーエージェントを取得
-        $user_agent = $this->get_user_agent();
+        // ログイン判定、ユーザー情報、管理者フラグ、ユーザーエージェントを取得しクラス変数に代入
+        $is_login   = $this->isLogin();
+        $admin_flg  = $this->isAdmin();
+        $user_name  = $this->user_name  = $this->Auth->user('name');
+        $user_id    = $this->user_id    = $this->Auth->user('id');
+        $user_agent = $this->user_agent = $this->get_user_agent();
 
-        $this->isAdmin();
+        // 取得した各情報をビューにセット
+        $this->set(compact('is_login'));
         $this->set(compact('user_agent'));
         $this->set(compact('user_name'));
         $this->set(compact('user_id'));
         $this->set(compact('admin_flg'));
-        /*
-         * Enable the following components for recommended CakePHP security settings.
-         * see https://book.cakephp.org/3.0/en/controllers/components/security.html
-         */
+
         $this->loadComponent('Security');
         $this->loadComponent('Csrf');
     }
@@ -97,12 +96,11 @@ class AppController extends Controller
      * @return bool 管理者フラグ
      */
     public function isAdmin(){
-        $admin = false;
+        $admin_flg = false;
         if($this->Auth->user('adminflg') == 1){
-            $admin = true;
+            $admin_flg = true;
         }
-        $this->set('admin_flg',$admin);
-        return $admin;
+        return $admin_flg;
     }
 
     /**
@@ -110,12 +108,10 @@ class AppController extends Controller
      * @return bool ログインフラグ
      */
     public function isLogin(){
+        $is_login = false;
         if(!empty($this->Auth->user())) {
             $is_login = true;
-        } else {
-            $is_login = false;
         }
-        $this->set('is_login',$is_login);
         return $is_login;
     }
     /**
@@ -135,7 +131,6 @@ class AppController extends Controller
             $this->set('_serialize', true);
         }
     }
-
 
     /**
      * シフトを取得
@@ -195,20 +190,16 @@ class AppController extends Controller
         if ((strpos($ua, 'Android') !== false) && (strpos($ua, 'Mobile') !== false) || (strpos($ua, 'iPhone') !== false) || (strpos($ua, 'Windows Phone') !== false)) {
             // スマートフォンからアクセスされた場合
             $ua = 'smart';
-
         } elseif ((strpos($ua, 'Android') !== false) || (strpos($ua, 'iPad') !== false)) {
             // タブレットからアクセスされた場合
             $ua = 'tablet';
-
         } elseif ((strpos($ua, 'DoCoMo') !== false) || (strpos($ua, 'KDDI') !== false) || (strpos($ua, 'SoftBank') !== false) || (strpos($ua, 'Vodafone') !== false) || (strpos($ua, 'J-PHONE') !== false)) {
             // 携帯からアクセスされた場合
             $ua = 'cellphone';
-
         } else {
             // その他（PC）からアクセスされた場合
             $ua = 'pc';
         }
-
         return $ua;
     }
 

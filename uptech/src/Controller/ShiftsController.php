@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Controller;
 
 use App\Controller\AppController;
@@ -18,7 +19,7 @@ class ShiftsController extends AppController
     }
 
     /**
-     * Index method
+     * シフト一覧
      *
      * @return \Cake\Http\Response|void
      */
@@ -28,11 +29,7 @@ class ShiftsController extends AppController
         if ($this->isAdmin() === true) {
             $query = $this->Shifts->find();
         } else {
-            $query = $this->Shifts->find()->where(
-                [
-                    'user_id' => $this->Auth->user('id')
-                ]
-            );
+            $query = $this->Shifts->find()->where(['user_id' => $this->user_id]);
         }
 
         $this->paginate = array(
@@ -49,7 +46,7 @@ class ShiftsController extends AppController
     }
 
     /**
-     * View method
+     * シフト詳細
      *
      * @param string|null $id Shift id.
      * @return \Cake\Http\Response|void
@@ -57,16 +54,14 @@ class ShiftsController extends AppController
      */
     public function view($id = null)
     {
-        $shift = $this->Shifts->get($id, [
-            'contain' => ['Users']
-        ]);
+        $shift = $this->Shifts->get($id, ['contain' => ['Users']]);
 
         $this->set('shift', $shift);
         $this->set('_serialize', ['shift']);
     }
 
     /**
-     * Add method
+     * シフト登録
      *
      * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
      */
@@ -74,26 +69,25 @@ class ShiftsController extends AppController
     {
         $shift = $this->Shifts->newEntity();
         $create_at = date('Y-m-d H:i:s');
-        //登録者を仮の値を代入 (後で変更)
-        $shift->create_user = $this->Auth->user('name');
+
+        $shift->create_user = $this->user_name;
         $shift->create_at = $create_at;
 
         if ($this->request->is('post')) {
             $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
             if ($this->Shifts->save($shift)) {
                 $this->Flash->success(__('シフトを登録しました。'));
-
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('予期せぬエラーが発生しました。'));
+            $this->Flash->error(__('シフトの登録に失敗しました。もう一度お試しください。'));
         }
-        $users = $this->Shifts->Users->find('list', ['limit' => 200]);
-        $this->set(compact('shift', 'users'));
+
+        $this->set(compact('shift'));
         $this->set('_serialize', ['shift']);
     }
 
     /**
-     * Edit method
+     * シフト編集
      *
      * @param string|null $id Shift id.
      * @return \Cake\Http\Response|null Redirects on successful edit, renders view otherwise.
@@ -101,30 +95,27 @@ class ShiftsController extends AppController
      */
     public function edit($id = null)
     {
-        $shift = $this->Shifts->get($id, [
-            'contain' => ['Users']
-        ]);
-          $update_at = date('Y-m-d H:i:s');
-          //更新者に仮の値を代入 (あとで変更)
-          $shift->update_user = $this->Auth->user('name');;
-          $shift->upteda_at = $update_at;
+        $shift = $this->Shifts->get($id, ['contain' => ['Users']]);
+        $update_at = date('Y-m-d H:i:s');
 
-          if ($this->request->is(['patch', 'post', 'put'])) {
-              $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
-                  if ($this->Shifts->save($shift)) {
-                      $this->Flash->success(__('シフトを編集しました。'));
+        $shift->update_user = $this->user_name;
+        $shift->upteda_at = $update_at;
 
-                      return $this->redirect(['action' => 'view', $id]);
-                  }
-              $this->Flash->error(__('予期せぬエラーが発生しました。'));
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
+            if ($this->Shifts->save($shift)) {
+                $this->Flash->success(__('シフトを編集しました。'));
+                return $this->redirect(['action' => 'view', $id]);
+            }
+            $this->Flash->error(__('シフトの編集に失敗しました。もう一度お試しください。'));
         }
-        $users = $this->Shifts->Users->find('list', ['limit' => 200]);
-        $this->set(compact('shift', 'users'));
+
+        $this->set(compact('shift'));
         $this->set('_serialize', ['shift']);
     }
 
     /**
-     * Delete method
+     * シフト削除
      *
      * @param string|null $id Shift id.
      * @return \Cake\Http\Response|null Redirects to index.
@@ -135,14 +126,13 @@ class ShiftsController extends AppController
         $this->request->allowMethod(['post', 'delete']);
         $shift = $this->Shifts->get($id);
 
-            //削除フラグに1を代入
-            $shift->delete_flg = 1;
+        $shift->delete_flg = 1;
 
-            if ($this->Shifts->save($shift)) {
-                $this->Flash->success(__('シフトを削除しました。'));
-            } else {
-                $this->Flash->error(__('予期せぬエラーが発生しました。'));
-            }
+        if ($this->Shifts->save($shift)) {
+            $this->Flash->success(__('シフトを削除しました。'));
+        } else {
+            $this->Flash->error(__('シフトの削除に失敗しました。もう一度お試しください。'));
+        }
 
         return $this->redirect(['action' => 'index']);
     }
