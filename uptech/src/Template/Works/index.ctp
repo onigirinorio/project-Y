@@ -118,7 +118,7 @@ $this->Form->templates([
                     } ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($work->break_time)) ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($work->overtime)) ?></td>
-                <td class="hidden-xs"><?= isset($work->remarks) ? '有' : '無' ?></td>
+                <td class="hidden-xs"><?= !empty($work->remarks) ? '有' : '無' ?></td>
                 <td class="hidden-xs"><?= $work->transport_expenses ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('詳細'), ['action' => 'view', $work->id]) ?>
