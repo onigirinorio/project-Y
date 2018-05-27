@@ -51,7 +51,7 @@ $(function(){
                         var result = response.result;
                         var location = result.prefecture.pname + result.municipality.mname + result.local[0].section + result.local[0].homenumber;
                         $(input_name).val(location);
-                        //target.submit();
+                        target.submit();
                     })
                     // ・サーバからステータスコード400以上が返ってきたとき
                     // ・ステータスコードは正常だが、dataTypeで定義したようにパース出来なかったとき
