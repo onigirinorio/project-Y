@@ -12,29 +12,13 @@ $this->Html->script('geolocation', ['block' => true]);
         <?= $this->Form->create($work, ['id' => 'form_add']) ?>
         <h3><?= __('出勤登録') ?></h3>
         <?php
-        echo $this->Form->hidden('user_id',
-            [
-                'value' => $user_id
-            ]
-        );
+        echo $this->Form->hidden('user_id', ['value' => $user_id]);
 
-        echo $this->Form->hidden('project_id',
-            [
-                'value' => $project
-            ]
-        );
+        echo $this->Form->hidden('project_id', ['value' => $project]);
 
-        echo $this->Form->hidden('leave_time',
-            [
-                'value' => null
-            ]
-        );
+        echo $this->Form->hidden('leave_time', ['value' => null]);
 
-        echo $this->Form->hidden('location_add',
-            [
-                'value' => null
-            ]
-        );
+        echo $this->Form->hidden('location_add', ['value' => null]);
 
         // location_addの値だけは変更可能にする
         echo $this->Form->unlockField('location_add');
@@ -83,29 +67,13 @@ $this->Html->script('geolocation', ['block' => true]);
             ]
         );
 
-        echo $this->Form->hidden('leave_time',
-            [
-                'value' => date('H:i')
-            ]
-        );
+        echo $this->Form->hidden('leave_time', ['value' => date('H:i')]);
 
-        echo $this->Form->hidden('user_id',
-            [
-                'value' => $user_id
-            ]
-        );
+        echo $this->Form->hidden('user_id', ['value' => $user_id]);
 
-        echo $this->Form->hidden('project_id',
-            [
-                'value' => $project
-            ]
-        );
+        echo $this->Form->hidden('project_id', ['value' => $project]);
 
-        echo $this->Form->hidden('location_leave',
-            [
-                'value' => null
-            ]
-        );
+        echo $this->Form->hidden('location_leave', ['value' => null]);
 
         // location_leaveの値だけは変更可能にする
         echo $this->Form->unlockField('location_leave');
