@@ -283,7 +283,7 @@ class WorksController extends AppController
 
         // ユーザー、年、月の選択がされているかチェックする
         if (empty($search_user_id) || empty($search_year) || empty($search_month) || !empty($search_day)) {
-            $this->Flash->error('Excel出力をする際はユーザー・年・月を設定し、検索した状態で出力してください。');
+            $this->Flash->error('Excel出力をする際はユーザー・年・月を設定した状態で出力してください。');
             return $this->return_works_list($data);
         }
 
