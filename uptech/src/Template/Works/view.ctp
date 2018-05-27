@@ -17,7 +17,7 @@
     </div>
 
     <div class="view_row_wrapper clearfix">
-        <div class="col-md-2 col-sm-2 col-xs-12 form_label">プロジェクト</div>
+        <div class="col-md-2 col-sm-2 col-xs-12 form_label">案件名</div>
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $work->project->shop_name ?></div>
     </div>
 

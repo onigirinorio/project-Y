@@ -207,7 +207,7 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
-        // プロジェクトリストを取得
+        // 案件リストを取得
         $this->Projects = TableRegistry::get('Projects');
         $projects = $this->Projects->find()->all();
         $project_list = [];

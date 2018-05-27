@@ -21,7 +21,7 @@ class UsersController extends AppController
         parent::initialize();
         $this->Auth->allow('add');
 
-        // プロジェクトリストを取得
+        // 案件リストを取得
         $this->Projects = TableRegistry::get('Projects');
         $projects = $this->Projects->find()->all();
         $project_list = [];

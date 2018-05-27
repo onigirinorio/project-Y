@@ -96,7 +96,7 @@ $this->Form->templates([
         <tr>
             <th scope="col"><?= $this->Paginator->sort('create_at', '日付') ?></th>
             <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('project_id', 'プロジェクト') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('project_id', '案件名') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('attend_time', '出勤時間') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('leave_time', '退勤時間') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('break_time', '休憩時間') ?></th>

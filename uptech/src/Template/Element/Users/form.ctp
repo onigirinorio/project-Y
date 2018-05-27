@@ -187,7 +187,7 @@ echo $this->Form->control('expense_price',
 echo $this->Form->control('project_id',
     [
         'label' => [
-            'text' => 'プロジェクト',
+            'text' => '案件名',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
         'type' => 'select',
