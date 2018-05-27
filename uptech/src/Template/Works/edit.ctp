@@ -97,7 +97,6 @@
             ],
             'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
             'empty' => false,
-            'default' => 0,
         ]
     );
 
