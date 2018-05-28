@@ -93,6 +93,10 @@ class WorksTable extends Table
             ->scalar('location_leave')
             ->allowEmpty('location_leave')
 
+            // 勤務先
+            ->scalar('work_location')
+            ->allowEmpty('work_location')
+
             // 交通費
             ->integer('transport_expenses')
             ->allowEmpty('transport_expenses')

@@ -125,8 +125,12 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $data,['validate'=>'update']);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('更新しました。'));
+                if ($this->isAdmin()) {
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    return $this->redirect(['action' => 'view', $id]);
+                }
 
-                return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('登録エラー'));
         }

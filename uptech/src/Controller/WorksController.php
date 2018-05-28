@@ -77,6 +77,8 @@ class WorksController extends AppController
             'contain' => ['Users', 'Projects']
         ]);
 
+        $this->check_authority($work->user_id);
+
         $this->set('work', $work);
         $this->set('_serialize', ['work']);
     }
@@ -101,6 +103,7 @@ class WorksController extends AppController
             $work->break_time = '1:00';
             //残業時間をデフォルトで0に
             $work->overtime = '0:00';
+            $work->work_location = $user->work_location;
             // 登録する勤怠の日付のシフトを取得、シフトがなければ出勤登録させない
             $shift = $this->Shifts->find()
                 ->where(
@@ -207,6 +210,11 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
+        if (!$this->isAdmin()) {
+            $this->Flash->error('管理者のみアクセスできるページです。');
+            $this->redirect(['action' => 'index']);
+        }
+
         // 案件リストを取得
         $this->Projects = TableRegistry::get('Projects');
         $projects = $this->Projects->find()->all();
@@ -232,7 +240,7 @@ class WorksController extends AppController
                 $this->Flash->success(__('勤怠データを編集しました。'));
                 return $this->redirect(['action' => 'view', $id]);
             }
-            $this->Flash->error(__('退勤の編集に失敗しました。'));
+            $this->Flash->error(__('退勤データの編集に失敗しました。もう一度お試しください。'));
             return $this->redirect(['action' => 'view', $id]);
         }
 
@@ -250,6 +258,11 @@ class WorksController extends AppController
      */
     public function delete($id = null)
     {
+        if (!$this->isAdmin()) {
+            $this->Flash->error('管理者のみアクセスできるページです。');
+            $this->redirect(['action' => 'index']);
+        }
+
         $this->request->allowMethod(['post', 'delete']);
         $work = $this->Works->get($id);
 
@@ -257,9 +270,9 @@ class WorksController extends AppController
         $work->delete_flg = 1;
 
         if ($this->Works->save($work)) {
-            $this->Flash->success(__('勤怠を削除しました。'));
+            $this->Flash->success(__('勤怠データを削除しました。'));
         } else {
-            $this->Flash->error(__('予期せぬエラーが発生しました。'));
+            $this->Flash->error(__('勤怠データの削除に失敗しました。もう一度お試しください。'));
         }
 
         return $this->redirect(['action' => 'index']);
@@ -425,4 +438,20 @@ class WorksController extends AppController
         ]
         ));
     }
+
+    /**
+     * 管理者以外のユーザーが自分以外の勤怠データにアクセスしようとした場合に一覧にリダイレクトさせる
+     * @param integer $user_id ユーザーID
+     * @return object リダイレクト先
+     */
+    private function check_authority($user_id)
+    {
+        if (!$this->isAdmin()) {
+            if ($user_id != $this->user_id) {
+                $this->Flash->error('自分自身の勤怠データ以外にはアクセスできません。');
+                return $this->redirect(['action' => 'index']);
+            }
+        }
+    }
+
 }

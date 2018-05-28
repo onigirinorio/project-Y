@@ -124,6 +124,18 @@
         ]
     );
 
+    echo $this->Form->control('work_location',
+        [
+            'label' => [
+                'text' => '勤務先',
+                'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
+            ],
+            'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+            'empty' => false,
+            'default' => null,
+        ]
+    );
+
     ?>
 
     <div class="btn_area">

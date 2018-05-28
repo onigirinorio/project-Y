@@ -96,7 +96,7 @@ $this->Form->templates([
         <tr>
             <th scope="col"><?= $this->Paginator->sort('create_at', '日付') ?></th>
             <th scope="col"><?= $this->Paginator->sort('user_id', 'ユーザー') ?></th>
-            <th scope="col"><?= $this->Paginator->sort('project_id', '案件名') ?></th>
+            <th scope="col"><?= $this->Paginator->sort('work_location', '勤務先') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('attend_time', '出勤時間') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('leave_time', '退勤時間') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('break_time', '休憩時間') ?></th>
@@ -111,7 +111,7 @@ $this->Form->templates([
             <tr>
                 <td><?= date('Y/m/d', strtotime($work->create_at)) ?></td>
                 <td><?= $work->has('user') ? $this->Html->link($work->user->name, ['controller' => 'Users', 'action' => 'view', $work->user->id]) : '' ?></td>
-                <td><?= $work->has('project') ? $this->Html->link($work->project->shop_name, ['controller' => 'Projects', 'action' => 'edit', $work->project->id]) : '' ?></td>
+                <td><?= h($work->work_location) ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($work->attend_time)) ?></td>
                 <td class="hidden-xs"><?php if ($work->leave_time) {
                         echo date('H:i', strtotime($work->leave_time));
