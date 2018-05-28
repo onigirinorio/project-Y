@@ -71,11 +71,13 @@
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->expense_price ?></div>
     </div>
 
+    <?php if ($admin_flg): ?>
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">案件名</div>
         <div
             class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $user->has('project') ? $user->project->shop_name : '' ?></div>
     </div>
+    <?php endif; ?>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">勤務先</div>
