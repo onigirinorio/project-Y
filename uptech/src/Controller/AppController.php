@@ -41,7 +41,7 @@ class AppController extends Controller
      */
 
     // 各コントローラーで使用できるクラス変数を定義
-    protected $is_login, $user_name, $user_id, $admin_flg, $user_agent;
+    protected $user_name, $user_id, $user_agent;
 
     public function initialize()
     {

@@ -56,6 +56,8 @@ class ShiftsController extends AppController
     {
         $shift = $this->Shifts->get($id, ['contain' => ['Users']]);
 
+        $this->check_authority($shift->user_id);
+
         $this->set('shift', $shift);
         $this->set('_serialize', ['shift']);
     }
@@ -97,6 +99,7 @@ class ShiftsController extends AppController
     {
         $shift = $this->Shifts->get($id, ['contain' => ['Users']]);
         $update_at = date('Y-m-d H:i:s');
+        $this->check_authority($shift->user_id);
 
         $shift->update_user = $this->user_name;
         $shift->upteda_at = $update_at;
@@ -125,6 +128,7 @@ class ShiftsController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $shift = $this->Shifts->get($id);
+        $this->check_authority($shift->user_id);
 
         $shift->delete_flg = 1;
 
@@ -152,5 +156,20 @@ class ShiftsController extends AppController
         }
         $this->set(compact('search_user_id'));
         $this->set(compact('select_users'));
+    }
+
+    /**
+     * 管理者以外のユーザーが自分以外の勤怠データにアクセスしようとした場合に一覧にリダイレクトさせる
+     * @param integer $user_id ユーザーID
+     * @return object リダイレクト先
+     */
+    private function check_authority($user_id)
+    {
+        if (!$this->isAdmin()) {
+            if ($user_id != $this->user_id) {
+                $this->Flash->error('自分自身のシフトデータ以外にはアクセスできません。');
+                return $this->redirect(['action' => 'index']);
+            }
+        }
     }
 }

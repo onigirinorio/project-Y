@@ -59,11 +59,9 @@ class UsersController extends AppController
     public function view($id = null)
     {
         // 管理者以外引数とログイン中のIDが一致しない時
-        if(!$this->isAdmin() && $id != $this->Auth->user('id')){
-            $this->redirect([
-                'controller' => 'Home',
-                'action' => 'index'
-            ]);
+        if(!$this->isAdmin() && $id != $this->user_id){
+            $this->Flash->error(__('自分自身のデータ以外にはアクセスできません。'));
+            return $this->redirect(['controller' => 'Works', 'action' => 'index']);
         }
         $user = $this->Users->get($id, [
             'contain' => ['Works', 'Projects']
@@ -88,7 +86,6 @@ class UsersController extends AppController
             $user->gender = (int)$user->gender;
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('ユーザー新規登録が完了しました。'));
-
                 return $this->redirect(['action' => 'index']);
             }
             $this->Flash->error(__('ユーザー登録に失敗しました、もう一度お試しください。'));
@@ -168,14 +165,8 @@ class UsersController extends AppController
     private function userIsAdmin(){
         if(!$this->isAdmin() && $this->isLogin()) {
             // 管理者以外、ログイン中
-            $this->redirect([
-                'controller' => 'Users',
-                'action' => 'index'
-            ]);
-            exit;
-        } elseif ($this->request->getParam('action') === 'add' && !$this->isLogin()) {
-            // 未ログイン、新規登録画面
-            return true;
+            $this->Flash->error(__('管理者のみアクセスできるページです。'));
+            return $this->redirect(['controller' => 'Works', 'action' => 'index']);
         }
     }
 }

@@ -19,10 +19,8 @@ class ClientsController extends AppController
     {
         parent::initialize();
         if(!$this->isAdmin()){
-            $this->redirect([
-                'controller' => 'Home',
-                'action' => 'index'
-            ]);
+            $this->Flash->error('管理者のみアクセスできるページです。');
+            $this->redirect(['controller' => 'Works', 'action' => 'index']);
         }
     }
 

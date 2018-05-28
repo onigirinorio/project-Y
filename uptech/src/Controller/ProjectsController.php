@@ -16,12 +16,12 @@ class ProjectsController extends AppController
     public function initialize()
     {
         parent::initialize();
+
         $this->Clients = TableRegistry::get('Clients');
+
         if(!$this->isAdmin()){
-            $this->redirect([
-                'controller' => 'Home',
-                'action' => 'index'
-            ]);
+            $this->Flash->error('管理者のみアクセスできるページです。');
+            $this->redirect(['controller' => 'Works', 'action' => 'index']);
         }
     }
 
