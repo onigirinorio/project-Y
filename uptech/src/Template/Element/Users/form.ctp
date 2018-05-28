@@ -184,6 +184,7 @@ echo $this->Form->control('expense_price',
     ]
 );
 
+if ($admin_flg) {
 echo $this->Form->control('project_id',
     [
         'label' => [
@@ -197,6 +198,7 @@ echo $this->Form->control('project_id',
         'default' => 'empty'
     ]
 );
+}
 
 echo $this->Form->control('work_location',
     [
