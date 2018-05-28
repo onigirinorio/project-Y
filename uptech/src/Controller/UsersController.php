@@ -106,10 +106,8 @@ class UsersController extends AppController
     {
         // 管理者以外引数とログイン中のIDが一致しない時
         if(!$this->isAdmin() && $id != $this->Auth->user('id')){
-            $this->redirect([
-                'controller' => 'Home',
-                'action' => 'index'
-            ]);
+            $this->Flash->error(__('自分自身のデータ以外にはアクセスできません。'));
+            $this->redirect(['controller' => 'Works', 'action' => 'index']);
         }
         $user = $this->Users->get($id, [
             'contain' => ['Projects']
