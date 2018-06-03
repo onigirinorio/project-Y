@@ -33,13 +33,13 @@ class SlackBotShell extends Shell
       'table' => 'works',
       'alias' => 'w',
       'type' => 'LEFT',
-      'conditions' => 'w.user_id = Shifts.user_id AND w.create_at > Shifts.date',
+      'conditions' => 'w.user_id = Shifts.user_id AND w.create_at > Shifts.date AND w.delete_flg = 0',
     ])
     ->join([
       'table' => 'users',
       'alias' => 'u',
       'type' => 'LEFT',
-      'conditions' => 'u.id = shifts.user_id',
+      'conditions' => 'u.id = Shifts.user_id',
     ])
     ->select([
       'id' => 'Shifts.id',
@@ -47,7 +47,10 @@ class SlackBotShell extends Shell
       'attend' => 'w.attend_time',
       'name' => 'u.name',
     ])
-    ->where(['date =' => $date]);
+    ->where([
+        'date =' => $date,
+        'Shifts.delete_flg' => 0
+    ]);
 
     // 出力
     foreach($query as $item) {

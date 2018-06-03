@@ -119,6 +119,12 @@ class WorksController extends AppController
                 $this->Flash->error(__('本日はシフト登録されていません。'));
                 return $this->redirect(['action' => 'add']);
             }
+
+            if (empty($user->project_id)) {
+                $this->Flash->error(__('案件名が設定されていません。管理者に連絡をお願いいたします。'));
+                return $this->redirect(['action' => 'add']);
+            }
+
             //出勤時間(遅刻した場合のみ現在時刻で打刻)
             $work->attend_time = date('H:i');
             if (strtotime($work->attend_time) <= strtotime($shift->attend)) {
