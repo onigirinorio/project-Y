@@ -19,7 +19,7 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-        $this->Auth->allow('add');
+//        $this->Auth->allow('add');
 
         // 案件リストを取得
         $this->Projects = TableRegistry::get('Projects');
