@@ -21,7 +21,7 @@
             <?php foreach ($shifts as $shift): ?>
             <tr>
                 <td><?= h($shift->date) ?></td>
-                <td><?= $shift->has('user') ? $this->Html->link($shift->user->name, ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
+                <td><?= $shift->has('user') ? $this->Html->link(h($shift->user->name), ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($shift->attend)) ?></td>
                 <td class="hidden-xs"><?= date('H:i', strtotime($shift->clock)) ?></td>
                 <td class="hidden-xs">

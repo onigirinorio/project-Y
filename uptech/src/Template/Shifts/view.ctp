@@ -8,27 +8,27 @@
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">日付</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->date ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->date) ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">名前</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->user->name ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->user->name) ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->attend ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->attend) ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->clock ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->clock) ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">休日出勤フラグ</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $shift->holiday_flag ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->holiday_flag) ?></div>
     </div>
 
     <div class="btn_area">
