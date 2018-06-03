@@ -156,7 +156,8 @@ class AppController extends Controller
             'type' => 'left',
             'conditions' => [
                 'Works.user_id' => $user_id,
-                "DATE_FORMAT(Works.create_at,'%Y%m%d') = DATE_FORMAT(Shifts.date,'%Y%m%d')"
+                "DATE_FORMAT(Works.create_at,'%Y%m%d') = DATE_FORMAT(Shifts.date,'%Y%m%d')",
+                'Works.delete_flg' => 0,
             ]
         ]
         )
