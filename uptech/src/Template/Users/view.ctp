@@ -89,6 +89,7 @@
         <?php if ($admin_flg): ?>
             <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $user->id], ['class' => 'btn btn-danger edit_delete_btn', 'confirm' => __('{0}を削除します。よろしいですか？', $user->name)]) ?>
         <?php endif; ?>
+        <?= $this->Html->link(__('パスワード変更'), ['action' => 'change_password', $user->id], ['class' => 'btn btn-primary edit_delete_btn']) ?>
     </div>
 
 </div>

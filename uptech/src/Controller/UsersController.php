@@ -59,10 +59,8 @@ class UsersController extends AppController
     public function view($id = null)
     {
         // 管理者以外引数とログイン中のIDが一致しない時
-        if(!$this->isAdmin() && $id != $this->user_id){
-            $this->Flash->error(__('自分自身のデータ以外にはアクセスできません。'));
-            return $this->redirect(['controller' => 'Works', 'action' => 'index']);
-        }
+        $this->check_authority($id);
+
         $user = $this->Users->get($id, [
             'contain' => ['Works', 'Projects']
         ]);
@@ -104,11 +102,8 @@ class UsersController extends AppController
      */
     public function edit($id = null)
     {
-        // 管理者以外引数とログイン中のIDが一致しない時
-        if(!$this->isAdmin() && $id != $this->Auth->user('id')){
-            $this->Flash->error(__('自分自身のデータ以外にはアクセスできません。'));
-            $this->redirect(['controller' => 'Works', 'action' => 'index']);
-        }
+        // 管理者以外かつページIDとログイン中のIDが一致しない時
+        $this->check_authority($id);
 
         $user = $this->Users->get($id, ['contain' => ['Projects']]);
 
@@ -117,12 +112,7 @@ class UsersController extends AppController
             $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
                 $this->Flash->success(__('ユーザー情報を更新しました。'));
-                if ($this->isAdmin()) {
-                    return $this->redirect(['action' => 'index']);
-                } else {
-                    return $this->redirect(['action' => 'view', $id]);
-                }
-
+                return $this->redirect(['action' => 'view', $id]);
             }
             $this->Flash->error(__('ユーザー情報の更新に失敗しました。もう一度お試しください。'));
         }
@@ -154,8 +144,39 @@ class UsersController extends AppController
         return $this->redirect(['action' => 'index']);
     }
 
+
     /**
-     * 管理者以外は自分自身のデータしか編集できない用制限をする
+     * パスワード変更画面
+     *
+     * @param string|null $id User id.
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
+    public function changePassword($id = null)
+    {
+        // 管理者以外かつページIDとログイン中のIDが一致しない時
+        $this->check_authority($id);
+
+        $user = $this->Users->get($id);
+
+        if ($this->request->is(['patch', 'post', 'put'])) {
+            $data = $this->request->getData();
+            $user = $this->Users->patchEntity($user, $data);
+            if ($this->Users->save($user)) {
+                $this->Flash->success(__('パスワードを変更しました。'));
+                return $this->redirect(['action' => 'view', $id]);
+            }
+            $this->Flash->error(__('パスワードの変更に失敗しました。もう一度お試しください。'));
+        }
+        $works = $this->Users->Works->find('list', ['limit' => 200]);
+
+        $this->set(compact('id'));
+        $this->set(compact('user', 'works'));
+        $this->set('_serialize', ['user']);
+    }
+
+    /**
+     * 管理者以外はアクセスできないページに使用する
      *
      */
     private function userIsAdmin(){
@@ -163,6 +184,21 @@ class UsersController extends AppController
             // 管理者以外、ログイン中
             $this->Flash->error(__('管理者のみアクセスできるページです。'));
             return $this->redirect(['controller' => 'Works', 'action' => 'index']);
+        }
+    }
+
+    /**
+     * 管理者以外のユーザーが自分以外の勤怠データにアクセスしようとした場合に一覧にリダイレクトさせる
+     * @param integer $user_id ユーザーID
+     * @return object リダイレクト先
+     */
+    private function check_authority($user_id)
+    {
+        if (!$this->isAdmin()) {
+            if ($user_id != $this->user_id) {
+                $this->Flash->error('自分自身のデータ以外にはアクセスできません。');
+                return $this->redirect(['action' => 'view', $this->user_id]);
+            }
         }
     }
 }

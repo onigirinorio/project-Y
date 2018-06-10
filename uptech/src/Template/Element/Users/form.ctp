@@ -23,7 +23,7 @@ echo $this->Form->control('name_kana',
 );
 
 
-if (0) { // パスワード変更は別画面で用意する為非表示
+if ($this->request->action == 'add') { //ユーザー登録時のみ表示
     $password_placeholder = '';
     if ($this->request->action == 'edit') {
         $password_placeholder = '変更時のみ入力してください。';
