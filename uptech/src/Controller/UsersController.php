@@ -135,7 +135,8 @@ class UsersController extends AppController
         $this->userIsAdmin();
         $this->request->allowMethod(['post', 'delete']);
         $user = $this->Users->get($id);
-        if ($this->Users->delete($user)) {
+        $user->delete_flg = 1;
+        if ($this->Users->save($user)) {
             $this->Flash->success(__('ユーザー削除に成功しました。'));
         } else {
             $this->Flash->error(__('ユーザー削除に失敗しました、もう一度お試しください。'));
