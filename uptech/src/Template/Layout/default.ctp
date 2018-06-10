@@ -50,7 +50,7 @@ $title = '勤怠管理ツール';
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a href="/"><?= $this->html->image('jamp_logo_min.png') ?></a>
+                <a href="/"><?= $this->html->image('uptspace_logo.png') ?></a>
             </div>
             <div class="collapse navbar-collapse" id="navbar-header1">
                 <ul class="nav navbar-nav">
