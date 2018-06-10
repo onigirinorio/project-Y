@@ -109,17 +109,14 @@ class UsersController extends AppController
             $this->Flash->error(__('自分自身のデータ以外にはアクセスできません。'));
             $this->redirect(['controller' => 'Works', 'action' => 'index']);
         }
-        $user = $this->Users->get($id, [
-            'contain' => ['Projects']
-        ]);
+
+        $user = $this->Users->get($id, ['contain' => ['Projects']]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $data = $this->request->getData();
-            if(empty($data['password']) || $data['password'] === $user['password']){
-                if(empty($data['password'])) $data['password'] = $user['password'];
-            }
-            $user = $this->Users->patchEntity($user, $data,['validate'=>'update']);
+            $user = $this->Users->patchEntity($user, $data);
             if ($this->Users->save($user)) {
-                $this->Flash->success(__('更新しました。'));
+                $this->Flash->success(__('ユーザー情報を更新しました。'));
                 if ($this->isAdmin()) {
                     return $this->redirect(['action' => 'index']);
                 } else {
@@ -127,10 +124,11 @@ class UsersController extends AppController
                 }
 
             }
-            $this->Flash->error(__('登録エラー'));
+            $this->Flash->error(__('ユーザー情報の更新に失敗しました。もう一度お試しください。'));
         }
         $works = $this->Users->Works->find('list', ['limit' => 200]);
 
+        $this->set(compact('id'));
         $this->set(compact('user', 'works'));
         $this->set('_serialize', ['user']);
     }

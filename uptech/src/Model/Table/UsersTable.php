@@ -74,7 +74,7 @@ class UsersTable extends Table
             ])
             // パスワード
             ->scalar('password')
-            ->notEmpty('password', 'パスワードを入力してください。')
+            ->notEmpty('password', 'create', 'パスワードを入力してください。')
             ->add('password', [
                 'minLength' => [
                     'rule' => ['minLength', 6],
