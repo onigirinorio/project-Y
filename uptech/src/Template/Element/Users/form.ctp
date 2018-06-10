@@ -23,7 +23,7 @@ echo $this->Form->control('name_kana',
 );
 
 
-//if ($this->request->action == 'add' || $this->request->action == 'edit' && $user_id == $id) {
+if (0) { // パスワード変更は別画面で用意する為非表示
     $password_placeholder = '';
     if ($this->request->action == 'edit') {
         $password_placeholder = '変更時のみ入力してください。';
@@ -56,7 +56,7 @@ echo $this->Form->control('name_kana',
             'value' => '',
         ]
     );
-//}
+}
 
 
 echo $this->Form->control('email',
