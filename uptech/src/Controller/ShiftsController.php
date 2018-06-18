@@ -25,7 +25,6 @@ class ShiftsController extends AppController
      */
     public function index()
     {
-        $date = new \DateTime();
         $data = $this->request->getQuery();
 
         // 管理者以外だった場合、閲覧できるデータを制限する

@@ -10,7 +10,6 @@ $this->Form->templates([
     'submitContainer' => '{{content}}',
 ]);
 ?>
-
 <div class="shifts index large-9 medium-8 columns content">
     <?php if ($admin_flg === true): ?>
         <div class="search_works_area">
@@ -95,7 +94,7 @@ $this->Form->templates([
                 <td><?= $shift->has('user') ? $this->Html->link(h($shift->user->name), ['controller' => 'Users', 'action' => 'view', $shift->user->id]) : '' ?></td>
                 <?php // 遅刻判定
                 $lateness_flg = false;
-                if (!$shift->has('work') && strtotime($shift->attend) < strtotime(date('H:i:s')) || $shift->has('work') && strtotime($shift->attend) < strtotime($shift->work->attend_time)) {
+                if (!$shift->has('work') && strtotime($shift->attend) < strtotime(date('H:i:s')) && strtotime($shift->date) <= strtotime(date('Y-m-d')) || $shift->has('work') && strtotime($shift->attend) < strtotime($shift->work->attend_time)) {
                     $lateness_flg = true;
                 }
                 ?>
