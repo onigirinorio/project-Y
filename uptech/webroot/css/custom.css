@@ -31,6 +31,14 @@
     margin-bottom: 0;
 }
 
+.text_red {
+    color: #D13E48;
+}
+
+.text_green {
+    color: #3faf83;
+}
+
 /* フォームカスタマイズ */
 div.input, select.input {
     margin-bottom: 10px;

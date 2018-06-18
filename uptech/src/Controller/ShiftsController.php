@@ -25,15 +25,26 @@ class ShiftsController extends AppController
      */
     public function index()
     {
+        $date = new \DateTime();
+        $data = $this->request->getQuery();
+
         // 管理者以外だった場合、閲覧できるデータを制限する
         if ($this->isAdmin() === true) {
-            $query = $this->Shifts->find();
+            // セレクトボックスで使用するユーザーリスト取得
+            $select_users = $this->Shifts->getSelectUsers();
+            // 全日付検索、通常検索、検索なしでクエリーを分ける
+            if (isset($data['all_date'])) {
+                $query = $this->Shifts->find();
+            } else {
+                // 検索処理
+                $query = $this->Shifts->makeQueryGetParameter($data);
+            }
         } else {
-            $query = $this->Shifts->find()->where(['user_id' => $this->user_id]);
+            $query = $this->Shifts->find()->where(['Shifts.user_id' => $this->user_id]);
         }
 
         $this->paginate = array(
-            'contain' => array('Users'),
+            'contain' => array('Users', 'Works'),
             'conditions' => array('Shifts.delete_flg = 0'),
             'limit' => 35,
             'order' => ['Shifts.date DESC'],
@@ -41,6 +52,7 @@ class ShiftsController extends AppController
 
         $shifts = $this->paginate($query);
 
+        $this->set(compact('select_users'));
         $this->set(compact('shifts'));
         $this->set('_serialize', ['shifts']);
     }

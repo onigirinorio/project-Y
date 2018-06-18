@@ -45,8 +45,6 @@ class WorksController extends AppController
             $query = $this->Works->find()->where(
                 [
                     'user_id' => $this->Auth->user('id'),
-                    'YEAR(create_at)' => date('Y'),
-                    'MONTH(create_at)' => date('m'),
                 ]
             );
         }
@@ -246,7 +244,7 @@ class WorksController extends AppController
                 $this->Flash->success(__('勤怠データを編集しました。'));
                 return $this->redirect(['action' => 'view', $id]);
             }
-            $this->Flash->error(__('退勤データの編集に失敗しました。もう一度お試しください。'));
+            $this->Flash->error(__('勤怠データの編集に失敗しました。もう一度お試しください。'));
             return $this->redirect(['action' => 'view', $id]);
         }
 
