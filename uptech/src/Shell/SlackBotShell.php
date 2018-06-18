@@ -37,8 +37,7 @@ class SlackBotShell extends Shell
                 'table' => 'works',
                 'alias' => 'w',
                 'type' => 'LEFT',
-                //'conditions' => 'w.user_id = Shifts.user_id AND w.create_at > Shifts.date AND w.delete_flg = 0',
-                'conditions' => 'w.user_id = Shifts.user_id AND w.create_at > date_add(CAST(Shifts.date AS DATETIME), INTERVAL Shifts.attend HOUR_SECOND) AND w.delete_flg = 0',
+                'conditions' => 'w.user_id = Shifts.user_id AND w.create_at > Shifts.date AND w.delete_flg = 0',
             ])
             ->join([
                 'table' => 'users',
