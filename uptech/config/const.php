@@ -81,5 +81,12 @@ return [
         1 => 5,
         2 => 15,
         3 => 30
+    ]),
+    // 遅刻アラートメール関連の設定
+    define('ALERT_MAIL', [
+        'host' => 'ssl://smtp.lolipop.jp',
+        'user' => 'kinntai@care-con.co.jp',
+        'password' => 'Carecon-20180320'
     ])
+
 ];

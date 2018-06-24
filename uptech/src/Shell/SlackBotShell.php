@@ -6,6 +6,8 @@ use Cake\Console\ConsoleOptionParser;
 use Cake\ORM\TableRegistry;
 use Cake\Console\Shell;
 use Cake\Log\Log;
+use Cake\Mailer\Email; // todo ここでメール関連の処理をするのは微妙なのでメール送信処理は切り分けたい
+
 
 use App\Controller\SlackBotController;
 
@@ -16,6 +18,7 @@ class SlackBotShell extends Shell
     {
         parent::initialize();
         $this->Slack = new SlackBotController();
+        $this->Email = new Email('default');
     }
 
     public function main()
@@ -54,7 +57,7 @@ class SlackBotShell extends Shell
             ->where([
                 'date =' => $date,
                 'Shifts.delete_flg' => 0,
-                'Shifts.attend <' =>  $time,
+                'Shifts.attend <' => $time,
             ]);
 
 
@@ -69,6 +72,11 @@ class SlackBotShell extends Shell
         // POSTデータ無い場合未処理
         if (!empty($message)) {
             $this->Slack->PostSlack($message);
+
+            $this->Email->setFrom(['kinntai@care-con.co.jp' => '勤怠管理ツール'])
+                ->setTo('kinntai@care-con.co.jp')
+                ->setSubject('【勤怠管理】遅刻アラート')
+                ->send($message);
         } else {
             $this->out("未出勤者はいません。");
         }
