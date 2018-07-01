@@ -180,8 +180,8 @@ return [
         'default' => [
             'className' => 'Smtp',
             // The following keys are used in SMTP transports
-            'host' => 'ssl://smtp.lolipop.jp',
-            'port' => 465,
+            'host' => 'ssl://smtp.mailgun.org',
+            'port' => 2525,
             'timeout' => 30,
             'username' => 'kinntai@care-con.co.jp',
             'password' => 'Carecon-20180320',
