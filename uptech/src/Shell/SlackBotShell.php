@@ -73,8 +73,12 @@ class SlackBotShell extends Shell
         if (!empty($message)) {
             $this->Slack->PostSlack($message);
 
-            $this->Email->setFrom(['kinntai@care-con.co.jp' => '勤怠管理ツール'])
-                ->setTo('kinntai@care-con.co.jp')
+//            $this->Email->setFrom(['kinntai@care-con.co.jp' => '勤怠管理ツール'])
+//                ->setTo('kinntai@care-con.co.jp')
+//                ->setSubject('【勤怠管理】遅刻アラート')
+//                ->send($message);
+            $this->Email->setFrom(['postmaster@mg.uptech.co.jp' => '勤怠管理ツール'])
+                ->setTo('fabian19890306@gmail.com')
                 ->setSubject('【勤怠管理】遅刻アラート')
                 ->send($message);
         } else {

@@ -180,11 +180,13 @@ return [
         'default' => [
             'className' => 'Smtp',
             // The following keys are used in SMTP transports
-            'host' => 'ssl://smtp.mailgun.org',
+            'host' => 'smtp.mailgun.org',
             'port' => 2525,
             'timeout' => 30,
-            'username' => 'kinntai@care-con.co.jp',
-            'password' => 'Carecon-20180320',
+//            'username' => 'info@care-con.co.jp',
+            'username' => 'postmaster@sandboxcb8e49d5f8ec4e2ea88a33ca469a8d16.mailgun.org',  //mailgunデフォルトユーザー名
+//            'password' => '_0_2D2VhkJ4y-N2E',
+            'password' => 'fe52820fa0b44adada5091e65e12d77e-e44cc7c1-43b5e779', //mailgunデフォルトパスワード
             'client' => null,
             'tls' => null,
             'url' => env('EMAIL_TRANSPORT_DEFAULT_URL', null),
