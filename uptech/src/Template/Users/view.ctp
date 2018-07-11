@@ -51,6 +51,7 @@
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($user->address) ?></div>
     </div>
 
+    <?php if ($admin_flg): ?>
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">開始日</div>
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('Y/m/d', strtotime($user->start_date)) ?></div>
@@ -60,6 +61,7 @@
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">終了日</div>
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('Y/m/d', strtotime($user->end_date)) ?></div>
     </div>
+    <?php endif; ?>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">交通経路</div>
