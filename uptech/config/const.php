@@ -84,9 +84,17 @@ return [
     ]),
     // 遅刻アラートメール関連の設定
     define('ALERT_MAIL', [
-        'host' => 'ssl://smtp.lolipop.jp',
-        'user' => 'kinntai@care-con.co.jp',
-        'password' => 'Carecon-20180320'
+        'host' => 'smtp.mailgun.org',
+        'port' => 2525,
+        'user' => 'postmaster@sandboxcb8e49d5f8ec4e2ea88a33ca469a8d16.mailgun.org',
+        'password' => 'fe52820fa0b44adada5091e65e12d77e-e44cc7c1-43b5e779',
+    ]),
+    // 遅刻アラートスラックメッセージ関連の設定
+    define('ALERT_SLACK', [
+        'channel' => '#kintai_alert', // slackチャンネル名
+        'bot_name' => '勤怠アラートbot', // slack_bot名
+        'bot_icon' => ':nishino2:', // botアイコン
+        'webhook_url' => 'https://hooks.slack.com/services/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', // webhook 発行URL
     ])
 
 ];
