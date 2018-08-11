@@ -111,7 +111,7 @@ class ShiftsTable extends Table
      */
     public function getSelectUsers()
     {
-        $users = $this->Users->find()->all()->toArray();
+        $users = $this->Users->find()->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
         foreach ($users as $user) {
             $select_users[$user->id] = $user->name;
         }
