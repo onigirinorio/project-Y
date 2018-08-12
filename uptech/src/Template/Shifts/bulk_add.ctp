@@ -97,7 +97,9 @@
                 <?php endfor; ?>
                 </tbody>
             </table>
-            <?= $this->Form->button('一括登録', ['class' => 'btn btn-primary submit_btn']) ?>
+            <div class="btn_area">
+                <?= $this->Form->button('一括登録', ['class' => 'btn btn-primary submit_btn']) ?>
+            </div>
         </div>
         <?= $this->Form->end() ?>
     <? endif; ?>
