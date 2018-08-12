@@ -8,7 +8,10 @@ echo $this->Form->control('date',
         'monthNames' => false,
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
         'style' => 'margin-bottom: 20px;height:34px;',
-        'default' => date('Y-m-d', strtotime('+1 day'))
+        'default' => date('Y-m-d', strtotime('+1 day')),
+        'templates' => [
+            'inputContainerError' => '{{content}}{{error}}',
+        ]
     ]
 );
 echo '</div>';

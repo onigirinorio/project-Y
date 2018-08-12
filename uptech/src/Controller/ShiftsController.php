@@ -85,6 +85,7 @@ class ShiftsController extends AppController
 
         $shift->create_user = $this->user_name;
         $shift->create_at = $create_at;
+        $shift->delete_flg = 0;
 
         if ($this->request->is('post')) {
             $shift = $this->Shifts->patchEntity($shift, $this->request->getData());
@@ -92,9 +93,72 @@ class ShiftsController extends AppController
                 $this->Flash->success(__('シフトを登録しました。'));
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('シフトの登録に失敗しました。もう一度お試しください。'));
+            $this->Flash->error(__('シフトの登録に失敗しました。既にシフト登録済みの日付の可能性があります。'));
         }
 
+        $this->set(compact('shift'));
+        $this->set('_serialize', ['shift']);
+    }
+
+    /**
+     * シフト一括登録
+     */
+    public function bulkAdd()
+    {
+        $year = date('Y');
+        $month = date('m');
+        $data = $this->request->getQuery();
+        $error_flg = false;
+
+        // 年月設定についての処理
+        if (!empty($data)) {
+            if (isset($data['user_id']) && !empty($data['search_date']['year']) && !empty($data['search_date']['month'])) {
+                $year = $data['search_date']['year'];
+                $month = $data['search_date']['month'];
+            } else {
+                $error_flg = true;
+                $this->Flash->error(__('年月が正しく入力されていません。'));
+            }
+        }
+
+        // 登録ボタンが押下された際の処理
+        if ($this->request->is('post')) {
+            $shift_list = $this->request->getData('shifts_list');
+
+            // クエリビルダで使用できる形に配列を整形
+            foreach ($shift_list as $day => $status) {
+                // 出勤有無のチェックがないものは配列から削除する
+                if ($status['effective'] != '1') {
+                    unset($shift_list[$day]);
+                    continue;
+                }
+                $formatted_shifts_list[] = [
+                    'user_id' => $this->user_id,
+                    'date' => "{$year}-{$month}-{$day}",
+                    'attend' => $status['attend'],
+                    'clock' => $status['clock'],
+                    'holiday_flag' => 0,
+                    'create_user' => $this->user_name,
+                    'create_at' => date('Y-m-d H:i:s'),
+                    'delete_flg' => 0,
+                ];
+            }
+
+            $shifts = $this->Shifts->newEntities($formatted_shifts_list);
+            if ($this->Shifts->saveMany($shifts)) {
+                $this->Flash->success(__('シフトを登録しました。'));
+                return $this->redirect(['action' => 'index']);
+            } else {
+                $this->Flash->error(__('シフトの登録に失敗しました。既にシフト登録済みの日付を含んでいる可能性があります。'));
+            }
+        }
+
+        // エラーでなければ選択された年月が何日まであるか取得
+        $last_day = $error_flg == false ? date("t", mktime(0, 0, 0, $month, 1, $year)) : null;
+
+        $this->set(compact('year'));
+        $this->set(compact('month'));
+        $this->set(compact('last_day'));
         $this->set(compact('shift'));
         $this->set('_serialize', ['shift']);
     }
