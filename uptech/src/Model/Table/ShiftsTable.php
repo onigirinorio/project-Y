@@ -100,6 +100,11 @@ class ShiftsTable extends Table
     {
         $rules->add($rules->existsIn(['user_id'], 'Users'));
 
+        $rules->add($rules->isUnique(
+            ['user_id', 'date', 'delete_flg'],
+            '既にシフト登録された日付が含まれています。'
+        ));
+
         return $rules;
     }
 
