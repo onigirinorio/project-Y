@@ -64,7 +64,7 @@
                 <?php for ($i = 1; $i <= $last_day; $i++): ?>
                     <tr>
                         <td>
-                            <?= $i ?>日
+                            <?= (int)$month ?>月<?= $i ?>日
                         </td>
                         <td>
                             <?=
