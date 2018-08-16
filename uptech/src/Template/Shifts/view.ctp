@@ -18,12 +18,12 @@
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">出勤時間</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->attend) ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i', strtotime($shift->attend)) ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
         <div class="col-md-2 col-sm-2 col-xs-12 form_label">退勤時間</div>
-        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= h($shift->clock) ?></div>
+        <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= date('H:i', strtotime($shift->clock)) ?></div>
     </div>
 
     <div class="view_row_wrapper clearfix">
