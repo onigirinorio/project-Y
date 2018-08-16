@@ -116,7 +116,7 @@ class ShiftsTable extends Table
      */
     public function getSelectUsers()
     {
-        $users = $this->Users->find()->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
+        $users = $this->Users->find()->where(['delete_flg' => 0])->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
         foreach ($users as $user) {
             $select_users[$user->id] = $user->name;
         }
@@ -155,8 +155,7 @@ class ShiftsTable extends Table
                 'DAY(Shifts.date)' => $get_param['search_date']['day'],
             ]);
         }
-
-
+        
         return $query;
     }
 
