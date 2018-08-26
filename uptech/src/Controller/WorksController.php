@@ -214,6 +214,12 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
+        $work = $this->Works->get($id, [
+            'contain' => ['Users', 'Projects']
+        ]);
+
+        $this->check_authority($work->user_id);
+
         // 案件リストを取得
         $this->Projects = TableRegistry::get('Projects');
         $projects = $this->Projects->find()->all();
@@ -221,10 +227,6 @@ class WorksController extends AppController
         foreach ($projects as $key => $value) {
             $project_list[$value['id']] = $value['shop_name'];
         }
-
-        $work = $this->Works->get($id, [
-            'contain' => ['Users', 'Projects']
-        ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $param = $this->request->getData();
