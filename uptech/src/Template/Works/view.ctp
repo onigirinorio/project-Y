@@ -61,12 +61,12 @@
         <div class="col-md-10 col-sm-10 col-xs-12 view_input"><?= $work->location_leave ?></div>
     </div>
 
-    <?php if ($admin_flg): ?>
     <div class="btn_area">
         <?= $this->Html->link(__('編集'), ['action' => 'edit', $work->id], ['class' => 'btn btn-success edit_delete_btn']) ?>
+        <?php if ($admin_flg): ?>
         <?= $this->Form->postLink(__('削除'), ['action' => 'delete', $work->id], ['class' => 'btn btn-danger edit_delete_btn', 'confirm' => __('勤怠データ１件を削除します。よろしいですか？')]) ?>
+        <?php endif; ?>
     </div>
-    <?php endif; ?>
 
 </div>
 

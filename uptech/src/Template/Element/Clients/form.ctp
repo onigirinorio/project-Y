@@ -54,7 +54,7 @@ echo $this->Form->control('address',
             'text' => '都道府県以降',
             'class' => 'col-md-2 col-sm-2 col-xs-12 form_label'
         ],
-        'placeholder' => '例）東京都白金台315ビル',
+        'placeholder' => '例）港区白金台3-15-5 315白金台ビル2F',
         'maxlength' => '256',
         'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
     ]

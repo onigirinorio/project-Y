@@ -214,11 +214,6 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
-        if (!$this->isAdmin()) {
-            $this->Flash->error('管理者のみアクセスできるページです。');
-            $this->redirect(['action' => 'index']);
-        }
-
         // 案件リストを取得
         $this->Projects = TableRegistry::get('Projects');
         $projects = $this->Projects->find()->all();
@@ -232,13 +227,17 @@ class WorksController extends AppController
         ]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $work = $this->Works->patchEntity($work, $this->request->getData());
+            $param = $this->request->getData();
+            $work = $this->Works->patchEntity($work, $param);
+
             // 退勤時間の分の部分を案件によって調整する
-            $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
-            $attend = strtotime($work->attend_time);
-            $leave  = strtotime($work->leave_time);
-            $break  = strtotime($work->break_time);
-            $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
+            if (isset($param['attend_time']) || isset($param['leave_time']) || isset($param['break_time'])) {
+                $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
+                $attend = strtotime($work->attend_time);
+                $leave  = strtotime($work->leave_time);
+                $break  = strtotime($work->break_time);
+                $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
+            }
 
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('勤怠データを編集しました。'));
