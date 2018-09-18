@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
-use PHPExcel_IOFactory;
+use \PhpOffice\PhpSpreadsheet\IOFactory;
 
 /**
  * Works Controller
@@ -344,8 +344,8 @@ class WorksController extends AppController
         $sheetName  = "Sheet1";
         $outputFile = $user['name'] . "_" . $search_year . "_" . $search_month . ".xls";
 
-        // Excalファイル作成
-        $reader = PHPExcel_IOFactory::createReader('Excel5');
+        // Excelファイル作成
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
         $book   = $reader->load($inputPath);
         $sheet  = $book->getSheetByName($sheetName);
 
@@ -355,6 +355,9 @@ class WorksController extends AppController
         $sheet->setCellValue('A1', $search_year);
         $sheet->setCellValue('G1', ltrim($search_month, "0"));
         // 稼働データ記入
+        $work_time_hour = 0;
+        $work_time_minutes = 0;
+
         for ($i = 0; $i < 31; $i++) {
             $work = null;
             foreach ($works as $key => $value) {
@@ -363,6 +366,10 @@ class WorksController extends AppController
                 }
             }
             if (isset($work)) {
+                $reduce_hour = date('H', strtotime($work['attend_time'])) + date('H', strtotime($work['break_time']));
+                $reduce_minutes = date('i', strtotime($work['attend_time'])) + date('i', strtotime($work['break_time']));;
+                $work_time = strtotime("{$work['leave_time']} -{$reduce_hour} hour -{$reduce_minutes} minutes");
+                $work_time = date('H:i', $work_time);
                 // excel用にTimeオブジェクトをフォーマットするカラムをセット
                 $columns = ['attend_time', 'leave_time', 'break_time', 'overtime'];
                 // excel用にTimeオブジェクトをフォーマットする
@@ -372,20 +379,27 @@ class WorksController extends AppController
                 $sheet->setCellValue('E' . $rowNum, $times['attend_time']);
                 $sheet->setCellValue('J' . $rowNum, $times['leave_time']);
                 $sheet->setCellValue('O' . $rowNum, $times['break_time']);
+                $sheet->getStyle('T' . $rowNum)->getNumberFormat()->setFormatCode('h:mm');
+                $sheet->setCellValue('T' . $rowNum, $work_time);
                 $sheet->setCellValue('Y' . $rowNum, $times['overtime']);
                 $sheet->setCellValue('AD' . $rowNum, $work->remarks);
                 if ($transport_expenses_flg) {
                     $sheet->setCellValue('AL' . $rowNum, $work->transport_expenses);
                 }
+                $work_time_hour += date('H', strtotime($work_time));
+                $work_time_minutes += date('i', strtotime($work_time));
             }
         }
+        $work_time_hour = $work_time_hour + floor($work_time_minutes / 60);
+        $work_time_minutes = $work_time_minutes % 60;
+        $sheet->setCellValue('T35', "{$work_time_hour}:{$work_time_minutes}");
 
         // ダウンロード
         header('Content-Type: application/force-download');
         header('Content-Disposition: attachment;filename="' . $outputFile . '"');
         header('Cache-Control: max-age=0');
         $book->setActiveSheetIndex(0);
-        $writer = PHPExcel_IOFactory::createWriter($book, 'Excel5');
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($book, 'Xls');
         $writer->save('php://output');
 
         return $this->redirect(['action' => 'index']);

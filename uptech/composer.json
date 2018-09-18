@@ -11,15 +11,13 @@
         "cakephp/migrations": "~1.0",
         "cakephp/plugin-installer": "~1.0",
         "josegonzalez/dotenv": "2.*",
-        "phpoffice/phpspreadsheet":"dev-develop",
-        "phpoffice/phpexcel": "^1.8"
+        "phpoffice/phpspreadsheet":"^1.4"
     },
     "require-dev": {
         "psy/psysh": "@stable",
         "cakephp/debug_kit": "~3.2",
         "cakephp/bake": "~1.0",
-        "cakephp/cakephp-codesniffer": "^3.0",
-        "phpoffice/phpspreadsheet":"dev-develop"
+        "cakephp/cakephp-codesniffer": "^3.0"
     },
     "suggest": {
         "markstory/asset_compress": "An asset compression plugin which provides file concatenation and a flexible filter system for preprocessing and minification.",

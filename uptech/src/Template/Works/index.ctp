@@ -71,7 +71,7 @@ $this->Form->templates([
                     ]
                 )?>
 
-                <?php if ($user_agent === 'pc'): // excel出力表示はPCのみ?>
+                <?php //if ($user_agent === 'pc'): // excel出力表示はPCのみ?>
                 <?= $this->Form->submit(__('Excel出力'),
                     [
                         'class' => 'btn btn-primary',
@@ -79,7 +79,7 @@ $this->Form->templates([
                     ]
                 ) ?>
                 <p>※Excel出力をする際はユーザー・年・月を設定した状態で出力してください。</p>
-                <?php endif; ?>
+                <?php //endif; ?>
             </li>
 
         </ul>

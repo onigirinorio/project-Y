@@ -78,6 +78,12 @@ class UsersController extends AppController
     {
         $this->userIsAdmin();
         $user = $this->Users->newEntity();
+        $user_count = $this->Users->find()->where(['delete_flg' => 0])->count();
+        if ($user_count >= USER_LIMIT) {
+            $this->Flash->error(__('ユーザー数が登録上限に達しています。これ以上のユーザー登録を行う為にはプラン変更が必要です。'));
+            $this->redirect(['action' => 'index']);
+        }
+
         if ($this->request->is('post')) {
             $user = $this->Users->patchEntity($user, $this->request->getData());
             $user['address'] .=$user['address2'];
@@ -88,6 +94,7 @@ class UsersController extends AppController
             }
             $this->Flash->error(__('ユーザー登録に失敗しました、もう一度お試しください。'));
         }
+
         $works = $this->Users->Works->find('list', ['limit' => 200]);
         $this->set(compact('user', 'works'));
         $this->set('_serialize', ['user']);
