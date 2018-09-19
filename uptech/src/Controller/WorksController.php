@@ -331,15 +331,15 @@ class WorksController extends AppController
 
         // 入出力の情報設定
         $driPath    = realpath(WWW_ROOT) . "/excel/";
-        $inputPath  = $driPath . "template.xlsx";
+        $inputPath  = $driPath . "template.xls";
         if ($transport_expenses_flg) {
-            $inputPath  = $driPath . "template_travel_expenses.xlsx";
+            $inputPath  = $driPath . "template_travel_expenses.xls";
         }
         $sheetName  = "Sheet1";
-        $outputFile = $user['name'] . "_" . $search_year . "_" . $search_month . ".xlsx";
+        $outputFile = $user['name'] . "_" . $search_year . "_" . $search_month . ".xls";
 
         // Excelファイル作成
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
         $book   = $reader->load($inputPath);
         $sheet  = $book->getSheetByName($sheetName);
 
@@ -390,18 +390,24 @@ class WorksController extends AppController
         }
         // 合計時間を計算しセット
         $total_hour = $total_hour + floor($total_minutes / 60);
-        $total_minutes = $total_minutes % 60;
+        $total_minutes = sprintf('%02d', $total_minutes % 60);
         $sheet->setCellValue('T35', "{$total_hour}:{$total_minutes}");
         $total_over_hour = $total_over_hour + floor($total_over_minutes / 60);
-        $total_over_minutes = $total_over_minutes % 60;
+        $total_over_minutes = sprintf('%02d', $total_over_minutes % 60);
         $sheet->setCellValue('Y35', "{$total_over_hour}:{$total_over_minutes}");
 
         // ダウンロード
-        header('Content-Type: application/force-download');
+        $book->setActiveSheetIndex(0);
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($book, 'Xls');
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
         header('Content-Disposition: attachment;filename="' . $outputFile . '"');
         header('Cache-Control: max-age=0');
-        $book->setActiveSheetIndex(0);
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($book, 'Xlsx');
+        header("Content-Transfer-Encoding: binary ");
         $writer->save('php://output');
         exit();
     }
