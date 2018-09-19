@@ -331,7 +331,7 @@ class WorksController extends AppController
 
         // 入出力の情報設定
         $driPath    = realpath(WWW_ROOT) . "/excel/";
-        $inputPath  = $driPath . "template.xls";
+        $inputPath  = $driPath . "template2.xls";
         if ($transport_expenses_flg) {
             $inputPath  = $driPath . "template_travel_expenses.xls";
         }
@@ -381,20 +381,19 @@ class WorksController extends AppController
                 if ($transport_expenses_flg) {
                     $sheet->setCellValue('AL' . $rowNum, $work->transport_expenses);
                 }
-                $total_hour += date('H', strtotime($work_time));
-                $total_minutes += date('i', strtotime($work_time));
-                $total_over_hour += date('H', strtotime($times['overtime']));
-                $total_over_minutes += date('i', strtotime($times['overtime']));
-
+//                $total_hour += date('H', strtotime($work_time));
+//                $total_minutes += date('i', strtotime($work_time));
+//                $total_over_hour += date('H', strtotime($times['overtime']));
+//                $total_over_minutes += date('i', strtotime($times['overtime']));
             }
         }
         // 合計時間を計算しセット
-        $total_hour = $total_hour + floor($total_minutes / 60);
-        $total_minutes = sprintf('%02d', $total_minutes % 60);
-        $sheet->setCellValue('T35', "{$total_hour}:{$total_minutes}");
-        $total_over_hour = $total_over_hour + floor($total_over_minutes / 60);
-        $total_over_minutes = sprintf('%02d', $total_over_minutes % 60);
-        $sheet->setCellValue('Y35', "{$total_over_hour}:{$total_over_minutes}");
+//        $total_hour = $total_hour + floor($total_minutes / 60);
+//        $total_minutes = sprintf('%02d', $total_minutes % 60);
+//        $sheet->setCellValue('T35', "{$total_hour}:{$total_minutes}");
+//        $total_over_hour = $total_over_hour + floor($total_over_minutes / 60);
+//        $total_over_minutes = sprintf('%02d', $total_over_minutes % 60);
+//        $sheet->setCellValue('Y35', "{$total_over_hour}:{$total_over_minutes}");
 
         // ダウンロード
         $book->setActiveSheetIndex(0);
