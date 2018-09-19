@@ -192,10 +192,7 @@ class WorksController extends AppController
             $work = $this->Works->patchEntity($work, $this->request->getData());
             // 退勤時間の分の部分を案件によって調整する
             $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
-            $attend = strtotime($work->attend_time);
-            $leave = strtotime($work->leave_time);
-            $break = strtotime($work->break_time);
-            $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
+            $work->overtime = $this->Works->calc_overtime($work->attend_time, $work->leave_time, $work->break_time);
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('退勤が登録されました。'));
                 return $this->redirect(['action' => 'add']);
@@ -232,13 +229,10 @@ class WorksController extends AppController
             $param = $this->request->getData();
             $work = $this->Works->patchEntity($work, $param);
 
-            // 退勤時間の分の部分を案件によって調整する
             if (isset($param['attend_time']) || isset($param['leave_time']) || isset($param['break_time'])) {
+                // 退勤時間の分の部分を案件によって調整する
                 $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
-                $attend = strtotime($work->attend_time);
-                $leave  = strtotime($work->leave_time);
-                $break  = strtotime($work->break_time);
-                $work->overtime = $this->Works->calc_overtime($attend, $leave, $break);
+                $work->overtime = $this->Works->calc_overtime($work->attend_time, $work->leave_time, $work->break_time);
             }
 
             if ($this->Works->save($work)) {
@@ -337,15 +331,15 @@ class WorksController extends AppController
 
         // 入出力の情報設定
         $driPath    = realpath(WWW_ROOT) . "/excel/";
-        $inputPath  = $driPath . "template.xls";
+        $inputPath  = $driPath . "template.xlsx";
         if ($transport_expenses_flg) {
-            $inputPath  = $driPath . "template_travel_expenses.xls";
+            $inputPath  = $driPath . "template_travel_expenses.xlsx";
         }
         $sheetName  = "Sheet1";
-        $outputFile = $user['name'] . "_" . $search_year . "_" . $search_month . ".xls";
+        $outputFile = $user['name'] . "_" . $search_year . "_" . $search_month . ".xlsx";
 
         // Excelファイル作成
-        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xls');
+        $reader = \PhpOffice\PhpSpreadsheet\IOFactory::createReader('Xlsx');
         $book   = $reader->load($inputPath);
         $sheet  = $book->getSheetByName($sheetName);
 
@@ -355,8 +349,10 @@ class WorksController extends AppController
         $sheet->setCellValue('A1', $search_year);
         $sheet->setCellValue('G1', ltrim($search_month, "0"));
         // 稼働データ記入
-        $work_time_hour = 0;
-        $work_time_minutes = 0;
+        $total_hour = 0;
+        $total_minutes = 0;
+        $total_over_hour = 0;
+        $total_over_minutes = 0;
 
         for ($i = 0; $i < 31; $i++) {
             $work = null;
@@ -366,10 +362,9 @@ class WorksController extends AppController
                 }
             }
             if (isset($work)) {
-                $reduce_hour = date('H', strtotime($work['attend_time'])) + date('H', strtotime($work['break_time']));
-                $reduce_minutes = date('i', strtotime($work['attend_time'])) + date('i', strtotime($work['break_time']));;
-                $work_time = strtotime("{$work['leave_time']} -{$reduce_hour} hour -{$reduce_minutes} minutes");
-                $work_time = date('H:i', $work_time);
+                $work_time_int = $this->Works->calc_work_time($work['attend_time'], $work['leave_time'], $work['break_time']);
+                $work_time = gmdate('H:i', $work_time_int);
+
                 // excel用にTimeオブジェクトをフォーマットするカラムをセット
                 $columns = ['attend_time', 'leave_time', 'break_time', 'overtime'];
                 // excel用にTimeオブジェクトをフォーマットする
@@ -386,24 +381,29 @@ class WorksController extends AppController
                 if ($transport_expenses_flg) {
                     $sheet->setCellValue('AL' . $rowNum, $work->transport_expenses);
                 }
-                $work_time_hour += date('H', strtotime($work_time));
-                $work_time_minutes += date('i', strtotime($work_time));
+                $total_hour += date('H', strtotime($work_time));
+                $total_minutes += date('i', strtotime($work_time));
+                $total_over_hour += date('H', strtotime($times['overtime']));
+                $total_over_minutes += date('i', strtotime($times['overtime']));
+
             }
         }
-        $work_time_hour = $work_time_hour + floor($work_time_minutes / 60);
-        $work_time_minutes = $work_time_minutes % 60;
-        $sheet->setCellValue('T35', "{$work_time_hour}:{$work_time_minutes}");
+        // 合計時間を計算しセット
+        $total_hour = $total_hour + floor($total_minutes / 60);
+        $total_minutes = $total_minutes % 60;
+        $sheet->setCellValue('T35', "{$total_hour}:{$total_minutes}");
+        $total_over_hour = $total_over_hour + floor($total_over_minutes / 60);
+        $total_over_minutes = $total_over_minutes % 60;
+        $sheet->setCellValue('Y35', "{$total_over_hour}:{$total_over_minutes}");
 
         // ダウンロード
         header('Content-Type: application/force-download');
         header('Content-Disposition: attachment;filename="' . $outputFile . '"');
         header('Cache-Control: max-age=0');
         $book->setActiveSheetIndex(0);
-        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($book, 'Xls');
+        $writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($book, 'Xlsx');
         $writer->save('php://output');
-
-        return $this->redirect(['action' => 'index']);
-        exit;
+        exit();
     }
 
 

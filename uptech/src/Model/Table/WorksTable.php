@@ -126,7 +126,11 @@ class WorksTable extends Table
 
     // 以下ビジネスロジック
 
-    // 一覧画面のユーザーセレクトボックス用のデータを取得
+    /**
+     * 一覧画面のユーザーセレクトボックス用のデータを取得
+     *
+     * @return array ユーザーの配列
+     */
     public function getSelectUsers() {
         $users = $this->Users->find()->where(['delete_flg' => 0])->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
         foreach ($users as $user) {
@@ -135,13 +139,18 @@ class WorksTable extends Table
         return $select_users;
     }
 
-    // 残業時間を計算
+    /**
+     * 残業時間を計算
+     * @param object $attend 出勤時間
+     * @param object $leave 退勤時間
+     * @param object $break 休憩時間
+     * @return string 残業時間
+     */
     public function calc_overtime($attend, $leave, $break)
     {
-        $break -= strtotime('00:00:00');
-        // 実働時間
+        // 実働時間を取得
         $work_time = $this->calc_work_time($attend, $leave, $break);
-        // 残業時間
+        // 残業時間を計算
         $overtime = $work_time - (60 * 60 * 8);
         if ($overtime < 0) {
             $overtime = 0;
@@ -149,13 +158,26 @@ class WorksTable extends Table
         return gmdate('H:i:s', $overtime);
     }
 
-    // 実働時間を計算
+    /**
+     * 実働時間を計算
+     * @param object $attend 出勤時間
+     * @param object $leave 退勤時間
+     * @param object $break 休憩時間
+     * @return int 実働時間
+     */
     public function calc_work_time($attend, $leave, $break)
     {
+        $attend = strtotime($attend);
+        $leave = strtotime($leave);
+        $break = strtotime($break) - strtotime('00:00:00');
         return $leave - ($attend + $break);
     }
 
-    // 一覧画面の検索機能に必要なクエリを返す
+    /**
+     * 一覧画面の検索で使用するクエリを返す
+     * @param array $get_param 検索条件の配列
+     * @return string クエリ
+     */
     public function makeQueryGetParameter($get_param)
     {
         $query = $this->find();
