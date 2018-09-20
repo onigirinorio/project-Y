@@ -39,7 +39,7 @@ $(function(){
                     dataType: 'json',
                     data: { // 送信データを指定(getの場合は自動的にurlの後ろにクエリとして付加される)
                         json: '',
-                        lr: 100,
+                        lr: 1000,
                         ar: 1000,
                         lat: lat,
                         lon: lon,
@@ -49,7 +49,7 @@ $(function(){
                     .done(function (response) {
                         // 取得したデータをinputにセットしsubmitする
                         var result = response.result;
-                        var location = result.prefecture.pname + result.municipality.mname + result.local[0].section + result.local[0].homenumber;
+                        var location = generateAddress(result);
                         $(input_name).val(location);
                         target.submit();
                     })
@@ -79,5 +79,23 @@ $(function(){
                 }
             }
         );
+    }
+
+    function generateAddress(data) {
+        var address = '';
+        if (data.prefecture.pname) {
+            address += data.prefecture.pname;
+        }
+        if (data.municipality.mname) {
+            address += data.municipality.mname;
+        }
+        if (data.local[0].section) {
+            address += data.local[0].section;
+        }
+        if (data.local[0].homenumber) {
+            address += data.local[0].homenumber;
+        }
+
+        return address;
     }
 });
