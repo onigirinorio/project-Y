@@ -110,6 +110,8 @@ $title = '勤怠管理ツール';
                             <li role="presentation"><?= $this->Html->link(__('出退勤一覧'), ['controller' => 'Works', 'action' => 'index']) ?></li>
                             <?php if ($admin_flg === false): ?>
                                 <li role="presentation"><?= $this->Html->link(__('出退勤登録'), ['controller' => 'Works', 'action' => 'add']) ?></li>
+                            <?php else: ?>
+                                <li role="presentation"><?= $this->Html->link(__('出退勤登録(管理者)'), ['controller' => 'Works', 'action' => 'admin_add']) ?></li>
                             <?php endif; ?>
                         </ul>
                     </li>

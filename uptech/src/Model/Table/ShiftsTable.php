@@ -110,20 +110,6 @@ class ShiftsTable extends Table
 
     // 以下ビジネスロジック
 
-    /**
-     * 一覧画面のユーザーセレクトボックス用のデータを取得
-     * @return array セレクトボックス用のユーザーデータ
-     */
-    public function getSelectUsers()
-    {
-        $users = $this->Users->find()->where(['delete_flg' => 0])->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
-        foreach ($users as $user) {
-            $select_users[$user->id] = $user->name;
-        }
-        return $select_users;
-    }
-
-
     // 一覧画面の検索機能に必要なクエリを返す
     public function makeQueryGetParameter($get_param)
     {
@@ -157,6 +143,27 @@ class ShiftsTable extends Table
         }
         
         return $query;
+    }
+
+    /**
+     * シフトデータの存在チェックを行う
+     * @param int $user_id シフトデータのユーザーID
+     * @param string $date 存在チェックをするシフトデータの日付
+     * @return boolean シフトデータが存在する時にtrue
+     */
+    public function checkExistShift($user_id, $date)
+    {
+        $shift = $this->find()
+            ->where(
+                [
+                    'user_id' => $user_id,
+                    'date' => date('Y-m-d', strtotime($date)),
+                    'delete_flg' => 0,
+                ]
+            )
+            ->first();
+
+        return !is_null($shift);
     }
 
 }

@@ -38,7 +38,8 @@ class WorksController extends AppController
         $select_users = '';
         if ($this->isAdmin() === true) {
             // 検索で使用するユーザーリスト取得
-            $select_users = $this->Works->getSelectUsers();
+            $this->loadModel('Users');
+            $select_users = $this->Users->getSelectUsers();
             // 検索処理
             $query = $this->Works->makeQueryGetParameter($data);
         } else {
@@ -88,6 +89,11 @@ class WorksController extends AppController
      */
     public function add()
     {
+        // 管理者だった場合は専用の勤怠登録ページへ遷移
+        if ($this->isAdmin() === true) {
+            $this->redirect(['action' => 'admin_add']);
+        }
+
         $this->Users = TableRegistry::get('Users');
         $this->Shifts = TableRegistry::get('Shifts');
         $user = $this->Users->get($this->Auth->user('id'));
@@ -130,16 +136,7 @@ class WorksController extends AppController
             }
 
             // 既に出勤が登録されていたら保存しない
-            $latest_work = $this->Works->find()
-                ->where(
-                    [
-                        'user_id' => $user->id,
-                        'delete_flg' => 0,
-                    ]
-                )
-                ->order(['create_at' => 'DESC'])
-                ->first();
-            if (!empty($latest_work) && date('Y-m-d', strtotime($latest_work->create_at)) == date('Y-m-d')) {
+            if ($this->Works->checkDuplicateWork($user->id, $work->create_at)) {
                 $this->Flash->error(__('既に出勤が登録されています。'));
                 return $this->redirect(['action' => 'add']);
             }
@@ -155,6 +152,63 @@ class WorksController extends AppController
         $project = $user->project_id;
 
         $this->set(compact('work', 'project'));
+        $this->set('_serialize', ['work']);
+    }
+
+
+    /**
+     * 出勤登録(管理者用)
+     *
+     * @return \Cake\Http\Response|null Redirects on successful add, renders view otherwise.
+     */
+    public function adminAdd()
+    {
+        if(!$this->isAdmin()){
+            $this->Flash->error('管理者のみアクセスできるページです。');
+            $this->redirect(['controller' => 'Works', 'action' => 'index']);
+        }
+
+        $this->Users = TableRegistry::get('Users');
+        $this->loadModel('Shifts');
+        $this->loadModel('Projects');
+
+        // セレクトボックスで使用するリストを取得
+        $user_list = $this->Users->getSelectUsers();
+        $project_list = $this->Projects->getSelectProjects();
+
+        $work = $this->Works->newEntity();
+        if ($this->request->is('post')) {
+            $params = $this->request->getData();
+            $work = $this->Works->patchEntity($work, $params);
+            $user = $this->Users->get($params['user_id']);
+            $create_at = "{$params['create_at']['year']}-{$params['create_at']['month']}-{$params['create_at']['day']}";
+            $msg_error = '';
+
+            // 残業時間
+            $work->overtime = $this->Works->calc_overtime($work->attend_time, $work->leave_time, $work->break_time);
+
+            if (empty($user->project_id)) {
+                $msg_error .= '案件名が設定されていません。管理者に連絡をお願いいたします。';
+            }
+            // 登録する勤怠の日付のシフトを取得、シフトがなければ出勤登録させない
+            if (!$this->Shifts->checkExistShift($params['user_id'], $create_at)) {
+                $msg_error .= '指定された日付はシフト登録されていません。';
+            }
+            // 既に出勤が登録されていたら保存しない
+            if ($this->Works->checkDuplicateWork($params['user_id'], $create_at)) {
+                $msg_error .= '指定された日付は既に出勤が登録されています。';
+            }
+
+            if (empty($msg_error) && $this->Works->save($work)) {
+                $this->Flash->success(__('勤怠データを登録しました。'));
+                return $this->redirect(['action' => 'add']);
+            }
+
+            $msg_error = $msg_error ?? '予期せぬエラーが発生しました、もう一度お試しください。';
+            $this->Flash->error(__($msg_error));
+        }
+
+        $this->set(compact('work', 'project_list', 'user_list'));
         $this->set('_serialize', ['work']);
     }
 
@@ -182,7 +236,7 @@ class WorksController extends AppController
             )
             ->contain('Projects')
             ->first();
-
+        $this->loadModel('Projects');
         if (empty($work)) {
             $this->Flash->error(__('本日の出勤データが登録されていません。'));
             return $this->redirect(['action' => 'add']);
@@ -211,6 +265,7 @@ class WorksController extends AppController
      */
     public function edit($id = null)
     {
+        $this->loadModel('Projects');
         $work = $this->Works->get($id, [
             'contain' => ['Users', 'Projects']
         ]);
@@ -218,12 +273,7 @@ class WorksController extends AppController
         $this->check_authority($work->user_id);
 
         // 案件リストを取得
-        $this->Projects = TableRegistry::get('Projects');
-        $projects = $this->Projects->find()->all();
-        $project_list = [];
-        foreach ($projects as $key => $value) {
-            $project_list[$value['id']] = $value['shop_name'];
-        }
+        $project_list = $this->Projects->getSelectProjects();
 
         if ($this->request->is(['patch', 'post', 'put'])) {
             $param = $this->request->getData();
@@ -349,10 +399,10 @@ class WorksController extends AppController
         $sheet->setCellValue('A1', $search_year);
         $sheet->setCellValue('G1', ltrim($search_month, "0"));
         // 稼働データ記入
-        $total_hour = 0;
-        $total_minutes = 0;
-        $total_over_hour = 0;
-        $total_over_minutes = 0;
+//        $total_hour = 0;
+//        $total_minutes = 0;
+//        $total_over_hour = 0;
+//        $total_over_minutes = 0;
 
         for ($i = 0; $i < 31; $i++) {
             $work = null;

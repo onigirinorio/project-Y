@@ -94,4 +94,21 @@ class ProjectsTable extends Table
 
         return $rules;
     }
+
+
+    // 以下ビジネスロジック
+
+    /**
+     * セレクトボックス用の案件データを取得
+     *
+     * @return array 案件の配列
+     */
+    public function getSelectProjects() {
+        $project_list = [];
+        $projects = $this->find()->all();
+        foreach ($projects as $key => $value) {
+            $project_list[$value['id']] = $value['shop_name'];
+        }
+        return $project_list;
+    }
 }

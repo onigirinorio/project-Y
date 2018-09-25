@@ -54,6 +54,7 @@ Router::scope('/', function (RouteBuilder $routes) {
     $routes->connect('/login', ['controller' => 'Home', 'action' => 'login', 'login']);
     $routes->connect('/ajax/calender/*', ['controller' => 'Ajax', 'action' => 'calender']);
     $routes->connect('/users/password/*', ['controller' => 'users', 'action' => 'change_password']);
+    $routes->connect('/users/search', ['controller' => 'users', 'action' => 'search_user_ajax']);
     /**
      * ...and connect the rest of 'Pages' controller's URLs.
      */

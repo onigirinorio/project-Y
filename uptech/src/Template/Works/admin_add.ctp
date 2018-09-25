@@ -2,22 +2,37 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->Html->script('works_admin_add', ['block' => true]);
 ?>
 <div class="shifts form large-9 medium-8 columns content">
-    <?= $this->Form->create($work) ?>
-    <h3 class="h3_responsive"><?= __('勤怠データ編集') ?></h3>
+    <?= $this->Form->create($work, ['id' => 'form_admin_add']) ?>
+    <h3 class="h3_responsive"><?= __('勤怠データ登録') ?></h3>
 
     <?php
     if ($admin_flg) {
-        echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
-        echo date('Y/m/d', strtotime($work->create_at));
+        echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">日付</label><div class="col-md-10 col-sm-10 col-xs-12 form_date_select">';
+        echo $this->Form->control('create_at',
+            [
+                'label' => false,
+                'type' => 'date',
+                'empty' => false,
+                'monthNames' => false,
+                'class' => 'col-md-10 col-sm-10 col-xs-12 form_input',
+                'style' => 'margin-bottom: 20px;height:34px;',
+                'default' => date('Y-m-d', strtotime('now')),
+                'templates' => [
+                    'inputContainerError' => '{{content}}{{error}}',
+                ]
+            ]
+        );
         echo '</div>';
 
         echo '<label class="col-md-2 col-sm-2 col-xs-12 form_label">ユーザー</label><div class="col-md-10 col-sm-10 col-xs-12 form_radio">';
-        echo $work->has('user') ? $work->user->name : $user_name;
-        echo $this->Form->hidden('user_id',
+        echo $this->Form->select('user_id', $user_list,
             [
-                'value' => $work->has('user') ? $work->user->user_id : $user_id,
+                'value' => $this->request->getQuery('search_user_id'),
+                'empty' => 'ユーザーを選択してください',
+                'class' => 'input form_input ',
             ]
         );
         echo '</div>';
@@ -142,3 +157,4 @@
     </div>
     <?= $this->Form->end() ?>
 </div>
+

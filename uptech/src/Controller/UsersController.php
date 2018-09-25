@@ -3,6 +3,7 @@ namespace App\Controller;
 
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
+use Cake\Event\Event;
 
 /**
  * Users Controller
@@ -31,6 +32,13 @@ class UsersController extends AppController
 
         $this->set(compact('project_list'));
     }
+    public function beforeFilter(Event $event)
+    {
+        if (in_array($this->request->action, ['searchUserAjax'])) {
+            $this->Security->setConfig('unlockedActions', ['searchUserAjax']);
+        }
+    }
+
     /**
      * Index method
      *
@@ -181,6 +189,28 @@ class UsersController extends AppController
         $this->set(compact('id'));
         $this->set(compact('user', 'works'));
         $this->set('_serialize', ['user']);
+    }
+
+    /**
+     * 勤怠登録で使用するajax用のアクション
+     *
+     * @return \Cake\Http\Response|null Redirects to index.
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * ＠todo Ajaxコントローラーに移した方がいいかも
+     */
+    public function searchUserAjax()
+    {
+        $this->autoRender = false;
+        $params = $this->request->getdata();
+        $user = $this->Users->find()
+                    ->select(['id', 'project_id', 'work_location'])
+                    ->where([
+                        'id' => $params['user_id'],
+                        'delete_flg' => 0
+                    ])
+                    ->first()
+                    ->toArray();
+        echo json_encode($user);
     }
 
     /**

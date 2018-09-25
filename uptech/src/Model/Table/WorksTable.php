@@ -102,7 +102,7 @@ class WorksTable extends Table
             ->allowEmpty('transport_expenses')
 
             // 作成時間
-            ->dateTime('create_at')
+            //->dateTime('create_at')
             ->allowEmpty('create_at');
 
         return $validator;
@@ -126,17 +126,58 @@ class WorksTable extends Table
 
     // 以下ビジネスロジック
 
+
     /**
-     * 一覧画面のユーザーセレクトボックス用のデータを取得
-     *
-     * @return array ユーザーの配列
+     * 一覧画面の検索で使用するクエリを返す
+     * @param array $get_param 検索条件の配列
+     * @return string クエリ
      */
-    public function getSelectUsers() {
-        $users = $this->Users->find()->where(['delete_flg' => 0])->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
-        foreach ($users as $user) {
-            $select_users[$user->id] = $user->name;
+    public function makeQueryGetParameter($get_param)
+    {
+        $query = $this->find();
+        if (!empty($get_param['search_user_id'])) {
+            $query->where(['Works.user_id' => $get_param['search_user_id']]);
         }
-        return $select_users;
+
+        if (!empty($get_param['search_date']['year'])) {
+            $query->where([
+                'YEAR(create_at)' => $get_param['search_date']['year'],
+            ]);
+        }
+
+        if (!empty($get_param['search_date']['month'])) {
+            $query->where([
+                'MONTH(create_at)' => $get_param['search_date']['month'],
+            ]);
+        }
+
+        if (!empty($get_param['search_date']['day'])) {
+            $query->where([
+                'DAY(create_at)' => $get_param['search_date']['day'],
+            ]);
+        }
+        return $query;
+    }
+
+    /**
+     * 勤怠データの重複チェックを行う
+     * @param int $user_id 勤怠データのユーザーID
+     * @param string $date 重複チェックをする勤怠データの日付
+     * @return boolean 重複データが存在する時にtrue
+     */
+    public function checkDuplicateWork($user_id, $date)
+    {
+        $work = $this->find()
+            ->where(
+                [
+                    'user_id' => $user_id,
+                    "DATE_FORMAT(create_at,'%Y%m%d') = DATE_FORMAT('{$date}','%Y%m%d')",
+                    'delete_flg' => 0,
+                ]
+            )
+            ->toArray();
+
+        return !empty($work);
     }
 
     /**
@@ -173,35 +214,4 @@ class WorksTable extends Table
         return $leave - ($attend + $break);
     }
 
-    /**
-     * 一覧画面の検索で使用するクエリを返す
-     * @param array $get_param 検索条件の配列
-     * @return string クエリ
-     */
-    public function makeQueryGetParameter($get_param)
-    {
-        $query = $this->find();
-        if (!empty($get_param['search_user_id'])) {
-            $query->where(['Works.user_id' => $get_param['search_user_id']]);
-        }
-
-        if (!empty($get_param['search_date']['year'])) {
-            $query->where([
-                'YEAR(create_at)' => $get_param['search_date']['year'],
-            ]);
-        }
-
-        if (!empty($get_param['search_date']['month'])) {
-            $query->where([
-                'MONTH(create_at)' => $get_param['search_date']['month'],
-            ]);
-        }
-
-        if (!empty($get_param['search_date']['day'])) {
-            $query->where([
-                'DAY(create_at)' => $get_param['search_date']['day'],
-            ]);
-        }
-        return $query;
-    }
 }

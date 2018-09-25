@@ -176,4 +176,18 @@ class UsersTable extends Table
 
         return $rules;
     }
+
+    /**
+     * セレクトボックス用のユーザーデータを取得
+     *
+     * @return array ユーザーの配列
+     */
+    public function getSelectUsers() {
+        $select_users = [];
+        $users = $this->find()->where(['delete_flg' => 0])->order(['CAST(name_kana AS CHAR)' => 'ASC'])->all()->toArray();
+        foreach ($users as $user) {
+            $select_users[$user->id] = $user->name;
+        }
+        return $select_users;
+    }
 }

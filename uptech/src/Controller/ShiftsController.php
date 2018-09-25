@@ -30,7 +30,8 @@ class ShiftsController extends AppController
         // 管理者以外だった場合、閲覧できるデータを制限する
         if ($this->isAdmin() === true) {
             // セレクトボックスで使用するユーザーリスト取得
-            $select_users = $this->Shifts->getSelectUsers();
+            $this->loadModel('Users');
+            $select_users = $this->Users->getSelectUsers();
             // 全日付検索、通常検索、検索なしでクエリーを分ける
             if (isset($data['all_date'])) {
                 $query = $this->Shifts->find();
@@ -224,7 +225,8 @@ class ShiftsController extends AppController
         $search_user_id = $this->Auth->user('id');
         if ($this->isAdmin() === true) {
             // セレクトボックスで使用するユーザーリスト取得
-            $select_users = $this->Shifts->getSelectUsers();
+            $this->loadModel('Users');
+            $select_users = $this->Users->getSelectUsers();
         }
         if ($this->request->is('post')) {
             $search_user_id = $this->request->getData('search_user_id');
