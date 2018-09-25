@@ -73,7 +73,7 @@ class HomeController extends AppController
     public function logout(){
         $logoutUrl = $this->Auth->logout();
         $this->Flash->success('ログアウトしました。');
-        $this->redirect($logoutUrl);
+        return $this->redirect($logoutUrl);
     }
 
 }
