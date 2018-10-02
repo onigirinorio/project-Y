@@ -4,6 +4,7 @@ namespace App\Controller;
 use App\Controller\AppController;
 use Cake\ORM\TableRegistry;
 use Cake\Event\Event;
+use Cake\Datasource\ConnectionManager;
 
 /**
  * Users Controller
@@ -20,15 +21,10 @@ class UsersController extends AppController
     public function initialize()
     {
         parent::initialize();
-//        $this->Auth->allow('add');
 
         // 案件リストを取得
-        $this->Projects = TableRegistry::get('Projects');
-        $projects = $this->Projects->find()->all();
-        $project_list = [];
-        foreach ($projects as $key => $value) {
-            $project_list[$value['id']] = $value['shop_name'];
-        }
+        $this->loadModel('Projects');
+        $project_list = $this->Projects->getSelectProjects();
 
         $this->set(compact('project_list'));
     }
@@ -133,8 +129,7 @@ class UsersController extends AppController
         }
         $works = $this->Users->Works->find('list', ['limit' => 200]);
 
-        $this->set(compact('id'));
-        $this->set(compact('user', 'works'));
+        $this->set(compact('id', 'user', 'works'));
         $this->set('_serialize', ['user']);
     }
 
@@ -149,15 +144,51 @@ class UsersController extends AppController
     {
         $this->userIsAdmin();
         $this->request->allowMethod(['post', 'delete']);
+        $connection = ConnectionManager::get('default');
+        $this->loadModel('Shifts');
+        $this->loadModel('Works');
         $user = $this->Users->get($id);
-        $user->delete_flg = 1;
-        if ($this->Users->save($user)) {
-            $this->Flash->success(__('ユーザー削除に成功しました。'));
-        } else {
-            $this->Flash->error(__('ユーザー削除に失敗しました、もう一度お試しください。'));
-        }
+        $shifts = $this->Shifts->find()->where([
+                'user_id' => $user->id
+            ])
+            ->all();
+        $works = $this->Works->find()->where([
+                'user_id' => $user->id
+            ])
+            ->all();
 
-        return $this->redirect(['action' => 'index']);
+        // トランザクションを使用し、ユーザーに関連するシフト、勤怠データ全てが削除できた場合のみ保存する
+        $connection->begin();
+        try {
+
+            $user->delete_flg = 1;
+            if (!$this->Users->save($user)) {
+                throw new Exception('ユーザー削除に失敗しました、もう一度お試しください。');
+            }
+
+            foreach ($shifts as $shift) {
+                $shift->delete_flg = 1;
+            }
+            if (!$this->Shifts->saveMany($shifts)) {
+                throw new Exception('対象ユーザーのシフト削除に失敗しました、もう一度お試しください。');
+            }
+
+            foreach ($works as $work) {
+                $work->delete_flg = 1;
+            }
+            if (!$this->Works->saveMany($works)) {
+                throw new Exception('対象ユーザーの勤怠データ削除に失敗しました、もう一度お試しください。');
+            }
+
+            $this->Flash->success(__('ユーザー削除に成功しました。'));
+            $connection->commit();
+            return $this->redirect(['action' => 'index']);
+
+        } catch(\Exception $e) {
+            $this->Flash->error(__($e));
+            $connection->rollback();
+            return $this->redirect(['action' => 'index']);
+        }
     }
 
 

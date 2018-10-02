@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', '出退勤登録');
 $this->Html->script('geolocation', ['block' => true]);
 ?>
 

@@ -4,6 +4,8 @@
  * @var \App\Model\Entity\Work[]|\Cake\Collection\CollectionInterface $works
  */
 
+$this->assign('title', '出退勤一覧');
+
 // フォームヘルパーのdiv要素を調整
 $this->Form->templates([
 

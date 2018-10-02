@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', 'カレンダー');
 ?>
 <?= $this->Html->css('fullcalendar.min.css', ['inline' => false, 'block' => 'css']); ?>
 <?= $this->Html->script('moment.min.js', ['inline' => false, 'block' => 'script']); ?>

@@ -1,3 +1,7 @@
+<?php
+$this->assign('title', 'ログイン');
+?>
+
 <?= $this->Html->css('login.css'); ?>
 
 <div class="login" style="display: none;">

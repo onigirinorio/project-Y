@@ -3,6 +3,7 @@
   * @var \App\View\AppView $this
   * @var \App\Model\Entity\Project[]|\Cake\Collection\CollectionInterface $projects
   */
+$this->assign('title', '案件一覧');
 ?>
     <h3 class="h3_responsive"><?= __('案件一覧') ?></h3>
     <div class="table-responsive">

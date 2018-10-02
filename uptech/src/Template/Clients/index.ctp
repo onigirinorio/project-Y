@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Client[]|\Cake\Collection\CollectionInterface $clients
  */
+$this->assign('title', 'クライアント一覧');
 ?>
 
 <h3 class="h3_responsive"><?= __('クライアント一覧') ?></h3>

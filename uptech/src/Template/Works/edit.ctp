@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', '出退勤編集');
 ?>
 <div class="shifts form large-9 medium-8 columns content">
     <?= $this->Form->create($work) ?>

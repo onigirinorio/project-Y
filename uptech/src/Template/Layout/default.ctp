@@ -13,7 +13,7 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  */
 
-$title = '勤怠管理ツール';
+$title = 'uptspace';
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,8 +21,7 @@ $title = '勤怠管理ツール';
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>
-        <?= $title ?>:
-        <?= $this->fetch('title') ?>
+        <?= $title ?> | <?= $this->fetch('title') ?>
     </title>
     <?= $this->Html->meta('icon') ?>
     <?= $this->Html->script('jquery.min.js'); ?>

@@ -3,6 +3,9 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Shift[]|\Cake\Collection\CollectionInterface $shifts
  */
+
+$this->assign('title', 'シフト一覧');
+
 // フォームヘルパーのdiv要素を調整
 $this->Form->templates([
     'inputContainer' => '{{content}}',

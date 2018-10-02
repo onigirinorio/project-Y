@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', 'クライアント編集');
 ?>
 <div class="clients form large-9 medium-8 columns content">
     <?= $this->Form->create($client) ?>
