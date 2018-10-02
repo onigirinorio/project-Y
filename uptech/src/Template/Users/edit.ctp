@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', 'ユーザー編集');
 ?>
 <div class="users form large-9 medium-8 columns content">
     <?= $this->Form->create($user) ?>

@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', 'ユーザー詳細');
 ?>
 <div class="users form large-9 medium-8 columns content">
     <h3 class="h3_responsive"><?= __('ユーザー詳細') ?></h3>

@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  */
 $this->Html->script('works_admin_add', ['block' => true]);
+$this->assign('title', '出退勤登録(管理者)');
 ?>
 <div class="shifts form large-9 medium-8 columns content">
     <?= $this->Form->create($work, ['id' => 'form_admin_add']) ?>

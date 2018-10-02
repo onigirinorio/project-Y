@@ -3,6 +3,7 @@
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\User[]|\Cake\Collection\CollectionInterface $users
  */
+$this->assign('title', 'ユーザー一覧');
 ?>
 <h3 class="h3_responsive"><?= __('ユーザー一覧') ?></h3>
 <div class="table-responsive">

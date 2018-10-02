@@ -2,6 +2,7 @@
 /**
   * @var \App\View\AppView $this
   */
+$this->assign('title', 'シフト登録');
 ?>
 <div class="shifts form large-9 medium-8 columns content">
     <?= $this->Form->create($shift) ?>

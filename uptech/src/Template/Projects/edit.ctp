@@ -2,6 +2,7 @@
 /**
   * @var \App\View\AppView $this
   */
+$this->assign('title', '案件編集');
 ?>
 
 <div class="projects form large-9 medium-8 columns content">

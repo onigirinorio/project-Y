@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', 'シフト詳細');
 ?>
 <div class="shifts form large-9 medium-8 columns content">
     <h3 class="h3_responsive"><?= __('シフト詳細') ?></h3>

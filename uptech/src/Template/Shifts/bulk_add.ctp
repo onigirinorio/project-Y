@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
+$this->assign('title', 'シフト一括登録');
 ?>
 <div class="shifts form large-9 medium-8 columns content">
     <?= $this->Form->create('null', ['type' => 'get', 'url' => ['controller' => 'shifts', 'action' => 'bulkAdd']]) ?>

@@ -3,6 +3,7 @@
   * @var \App\View\AppView $this
   * @var \App\Model\Entity\Project[]|\Cake\Collection\CollectionInterface $projects
   */
+$this->assign('title', 'TOP');
 ?>
 <div class="container">
     <div class="row">

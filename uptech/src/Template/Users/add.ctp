@@ -2,7 +2,7 @@
 /**
  * @var \App\View\AppView $this
  */
-
+$this->assign('title', 'ユーザー登録');
 echo $this->Html->css('Users/add', ['block' => true]);
 
 ?>
