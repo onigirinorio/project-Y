@@ -40,6 +40,9 @@ class UsersTable extends Table
         $this->hasMany('Works', [
             'foreignKey' => 'user_id'
         ]);
+        $this->hasMany('Shifts', [
+            'foreignKey' => 'user_id'
+        ]);
         $this->BelongsTo('Projects');
     }
 
