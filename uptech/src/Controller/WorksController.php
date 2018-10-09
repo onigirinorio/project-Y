@@ -96,11 +96,14 @@ class WorksController extends AppController
 
         $this->Users = TableRegistry::get('Users');
         $this->Shifts = TableRegistry::get('Shifts');
+        $this->loadModel('Projects');
         $user = $this->Users->get($this->Auth->user('id'));
 
         $work = $this->Works->newEntity();
         if ($this->request->is('post')) {
-            $work = $this->Works->patchEntity($work, $this->request->getData());
+            $params = $this->request->getData();
+            $work = $this->Works->patchEntity($work, $params);
+            $project = $this->Projects->get($params['project_id']);
             //作成日時
             $work->create_at = date('Y-m-d H:i:s');
             //休憩時間は登録時は固定で1時間とする。
@@ -129,11 +132,14 @@ class WorksController extends AppController
                 return $this->redirect(['action' => 'add']);
             }
 
-            //出勤時間(遅刻した場合のみ現在時刻で打刻)
+            // シフトよりも早く出勤した場合、出勤データではシフトの出勤時間で登録する
             $work->attend_time = date('H:i');
             if (strtotime($work->attend_time) <= strtotime($shift->attend)) {
                 $work->attend_time = $shift->attend;
+            } else {
+                $work->attend_time = $this->format_attend_time_to_project($work->attend_time, IN_MINUTES[$project->in_minutes]);
             }
+
 
             // 既に出勤が登録されていたら保存しない
             if ($this->Works->checkDuplicateWork($user->id, $work->create_at)) {
@@ -245,7 +251,7 @@ class WorksController extends AppController
         if ($this->request->is(['patch', 'post', 'put'])) {
             $work = $this->Works->patchEntity($work, $this->request->getData());
             // 退勤時間の分の部分を案件によって調整する
-            $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
+            $work->leave_time = $this->format_leave_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
             $work->overtime = $this->Works->calc_overtime($work->attend_time, $work->leave_time, $work->break_time);
             if ($this->Works->save($work)) {
                 $this->Flash->success(__('退勤が登録されました。'));
@@ -281,7 +287,7 @@ class WorksController extends AppController
 
             if (isset($param['attend_time']) || isset($param['leave_time']) || isset($param['break_time'])) {
                 // 退勤時間の分の部分を案件によって調整する
-                $work->leave_time = $this->format_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
+                $work->leave_time = $this->format_leave_time_to_project($work->leave_time, IN_MINUTES[$work->project->in_minutes]);
                 $work->overtime = $this->Works->calc_overtime($work->attend_time, $work->leave_time, $work->break_time);
             }
 
@@ -463,13 +469,34 @@ class WorksController extends AppController
 
 
     /**
+     * 登録された出勤時間を案件の〜分刻みに合わせる。
+     *
+     * @param object $attend_time フォーマットする出勤時間(Timeオブジェクト)
+     * @param int $format 案件が持つX分刻みにする、のXの部分の数値(例:15分刻みにする場合は15)
+     * @return int フォーマットで丸められた分の数値
+     */
+    private function format_attend_time_to_project($attend_time, $format)
+    {
+        $attend_time_minuite = date('i', strtotime($attend_time));
+        $minute = (floor($attend_time_minuite / $format) + 1) * $format;
+
+        if ($minute === 60) {
+            $attend_time->modify('+1 hours');
+            $minute = '00';
+        }
+
+        $result = substr_replace($attend_time, $minute, -2);
+        return $result;
+    }
+
+    /**
      * 登録された退勤時間を案件の〜分刻みに合わせる。
      *
      * @param object $leave_time フォーマットする退勤時間(Timeオブジェクト)
      * @param int $format 案件が持つX分刻みにする、のXの部分の数値(例:15分刻みにする場合は15)
      * @return int フォーマットで丸められた分の数値
      */
-    private function format_time_to_project($leave_time, $format)
+    private function format_leave_time_to_project($leave_time, $format)
     {
         $leave_time_minuite = date('i', strtotime($leave_time));
         $minute = floor($leave_time_minuite / $format) * $format;
