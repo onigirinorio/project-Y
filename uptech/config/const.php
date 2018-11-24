@@ -9,7 +9,7 @@
 
 return [
     // ユーザー数制限
-    define('USER_LIMIT', 55),
+    define('USER_LIMIT', 130),
     // 性別
     define('GENDER',[
         0 => '男',

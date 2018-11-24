@@ -13,7 +13,6 @@ $this->assign('title', 'ユーザー一覧');
             <th scope="col"><?= $this->Paginator->sort('name', '名前') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('name_kana', '名前(カナ)') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('gendar', '性別') ?></th>
-            <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('birth', '生年月日') ?></th>
             <th scope="col"><?= $this->Paginator->sort('project_id', '案件名') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('work_location', '勤務先') ?></th>
             <th scope="col" class="hidden-xs"><?= $this->Paginator->sort('start_date', '開始日') ?></th>
@@ -35,7 +34,6 @@ $this->assign('title', 'ユーザー一覧');
                         <?= '女' ?>
                     <?php endif ?>
                 </td>
-                <td class="hidden-xs"><?= h($user->birth) ?></td>
                 <td><?= $user->has('project') ? $this->Html->link($user->project->shop_name, ['controller' => 'Projects', 'action' => 'view', $user->project->id]) : '未登録' ?></td>
                 <td class="hidden-xs"><?= isset($user->work_location) ? h($user->work_location) : '未登録' ?></td>
                 <td class="hidden-xs"><?= isset($user->start_date) ? date('Y/m/d', strtotime($user->start_date)) : '未登録' ?></td>
